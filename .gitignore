@@ -2,6 +2,6 @@
 *.suo
 /obj
 /bin
-/ReSharper.TeamBeta
+/_ReSharper.TeamBeta
 web.Release.config
 web.config
