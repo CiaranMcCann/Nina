@@ -10,25 +10,12 @@
 ///<reference path="animation/Sprite.ts"/>
 
 // some comment
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class Game
 {
 
     canvas : HTMLCanvasElement ;
     canvasContext : CanvasRenderingContext2D;
+    s : Sprite;
 
     constructor()
     {
