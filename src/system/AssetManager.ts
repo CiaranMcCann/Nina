@@ -80,9 +80,9 @@ module AssetManager
     export function addSpritesDefToLoadList()
     {
         // Load all sprites
-        for (var sprite in Sprites.worms)
+        for (var sprite in Sprites.animations)
         {
-           // priorityImages.push(Settings.REMOTE_ASSERT_SERVER + "data/images/" + Sprites.worms[sprite].imageName + ".png");
+           priorityImages.push("data/images/" + Sprites.animations[sprite].imageName + ".png");
         }
      
 
