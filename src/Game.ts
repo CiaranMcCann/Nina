@@ -7,12 +7,14 @@
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/AssetManager.ts"/>
 ///<reference path="system/Utilies.ts"/>
+///<reference path="animation/Sprite.ts"/>
 
 class Game
 {
 
     canvas : HTMLCanvasElement ;
     canvasContext : CanvasRenderingContext2D;
+    s: Sprite;
 
     constructor()
     {
@@ -23,12 +25,13 @@ class Game
         this.canvasContext = this.canvas.getContext("2d");
 
         Physics.init(this.canvasContext);
+        this.s = new Sprite(Sprites.animations.walking);
     }
 
 
     update()
     {
-        
+        this.s.update();
 
     }
 
@@ -43,6 +46,7 @@ class Game
        this.canvasContext.fillStyle = "red";
        this.canvasContext.fillRect(800, 500, 100, 100);
        this.canvasContext.drawImage(AssetManager.getImage("placeHolderImage") ,20,20);
+       this.s.draw(this.canvasContext,400, 400);
 
     }
 

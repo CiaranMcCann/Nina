@@ -23,16 +23,7 @@ module Sprites
 {
 
     // These are defined frames for said animations
-    export var worms = {
-
-        idle1: {
-
-            imageName: "wselbak",
-            frameY: 0,
-            frameCount: 12,
-            msPerFrame: 200,
-
-        },   
+    export var animations = {
 
         walking: {
 
