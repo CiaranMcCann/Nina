@@ -58,6 +58,12 @@
     <TypeScriptCompile Include="src\system\Graphics.ts" />
     <TypeScriptCompile Include="src\system\AssetManager.ts" />
     <TypeScriptCompile Include="src\main.ts" />
+    <Content Include="src\Game.js">
+      <DependentUpon>Game.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Game.min.js">
+      <DependentUpon>Game.ts</DependentUpon>
+    </Content>
     <Content Include="src\main.js">
       <DependentUpon>main.ts</DependentUpon>
     </Content>
@@ -126,6 +132,6 @@
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="BeforeBuild">
-    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\0.8.0.0\tsc&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
+    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\tsc&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
   </Target>
 </Project>
