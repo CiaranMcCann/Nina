@@ -15,7 +15,7 @@ module Settings
     // development vars
     export var DEVELOPMENT_MODE = false; 
     export var LOG = true;
-    export var PHYSICS_DEBUG_MODE = false;
+    export var PHYSICS_DEBUG_MODE = true;
 
     //Pasers commandline type arguments from the page url like this ?argName=value
     export function getSettingsFromUrl()

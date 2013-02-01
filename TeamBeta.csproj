@@ -71,6 +71,12 @@
     <Content Include="src\Player.js">
       <DependentUpon>Player.ts</DependentUpon>
     </Content>
+    <Content Include="src\Settings.js">
+      <DependentUpon>Settings.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Settings.min.js">
+      <DependentUpon>Settings.ts</DependentUpon>
+    </Content>
     <Content Include="src\system\AssetManager.js">
       <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
