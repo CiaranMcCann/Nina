@@ -1,0 +1,304 @@
+body
+{
+	background: #2E3235;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#canvasContainer
+{
+	position: absolute;
+	padding-top: 50px;
+	width: 900px;
+}
+
+#gameEditorScreen
+{
+	position: absolute;
+	margin-top: 50px;
+	width: 900px;
+	height: 600px;
+	background-color: rgba(255, 255, 255, 0.1);
+	overflow: scroll;
+}
+
+#gridContainer
+{
+	position: absolute;
+	margin-top: 50px;
+	width: 900px;
+	height: 600px;
+}
+.grid {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-width: 1px 0 0 1px;
+}
+
+.grid div {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-width: 0 1px 1px 0;
+    float: left;
+}
+
+#entitySelect
+{
+	position: absolute;
+	margin-top: 50px;
+	margin-left: 910px;
+	width: 200px;
+	height: 450px;
+	background-color: rgb(0,0,0);
+	font-size: 20px;
+}
+
+#entitySelect .active
+{
+	color: #662766;
+}
+
+#toolSelect
+{
+	position: absolute;
+	margin-top: 50px;
+	margin-left: 1120px;
+	width: 200px;
+	height: 260px;
+	background-color: rgb(0,0,0);
+	font-size: 20px;
+}
+
+#toolSelect .active
+{
+	color: #662766;
+}
+
+#enityProperties
+{
+	position: absolute;
+	margin-top: 320px;
+	margin-left: 1120px;
+	width: 200px;
+	height: 260px;
+	background-color: rgb(0,0,0);
+	font-size: 20px;
+}
+
+#enityProperties #apply
+{
+	top: 90%;
+	position: absolute;
+	text-align: center;
+	background-color: black;
+	color: #60A741;
+	width: 100px;
+}
+
+#enityProperties #apply:hover
+{
+	background-color: #60A741;
+	color: black;
+}
+
+#enityProperties #delete
+{
+	top: 90%;
+	margin-left: 50%;
+	position: absolute;
+	text-align: center;
+	background-color: black;
+	color: #F90000;
+	width: 100px;
+}
+
+#enityProperties #delete:hover
+{
+	background-color: #F90000;
+	color: black;
+}
+
+#save
+{
+	position: absolute;
+	margin-top: 510px;
+	margin-left: 910px;
+	width: 200px;
+	height: 30px;
+	background-color: rgb(0,0,0);
+	font-size: 20px;
+	color: #60A741;
+	text-align: left;
+
+}
+
+#load
+{
+	position: absolute;
+	margin-top: 550px;
+	margin-left: 910px;
+	width: 200px;
+	height: 30px;
+	background-color: rgb(0,0,0);
+	font-size: 20px;
+	color: #60A741;
+	text-align: left;
+}
+
+#title
+{
+	color: #C7A820;
+	padding-left: 10px;
+}
+
+a
+{
+	padding-left: 10px;
+	color: #60A741;
+}
+
+a:hover
+{
+	color: #662766;
+}
+
+
+
+input
+{
+	border: none;
+	background: rgba(255, 255, 255, 0.1);
+	color: #60A741;
+	font-size: 20px;
+	margin-left: 10px;
+}
+
+.number
+{
+	text-align: center;
+	width: 40px;
+}
+
+.text
+{
+	text-align: left;
+	width: 120px;
+}
+
+#test
+{
+	position: absolute;
+	margin-top: 590px;
+	margin-left: 910px;
+	width: 410px;
+	height: 60px;
+	background-color: rgb(0,0,0);
+	color: #60A741;
+	font-size: 50px;
+	text-align: center;
+}
+
+#test:hover
+{
+	background-color: #60A741;
+	color: black;
+}
+
+#stopTest
+{
+	position: absolute;
+	margin-top: 590px;
+	margin-left: 910px;
+	width: 410px;
+	height: 60px;
+	background-color: rgb(0,0,0);
+	color: #F90000;
+	font-size: 50px;
+	text-align: center;
+}
+
+#stopTest:hover
+{
+	background-color: #F90000;
+	color: black;
+}
+
+.platform
+{
+	position: absolute;
+	background-color: rgb(0,0,0);
+	width: 30px;
+	height: 30px;
+}
+
+.platform:hover
+{
+	background-color: rgba(0,0,0, 0.3);
+}
+
+/*.currentEntity
+{
+	border: solid 1px yellow;
+}*/
+
+.implo
+{
+	position: absolute;
+	background-color: rgb(30, 144, 179);
+	width: 30px;
+	height: 30px;
+}
+
+.implo:hover
+{
+	background-color: rgba(30, 144, 179, 0.3);
+}
+
+.explo
+{
+	position: absolute;
+	background-color: rgb(255, 116, 19);
+	width: 30px;
+	height: 30px;
+}
+
+.explo:hover
+{
+	background-color: rgba(255, 116, 19, 0.3);
+}
+
+.imploEnd
+{
+	position: absolute;
+	width: 28px;
+	height: 28px;
+	border: solid 1px rgb(30, 144, 179);
+}
+
+.imploEnd:hover
+{
+	border: solid 1px rgba(30, 144, 179, 0.3);
+}
+
+.exploEnd
+{
+	position: absolute;
+	width: 28px;
+	height: 28px;
+	border: solid 1px rgb(255, 116, 19);
+}
+
+.exploEnd:hover
+{
+	border: solid 1px rgba(255, 116, 19, 0.3);
+}
+
+.button
+{
+	position: absolute;
+	background-color: rgb(201, 35, 0);
+	width: 30px;
+	height: 3px;
+}
+
+.button:hover
+{
+	background-color: rgba(201, 35, 0, 0.3);
+}

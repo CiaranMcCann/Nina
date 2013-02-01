@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Editor</title>
+
+		<link rel="stylesheet" href="styles/editorStyle.css">
+		<link rel="stylesheet" href="styles/jquery-ui.min.css">
+
+	</head>
+
+	<body>
+		<div id="gridContainer">
+
+		</div>
+
+		<div id="gameEditorScreen">
+
+		</div>
+
+		<div id="entitySelect">
+			<p id="title">Entities</p>
+
+			<a class="entitySelect">Implo</a>
+			<br/>
+			<a class="entitySelect">Explo</a>
+			<br/>
+			<a class="entitySelect active">Platform</a>
+			<br/>
+			<a class="entitySelect">Movable Platform</a>
+			<br/>
+			<a class="entitySelect">Button</a>
+			<br/>
+			<a class="entitySelect">Implo End</a>
+			<br/>
+			<a class="entitySelect">Explo End</a>
+		</div>
+
+		<div id="toolSelect">
+			<p id="title">Tools</p>
+			<a class="tool active">Create</a>
+			<br/>
+			<a class="tool">Select</a>
+			<br/>
+			<a class="tool">Remove</a>
+			<br/>
+			<a id="toggleGrid">Toggle Grid</a>
+		</div>
+
+		<div id="save">
+			<a id="saveLevel">Save</a>
+			<input type="text" class="text" id="saveLevelName"></input>
+		</div>
+
+		<div id="load">
+			<a id="loadLevel">Load</a>
+			<input type="text" class="text" id="loadLevelName"></input>
+		</div>
+
+		<div id="test">Begin Testing</div>
+		<div id="stopTest">Back to Editor</div>
+ 
+		<script src="../external/jquery.1.8.2.min.js"></script>
+		<script src="../external/jquery-ui.min.js"></script>
+		<script src="editor.js"></script>
+	</body>
+</html>
