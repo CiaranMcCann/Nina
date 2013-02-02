@@ -13,17 +13,17 @@
 class Sprite
 {
 
-    spriteDef: SpriteDefinition;
-    currentFrameY: number;
+    private spriteDef: SpriteDefinition;
+    private currentFrameY: number;
 
-    finished: bool;
-    noLoop: bool;
-    lastUpdateTime;
-    accumulateDelta;
-    isSpriteLocked;
-    onFinishFunc;
-    frameHeight;
-    image;
+    private finished: bool;
+    private noLoop: bool;
+    private lastUpdateTime;
+    private accumulateDelta;
+    private isSpriteLocked;
+    private onFinishFunc;
+    private frameHeight;
+    private image;
     
 
     constructor (spriteDef: SpriteDefinition, noLoop = false)
@@ -33,7 +33,7 @@ class Sprite
         this.accumulateDelta = 0;
         this.isSpriteLocked = false;
         this.setSpriteDef(spriteDef);
-         this.noLoop = noLoop;
+        this.noLoop = noLoop;
 
     }
 

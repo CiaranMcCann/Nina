@@ -94,7 +94,6 @@ module Graphics
 
     }
 
-    // may be useful in the furture for drawing rounded conor boxes for over the players head
     export function roundRect(ctx, x, y, w, h, r)
     {
         if (w < 2 * r) r = w / 2;

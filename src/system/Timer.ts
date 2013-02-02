@@ -9,10 +9,10 @@
  */
 class Timer
 {
-    timeSinceLastUpdate;
-    delta;
-    timePeriod;
-    isTimerPaused;
+    private timeSinceLastUpdate;
+    private delta;
+    private timePeriod;
+    private isTimerPaused;
 
     constructor (timePeriod)
     {

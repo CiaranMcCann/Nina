@@ -7,6 +7,7 @@
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/AssetManager.ts"/>
 ///<reference path="system/Utilies.ts"/>
+///<reference path="Player.ts"/>
 ///<reference path="animation/Sprite.ts"/>
 
 class Game
