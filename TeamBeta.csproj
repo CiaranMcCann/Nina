@@ -32,6 +32,14 @@
     <Content Include="external\jquery.1.8.2.min.js" />
     <Content Include="external\Stats.js" />
     <Content Include="index.htm" />
+    <TypeScriptCompile Include="src\Alex.ts" />
+    <Content Include="src\Alex.js">
+      <DependentUpon>Alex.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Walter.js">
+      <DependentUpon>Walter.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\Walter.ts" />
     <TypeScriptCompile Include="src\animation\Sprite.ts" />
     <TypeScriptCompile Include="src\animation\AnimationManager.ts" />
     <Content Include="src\animation\AnimationManager.js">

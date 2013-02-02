@@ -7,7 +7,8 @@
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/AssetManager.ts"/>
 ///<reference path="system/Utilies.ts"/>
-///<reference path="Player.ts"/>
+///<reference path="Walter.ts"/>
+///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
 
 class Game
@@ -15,7 +16,8 @@ class Game
 
     canvas : HTMLCanvasElement ;
     canvasContext : CanvasRenderingContext2D;
-    player: Player;
+    walter: Walter;
+    alex: Alex;
 
     constructor()
     {
@@ -28,13 +30,15 @@ class Game
         Physics.init(this.canvasContext);
         this.demo();
 
-        this.player = new Player();
+        this.walter = new Walter();
+        this.alex = new Alex();
     }
 
 
     update()
     {
-        this.player.update();
+        this.walter.update();
+        this.alex.update();
     }
 
     step()
@@ -50,7 +54,8 @@ class Game
        this.canvasContext.fillRect(800, 500, 100, 100);
        //this.canvasContext.drawImage(AssetManager.getImage("placeHolderImage") ,20,20);
 
-       this.player.draw(this.canvasContext);
+       this.alex.draw(this.canvasContext);
+       this.walter.draw(this.canvasContext);
 
     }
 

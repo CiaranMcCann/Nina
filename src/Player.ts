@@ -10,37 +10,39 @@ class Player implements isPhysicsBody
     }
 
     // Animated image
-    sprite: Sprite;
+    private sprite: Sprite;
 
     //Physics body
-    body;
+    private body;
 
     // Direction character  is facing
-    direction: number;
+    private direction: number;
 
     //Amount player moves at
-    speed: number;
+    private speed: number;
 
-    constructor()
+    //Keyboard Controls
+    controls: any;
+
+    constructor(xInPixels : number, yInPixels: number)
     {       
         this.sprite = new Sprite(Sprites.animations.walking);
-        this.setUpPhysics();
+        this.setUpPhysics(xInPixels,yInPixels);
 
         this.speed = 3;
         this.direction = Player.DIRECTION.right;
-
     }
 
     update()
     {
-        if (keyboard.isKeyDown(keyboard.keyCodes.d))
+        if (keyboard.isKeyDown(this.controls.right))
         {
             this.direction = Player.DIRECTION.right;
             this.sprite.update();
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x + Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
         }
 
-        if (keyboard.isKeyDown(keyboard.keyCodes.w))
+        if (keyboard.isKeyDown(this.controls.jump))
         {           
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(this.direction, -2);
@@ -49,7 +51,7 @@ class Player implements isPhysicsBody
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
         }
 
-        if (keyboard.isKeyDown(keyboard.keyCodes.a))
+        if (keyboard.isKeyDown(this.controls.left))
         {
             this.direction = Player.DIRECTION.left;
             this.sprite.update();
@@ -86,7 +88,7 @@ class Player implements isPhysicsBody
        // When a contact ends with any box2d object
     }
 
-    setUpPhysics()
+    setUpPhysics(xInPixels,yInPixels)
     {
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
@@ -100,8 +102,8 @@ class Player implements isPhysicsBody
 
         var bodyDef = new b2BodyDef;
         bodyDef.type = b2Body.b2_dynamicBody;
-        bodyDef.position.x = 2;
-        bodyDef.position.y = 1;
+        bodyDef.position.x = Physics.pixelToMeters(xInPixels);
+        bodyDef.position.y = Physics.pixelToMeters(yInPixels);
 
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
         this.body.SetSleepingAllowed(false);
