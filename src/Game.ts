@@ -63,7 +63,7 @@ class Game
     {
         var canvas = this.canvas;
         		  // Create static ground
-		  var bounds = 10;
+		  var bounds = 20;
 		  var fixDef = new b2FixtureDef;
 		  fixDef.density = 1.0;
 		  fixDef.friction = 1.0;
@@ -107,7 +107,7 @@ class Game
         //create some objects
       var bodyDef = new b2BodyDef;
       bodyDef.type = b2Body.b2_dynamicBody;
-      for (var i = 0; i < 30; ++i) {
+      for (var i = 0; i < 20; ++i) {
         if (Math.random() > 0.5) {
           fixDef.shape = new b2PolygonShape;
           fixDef.shape.SetAsBox(
