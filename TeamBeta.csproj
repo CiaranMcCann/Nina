@@ -34,6 +34,9 @@
     <Content Include="index.htm" />
     <TypeScriptCompile Include="src\animation\Sprite.ts" />
     <TypeScriptCompile Include="src\animation\AnimationManager.ts" />
+    <Content Include="src\animation\AnimationManager.js">
+      <DependentUpon>AnimationManager.ts</DependentUpon>
+    </Content>
     <Content Include="src\animation\EffectManager.js">
       <DependentUpon>AnimationManager.ts</DependentUpon>
     </Content>
@@ -42,6 +45,9 @@
     </Content>
     <TypeScriptCompile Include="src\audio\Sound.ts" />
     <TypeScriptCompile Include="src\animation\SpriteDefinitions.ts" />
+    <Content Include="src\animation\SpriteDefinitions.js">
+      <DependentUpon>SpriteDefinitions.ts</DependentUpon>
+    </Content>
     <Content Include="src\animation\SpriteDefinitions1.js">
       <DependentUpon>SpriteDefinitions.ts</DependentUpon>
     </Content>
@@ -92,6 +98,9 @@
     </Content>
     <Content Include="src\system\Timer.js">
       <DependentUpon>Timer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Utilies.js">
+      <DependentUpon>Utilies.ts</DependentUpon>
     </Content>
     <Content Include="src\system\Utilies1.js">
       <DependentUpon>Utilies.ts</DependentUpon>

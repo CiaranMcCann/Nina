@@ -13,7 +13,7 @@
 class Sprite
 {
 
-    spriteDef;
+    spriteDef: SpriteDefinition;
     currentFrameY: number;
 
     finished: bool;
@@ -47,8 +47,6 @@ class Sprite
             {
                 this.accumulateDelta = 0;
                 this.currentFrameY++;
-
-                this.checkForAttachedSound();
 
                 if (this.currentFrameY >= this.spriteDef.frameCount)
                 {
@@ -147,14 +145,6 @@ class Sprite
         return this.spriteDef.frameCount;
     }
 
-    checkForAttachedSound()
-    {
-        if (this.spriteDef.sound && this.currentFrameY > this.spriteDef.sound.time)
-        {
-            AssetManager.sounds[this.spriteDef.sound.name].play();
-            this.spriteDef.sound.time = Infinity;
-        }
-    }
 
     // Allows for func to be called once this sprite animation has finished
     onAnimationFinish(func)
