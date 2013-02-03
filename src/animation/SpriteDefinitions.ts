@@ -30,7 +30,7 @@ module Sprites
             imageName: "wwalk",
             frameY: 0,
             frameCount: 8,
-            msPerFrame: 100,
+            msPerFrame: 50,
 
         }
     }

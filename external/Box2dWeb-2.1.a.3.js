@@ -10713,7 +10713,7 @@ Box2D.postDefs = [];
              clear: function ()
              {
 
-                 __this.m_ctx.clearRect(0, 0, __this.m_ctx.canvas.width, __this.m_ctx.canvas.height)
+                // __this.m_ctx.clearRect(0, 0, __this.m_ctx.canvas.width, __this.m_ctx.canvas.height)
                  //__this.m_ctx.translate(100, 100);
             }
          }

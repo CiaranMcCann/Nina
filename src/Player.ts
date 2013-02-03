@@ -51,7 +51,12 @@ class Player implements isPhysicsBody
         {
             this.direction = Player.DIRECTION.right;
             this.sprite.update();
+
+             // Small impluse to make the camera follow him: HACK :P
+            this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
+
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x + Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
+
         }
 
         if (keyboard.isKeyDown(this.controls.jump) && this.canJump >= 1)
@@ -67,7 +72,17 @@ class Player implements isPhysicsBody
         {
             this.direction = Player.DIRECTION.left;
             this.sprite.update();
+           
+             // Small impluse to make the camera follow him: HACK :P
+            this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
+
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x - Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
+        }
+
+        //When the player starts to move have the camera follow them
+        if (this.body.GetLinearVelocity().Length() >= 0.01)
+        {
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.body.GetPosition()));
         }
     }
 
