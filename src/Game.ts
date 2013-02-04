@@ -10,6 +10,7 @@
 ///<reference path="Walter.ts"/>
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
+///<reference path="EnergyBar.ts"/>
 
 class Game
 {
@@ -19,6 +20,7 @@ class Game
     walter: Walter;
     alex: Alex;
     camera: Camera;
+    energybar: EnergyBar;
 
     constructor()
     {
@@ -36,6 +38,7 @@ class Game
         this.walter = new Walter();
         this.alex = new Alex();
         this.camera = new Camera(AssetManager.getImage("level").width, AssetManager.getImage("level").height, this.canvas.width, this.canvas.height);
+        this.energybar = new EnergyBar();
     }
 
 
@@ -76,15 +79,18 @@ class Game
         //Modifying the GL context here, by translating the origin 
         this.canvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
-            //Draw all entities here
+        //Draw all entities here
+            
             this.alex.draw(this.canvasContext);
             this.walter.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
+
         //Restore previous GL context
-        this.canvasContext.restore();
+            this.canvasContext.restore();
+            this.energybar.draw(this.canvasContext, 100, 100);
 
-
+        
     }
 
     demo()
