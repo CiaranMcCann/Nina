@@ -71,12 +71,17 @@ class Coin implements isPhysicsBody
 
     endContact(contact) { };
 
-    draw(ctx)
+    draw(ctx : CanvasRenderingContext2D )
     {
         this.sprite.update();
 
+
         var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
-        this.sprite.draw(ctx, pos.x, pos.y);
+        
+        ctx.save();
+        ctx.translate(pos.x,pos.y)
+        this.sprite.draw(ctx,  -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
+        ctx.restore();
     }
 
     setUpPhysics(xInPixels, yInPixels)

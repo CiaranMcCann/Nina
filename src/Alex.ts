@@ -4,7 +4,7 @@ class Alex extends Player
 {
     constructor(x,y)
     {
-        super(x,y,Sprites.animations.walterWalking);
+        super(x,y,Sprites.animations.alexWalking);
 
         this.controls = {
             left: keyboard.keyCodes.Leftarrow,

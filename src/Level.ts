@@ -17,7 +17,7 @@ class Level
 
         //Create a load of random coins
         this.coins = [];
-        for(var k = 0; k < 20; k++)
+        for(var k = 0; k < 10; k++)
         {
             this.coins.push(new Coin(
                  Utilies.random(100, 1000),

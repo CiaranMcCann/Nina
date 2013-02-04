@@ -34,6 +34,15 @@ module Sprites
 
         },
 
+       alexWalking: {
+
+            imageName: "elecs_wc_small_small",
+            frameY: 0,
+            frameCount: 8,
+            msPerFrame: 50,
+
+        },
+
         walterJumping: {
             imageName: "walter_jc_sprite",
             frameY: 0,
@@ -46,8 +55,8 @@ module Sprites
 
             imageName: "wcoins",
             frameY: 0,
-            frameCount: 6,
-            msPerFrame: 50,
+            frameCount: 7,
+            msPerFrame: 100,
 
         },
 
@@ -55,8 +64,8 @@ module Sprites
 
             imageName: "ecoins",
             frameY: 0,
-            frameCount: 6,
-            msPerFrame: 50,
+            frameCount: 7,
+            msPerFrame: 100,
 
         }
     }
