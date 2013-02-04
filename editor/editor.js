@@ -39,7 +39,7 @@ function Coin (x, y) {
 
 jQuery(function ($) {
 
-	levelImage += prompt("Level image name");
+	levelImage = prompt("Level image name");
 
 	$('.levelImage').attr('src', '../data/images/'+levelImage+'.png');
 
