@@ -11,6 +11,7 @@
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
 ///<reference path="Coin.ts"/>
+///<reference path="Platform.ts"/>
 
 class Game
 {
@@ -84,6 +85,7 @@ class Game
             //Draw all entities here
             this.alex.draw(this.canvasContext);
             this.walter.draw(this.canvasContext);
+            this.level.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
         //Restore previous GL context

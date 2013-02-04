@@ -42,23 +42,23 @@ module Sprites
 
         },
 
-        //waterCoin: {
+        waterCoin: {
 
-        //    imageName: "waterCoin",
-        //    frameY: 0,
-        //    frameCount: 6,
-        //    msPerFrame: 50,
+            imageName: "wcoins",
+            frameY: 0,
+            frameCount: 6,
+            msPerFrame: 50,
 
-        //},
+        },
 
-        //electricityCoin: {
+        electricityCoin: {
 
-        //    imageName: "electricityCoin",
-        //    frameY: 0,
-        //    frameCount: 6,
-        //    msPerFrame: 50,
+            imageName: "ecoins",
+            frameY: 0,
+            frameCount: 6,
+            msPerFrame: 50,
 
-        //}
+        }
     }
 
 }
