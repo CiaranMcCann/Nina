@@ -1,42 +1,20 @@
 ///<reference path="BasePuzzle.ts"/>
 
+class ElectricPole extends BasePuzzle {
 
-class Ladder extends BasePuzzle {
 
-
-    private body;
-    private objectWidth: number =0;
-    private objectHeight: number = 0;
-
+    body;
+    objectWidth: number = 0;
+    objectHeight: number = 0;
 
     constructor(xInPixels: number, yInPixels: number)
     {
         super();
-        this.objectWidth = 100;
+        this.objectWidth = 10;
         this.objectHeight = 200;
         this.setUpPhysics(xInPixels, yInPixels);
         this.body.SetUserData(this);
-    }
 
-    beginContact(contact)
-    {
-        if (contact.GetFixtureA().GetBody().GetUserData() instanceof Player)
-        {
-            var player: Player = contact.GetFixtureA().GetBody().GetUserData();
-            player.canClimb = true;
-            player.canJump--;
-          
-        }
-    }
-
-    endContact(contact)
-    {
-        if (contact.GetFixtureA().GetBody().GetUserData() instanceof Player) {
-            console.log("OnLadder");
-            var player: Player = contact.GetFixtureA().GetBody().GetUserData();
-            player.canClimb = false;
-            player.canJump++;
-        }
     }
 
     setUpPhysics(xInPixels, yInPixels) {
@@ -61,5 +39,9 @@ class Ladder extends BasePuzzle {
         this.body.SetSleepingAllowed(false);
         this.body.SetFixedRotation(true);
     }
+
+
+
+
 
 }

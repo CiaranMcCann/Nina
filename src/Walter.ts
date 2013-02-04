@@ -4,7 +4,7 @@ class Walter extends Player
 {
     constructor()
     {
-        super(200,100);
+        super(500,100);
 
         this.controls = {
             left: keyboard.keyCodes.a,
