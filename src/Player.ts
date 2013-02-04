@@ -15,6 +15,9 @@ class Player implements isPhysicsBody
     //Physics body
     private body;
 
+    //Player energy, weather elecitty or water
+    private energy;
+
     // Direction character  is facing
     private direction: number;
 
@@ -45,29 +48,47 @@ class Player implements isPhysicsBody
         this.body.SetUserData(this)
     }
 
+    getEnergy() { return this.energy };
+    setEnergy(e) { this.energy = e };
+
     update()
     {
         if (keyboard.isKeyDown(this.controls.right))
         {
             this.direction = Player.DIRECTION.right;
             this.sprite.update();
+
+             // Small impluse to make the camera follow him: HACK :P
+            this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
+
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x + Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
+
         }
 
         if (keyboard.isKeyDown(this.controls.jump) && this.canJump >= 1)
         {
             var currentPos = this.body.GetPosition();
-            var forces = new b2Vec2(this.direction, -2);
+            var forces = new b2Vec2(0, -2);
             forces.Multiply(5.5);
 
-            this.body.ApplyImpulse(forces, this.body.GetPosition());
+            this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
         }
 
         if (keyboard.isKeyDown(this.controls.left))
         {
             this.direction = Player.DIRECTION.left;
             this.sprite.update();
+           
+             // Small impluse to make the camera follow him: HACK :P
+            this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
+
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x - Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
+        }
+
+        //When the player starts to move have the camera follow them
+        if (this.body.GetLinearVelocity().Length() >= 0.01)
+        {
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.body.GetPosition()));
         }
     }
 
