@@ -5,15 +5,16 @@ class Walter extends Player
     public respawnPosition;
     public Mayrespawn;
 
-    constructor()
+    constructor(x,y)
     {
-        super(500, 100);
+        super(x,y,Sprites.animations.walterWalking);
         this.respawnPosition = new b2Vec2(0, 0);
         this.controls = {
             left: keyboard.keyCodes.a,
             right: keyboard.keyCodes.d,
             jump: keyboard.keyCodes.w
         }
+
     }
 
 

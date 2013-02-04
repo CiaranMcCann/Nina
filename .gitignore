@@ -5,3 +5,4 @@
 /_ReSharper.TeamBeta
 web.Release.config
 web.config
+*.db
