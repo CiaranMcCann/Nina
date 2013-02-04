@@ -36,6 +36,14 @@
     <Content Include="src\Alex.js">
       <DependentUpon>Alex.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\PuzzleManager.ts" />
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\BasePuzzle.ts" />
+    <Content Include="src\interactiveObject\puzzles\BasePuzzle.js">
+      <DependentUpon>BasePuzzle.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\PuzzleManager.js">
+      <DependentUpon>PuzzleManager.ts</DependentUpon>
+    </Content>
     <Content Include="src\Walter.js">
       <DependentUpon>Walter.ts</DependentUpon>
     </Content>
@@ -126,6 +134,7 @@
   <ItemGroup>
     <Content Include="data\images\README.md" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

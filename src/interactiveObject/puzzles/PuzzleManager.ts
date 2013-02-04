@@ -1,0 +1,7 @@
+class PuzzleManager
+{
+    constructor(  )
+    {
+
+    }
+}

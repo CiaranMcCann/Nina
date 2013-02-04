@@ -10,6 +10,7 @@
 ///<reference path="Walter.ts"/>
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
+///<reference path="interactiveObject/puzzles/PuzzleManager.ts"/>
 
 class Game
 {
@@ -19,6 +20,7 @@ class Game
     walter: Walter;
     alex: Alex;
     camera: Camera;
+    puzzleManager: PuzzleManager;
 
     constructor()
     {

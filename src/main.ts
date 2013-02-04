@@ -13,10 +13,9 @@
 // This varible is global and can be acessed anywhere for convencene.
 var GameInstance: Game;
 
-$(document).ready(function () => {
-
+$(document).ready(function () =>
+{
     Settings.getSettingsFromUrl();
-
     AssetManager.loadAssets(function ()
     {
         Logger.log(" All assets loaded ");
@@ -33,7 +32,5 @@ $(document).ready(function () => {
             window.requestAnimationFrame(gameloop);
         }
         gameloop();
-
     });
-
 });
