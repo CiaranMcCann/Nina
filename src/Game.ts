@@ -35,6 +35,7 @@ class Game
         Physics.init(this.canvasContext);
         this.demo();
 
+        this.puzzleManager = new PuzzleManager();
         this.walter = new Walter();
         this.alex = new Alex();
         this.camera = new Camera(AssetManager.getImage("level").width, AssetManager.getImage("level").height, this.canvas.width, this.canvas.height);
@@ -139,7 +140,7 @@ class Game
         //create some objects
         var bodyDef = new b2BodyDef;
         bodyDef.type = b2Body.b2_dynamicBody;
-        for (var i = 0; i < 20; ++i)
+       /* for (var i = 0; i < 20; ++i)
         {
             if (Math.random() > 0.5)
             {
@@ -158,8 +159,8 @@ class Game
             bodyDef.position.x = Math.random() * 25;
             bodyDef.position.y = Math.random() * 10;
             Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
-        }
-
+        }*/
+        
     }
 
 }
