@@ -2,6 +2,8 @@
 class Level
 {
     coins: Coin[];
+    walter: Walter;
+    alex: Alex;
 
     constructor(levelData: string)
     {
@@ -15,25 +17,34 @@ class Level
             var p = new Platform(x + w, y + h, w, h);
         }
 
+        this.walter = new Walter(level['walter'].x, level['walter'].y);
+        this.alex = new Alex(level['alex'].x, level['alex'].y);
+
         //Create a load of random coins
-        /*for (var i = 0 ; i < 30; i++)
+        this.coins = [];
+        for(var k = 0; k < 10; k++)
         {
             this.coins.push(new Coin(
-                 Utilies.random(100, 1000),
-                Utilies.random(100, 1000),
+                 Utilies.random(100, 3000),
+                Utilies.random(100, 3000),
                 Utilies.pickRandom([Coin.COIN_TYPE.electity, Coin.COIN_TYPE.water])
             ));
-        }*/
+        }
     }
 
     draw(ctx)
     {
-        //for( var coin in this.coins )
-        //    this.coins[coin].draw(ctx);
+
+        for( var coin in this.coins )
+            this.coins[coin].draw(ctx);
+
+        this.alex.draw(ctx);
+        this.walter.draw(ctx);
     }
 
     update()
     {
-
+        this.walter.update();
+        this.alex.update();
     }
 }

@@ -22,17 +22,18 @@ class Coin implements isPhysicsBody
 
     constructor(xInPixels: number, yInPixels: number, coinType)
     {
-        this.setUpPhysics(xInPixels, yInPixels);
         this.amountOfEnergy = 20;
         this.coinType = coinType;
 
         if (this.coinType == Coin.COIN_TYPE.water)
         {
-            this.sprite.setSpriteDef(Sprites.animations.walking);
+            this.sprite = new Sprite(Sprites.animations.waterCoin);
         } else
         {
-            this.sprite.setSpriteDef(Sprites.animations.walking);
+           this.sprite = new Sprite(Sprites.animations.electricityCoin);
         }
+
+        this.setUpPhysics(xInPixels, yInPixels);
     }
 
     beginContact(contact) 
@@ -70,12 +71,17 @@ class Coin implements isPhysicsBody
 
     endContact(contact) { };
 
-    draw(ctx)
+    draw(ctx : CanvasRenderingContext2D )
     {
         this.sprite.update();
 
+
         var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
-        this.sprite.draw(ctx, pos.x, pos.y);
+        
+        ctx.save();
+        ctx.translate(pos.x,pos.y)
+        this.sprite.draw(ctx,  -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
+        ctx.restore();
     }
 
     setUpPhysics(xInPixels, yInPixels)
@@ -93,7 +99,7 @@ class Coin implements isPhysicsBody
         );
 
         var bodyDef = new b2BodyDef;
-        bodyDef.type = b2Body.b2_dynamicBody;
+        bodyDef.type = b2Body.b2_staticBody;
         bodyDef.position.x = Physics.pixelToMeters(xInPixels);
         bodyDef.position.y = Physics.pixelToMeters(yInPixels);
 
