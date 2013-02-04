@@ -24,7 +24,7 @@ class Game
     energybar: EnergyBar;
     level: Level;
 
-    levelDataString = '{"platforms":[{"x":8,"y":858,"h":30,"w":1389},{"x":1367,"y":887,"h":1214,"w":30},{"x":1390,"y":2097,"h":30,"w":2856},{"x":4216,"y":2126,"h":445,"w":30},{"x":4243,"y":2554,"h":30,"w":764},{"x":4986,"y":2062,"h":522,"w":30},{"x":5015,"y":2062,"h":30,"w":659},{"x":4580,"y":2473,"h":87,"w":81},{"x":4661,"y":2392,"h":81,"w":82},{"x":4742,"y":2309,"h":86,"w":83},{"x":4823,"y":2227,"h":95,"w":83},{"x":4904,"y":2145,"h":89,"w":86}],"alex":{"x":5453,"y":1960},"walter":{"x":5217,"y":1961},"waterCoins":[{"x":4783,"y":2270}],"elecCoins":[{"x":4619,"y":2433}],"levelImage":"../data/images/level_design_level_01_00.png"}';
+    levelDataString = '{"platforms":[{"x":8,"y":858,"h":30,"w":1389},{"x":1367,"y":887,"h":1214,"w":30},{"x":1390,"y":2097,"h":30,"w":2856},{"x":4216,"y":2126,"h":445,"w":30},{"x":4243,"y":2554,"h":30,"w":764},{"x":4986,"y":2062,"h":522,"w":30},{"x":5015,"y":2062,"h":30,"w":659},{"x":4580,"y":2473,"h":87,"w":81},{"x":4661,"y":2392,"h":81,"w":82},{"x":4742,"y":2309,"h":86,"w":83},{"x":4823,"y":2227,"h":95,"w":83},{"x":4904,"y":2145,"h":89,"w":86}],"alex":{"x":5453,"y":1960},"walter":{"x":5217,"y":1961},"waterCoins":[{"x":4783,"y":2270}],"elecCoins":[{"x":4619,"y":2433}],"levelImage":"level_design_level_01_00"}';
 
     constructor()
     {
@@ -40,7 +40,7 @@ class Game
 
         this.energybar = new EnergyBar();
         this.level = new Level(this.levelDataString);
-        this.camera = new Camera(this.level.image.width, this.level.image.height, this.canvas.width, this.canvas.height);
+        this.camera = new Camera(AssetManager.getImage(this.level.image).width, AssetManager.getImage(this.level.image).height, this.canvas.width, this.canvas.height);
 
     }
 
@@ -91,7 +91,7 @@ class Game
 
         // Blit a section of the Level image onto the screen
         this.canvasContext.drawImage(
-            this.level.image,
+            AssetManager.getImage(this.level.image),
             this.camera.getX(),
             this.camera.getY(),
             this.canvas.width,

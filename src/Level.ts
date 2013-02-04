@@ -4,6 +4,7 @@ class Level
     coins: Coin[];
     walter: Walter;
     alex: Alex;
+    image: string;
 
     constructor(levelData: string)
     {
@@ -28,6 +29,8 @@ class Level
 
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);
+
+        this.image = level["levelImage"];
     }
 
     draw(ctx)
