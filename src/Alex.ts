@@ -2,15 +2,16 @@
 ///<reference path="system/Utilies.ts">
 class Alex extends Player
 {
-    constructor(xInPixels: number, yInPixels: number)
+    constructor(x,y)
     {
-        super(xInPixels,yInPixels);
+        super(x,y,Sprites.animations.alexWalking);
 
         this.controls = {
             left: keyboard.keyCodes.Leftarrow,
             right: keyboard.keyCodes.Rightarrow,
             jump: keyboard.keyCodes.Uparrow
         }
+
     }
 
 }

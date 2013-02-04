@@ -36,6 +36,17 @@
     <Content Include="src\Alex.js">
       <DependentUpon>Alex.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\Coin.ts" />
+    <Content Include="src\Coin.js">
+      <DependentUpon>Coin.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Coins.js">
+      <DependentUpon>Coin.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\Level.ts" />
+    <Content Include="src\Level.js">
+      <DependentUpon>Level.ts</DependentUpon>
+    </Content>
     <Content Include="src\Walter.js">
       <DependentUpon>Walter.ts</DependentUpon>
     </Content>

@@ -11,6 +11,7 @@
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
 ///<reference path="Coin.ts"/>
+///<reference path="Platform.ts"/>
 
 class Game
 {
@@ -76,6 +77,7 @@ class Game
         this.canvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
             //Draw all entities here
+            this.level.draw(this.canvasContext);
             this.level.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 

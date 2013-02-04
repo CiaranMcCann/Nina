@@ -53,7 +53,7 @@ module AssetManager
         }
         for (var src in sources)
         {
-            var name = sources[src].match("[a-z,A-Z,0-9]+[.]png")[0].replace(".png", "");
+            var name = sources[src].match("[a-z,A-Z,0-9,_]+[.]png")[0].replace(".png", "");
 
             if (images[name] == null)
             {
