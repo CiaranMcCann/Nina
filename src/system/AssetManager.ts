@@ -21,7 +21,8 @@ module AssetManager
     // no need for the full url or the extenision
     var priorityImages = [
          'data/images/level.png',
-         'data/images/PLACEHOLDERpump.png'
+         'data/images/PLACEHOLDERpump.png',
+         'data/images/PLACEHOLDERtransformer.png'
     ];
 
     var priorityAudio = [

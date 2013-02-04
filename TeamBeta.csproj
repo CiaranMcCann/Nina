@@ -38,10 +38,17 @@
     </Content>
     <TypeScriptCompile Include="src\Pump.ts" />
     <TypeScriptCompile Include="src\Platform.ts" />
+    <TypeScriptCompile Include="src\Transformer.ts" />
+    <Content Include="src\file1.js">
+      <DependentUpon>Transformer.ts</DependentUpon>
+    </Content>
     <Content Include="src\Platform.js">
       <DependentUpon>Platform.ts</DependentUpon>
     </Content>
     <Content Include="src\Pump.js">
+      <DependentUpon>Pump.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Pump.min.js">
       <DependentUpon>Pump.ts</DependentUpon>
     </Content>
     <Content Include="src\system\AssetManager.min.js">

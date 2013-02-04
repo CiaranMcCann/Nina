@@ -14,10 +14,10 @@
 ///<reference path=Pump.ts"/>
 ///<reference path="Level.ts"/>
 ///<reference path="Platform.ts"/>
+///<reference path="Transformer.ts" />
 
 class Game
 {
-
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
     camera: Camera;
@@ -40,8 +40,8 @@ class Game
 
         this.camera = new Camera(AssetManager.getImage("level").width, AssetManager.getImage("level").height, this.canvas.width, this.canvas.height);
         this.level = new Level(this.levelDataString);
+        this.pump = new Pump();
     }
-
 
     update()
     {
@@ -80,13 +80,12 @@ class Game
         this.canvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
         //Draw all entities here
-            this.pump.draw(this.canvasContext);
-            this.level.draw(this.canvasContext);
-            this.level.draw(this.canvasContext);
+
+        this.level.draw(this.canvasContext);
+        this.pump.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
         //Restore previous GL context
         this.canvasContext.restore();
-
     }
 }

@@ -25,7 +25,7 @@ class Pump {
             ctx.save();
 
             // move to the middle of where we want to draw our image
-            ctx.translate(400, 400);
+            ctx.translate(2500, 1850);
 
             // rotate around that point, converting our angle from degrees to radians
             ctx.rotate(Utilies.toRadians(this.angle));
@@ -39,7 +39,7 @@ class Pump {
         }
         else {
             // freeze the image
-            ctx.drawImage(AssetManager.getImage("PLACEHOLDERpump"), 400, 400);
+            ctx.drawImage(AssetManager.getImage("PLACEHOLDERpump"), 2500, 1850);
         }
     }
 

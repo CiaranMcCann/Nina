@@ -9,7 +9,8 @@ class Alex extends Player
         this.controls = {
             left: keyboard.keyCodes.Leftarrow,
             right: keyboard.keyCodes.Rightarrow,
-            jump: keyboard.keyCodes.Uparrow
+            jump: keyboard.keyCodes.Uparrow,
+            use: keyboard.keyCodes.Downarrow
         }
 
     }

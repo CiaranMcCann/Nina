@@ -1,9 +1,11 @@
 ///<reference path="Coin.ts"/>
+///
 class Level
 {
     coins: Coin[];
     walter: Walter;
     alex: Alex;
+    transformer: Transformer;
 
     constructor(levelData: string)
     {
@@ -16,6 +18,11 @@ class Level
             var h = level["platforms"][i].h / 2;
             var p = new Platform(x + w, y + h, w, h);
         }
+
+        // creating the transformer
+        this.transformer = new Transformer(
+            2400, 1400
+        );
 
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);
@@ -34,17 +41,18 @@ class Level
 
     draw(ctx)
     {
-
         for( var coin in this.coins )
             this.coins[coin].draw(ctx);
 
         this.alex.draw(ctx);
         this.walter.draw(ctx);
+        this.transformer.draw(ctx);
     }
 
     update()
     {
         this.walter.update();
         this.alex.update();
+        this.transformer.update();
     }
 }
