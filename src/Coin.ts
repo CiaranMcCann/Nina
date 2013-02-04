@@ -12,6 +12,9 @@ class Coin implements isPhysicsBody
 
     coinType;
 
+    //Flag to allow the coins to be destoried
+    isAlive: bool;
+
     // Animated sprite
     sprite: Sprite;
 
@@ -24,6 +27,7 @@ class Coin implements isPhysicsBody
     {
         this.amountOfEnergy = 20;
         this.coinType = coinType;
+        this.isAlive = true;
 
         if (this.coinType == Coin.COIN_TYPE.water)
         {
@@ -34,6 +38,7 @@ class Coin implements isPhysicsBody
         }
 
         this.setUpPhysics(xInPixels, yInPixels);
+        this.body.SetUserData(this)
     }
 
     beginContact(contact) 
@@ -48,10 +53,12 @@ class Coin implements isPhysicsBody
             if (a instanceof Walter)
             {
                 a.setEnergy(a.getEnergy() + this.amountOfEnergy);
+                this.isAlive = false;
             }
             else if (b instanceof Walter)
             {
                 b.setEnergy(a.getEnergy() + this.amountOfEnergy);
+                this.isAlive = false;
             }
 
         } else
@@ -59,12 +66,16 @@ class Coin implements isPhysicsBody
             if (a instanceof Alex)
             {
                 a.setEnergy(a.getEnergy() + this.amountOfEnergy);
+                this.isAlive = false;
 
             }else if (b instanceof Alex)
             {
                 b.setEnergy(a.getEnergy() + this.amountOfEnergy);
+                this.isAlive = false;
             }
         }
+
+      
 
     };
 
