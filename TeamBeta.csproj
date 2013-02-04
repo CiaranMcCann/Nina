@@ -36,16 +36,6 @@
     <Content Include="src\Alex.js">
       <DependentUpon>Alex.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\EnergyBar.ts" />
-    <Content Include="src\EnergyBar.js">
-      <DependentUpon>EnergyBar.ts</DependentUpon>
-    </Content>
-    <Content Include="src\EnergyBar.min.js">
-      <DependentUpon>EnergyBar.ts</DependentUpon>
-    </Content>
-    <Content Include="src\file1.js">
-      <DependentUpon>EnergyBar.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="src\Coin.ts" />
     <Content Include="src\Coin.js">
       <DependentUpon>Coin.ts</DependentUpon>
@@ -54,11 +44,9 @@
       <DependentUpon>Coin.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Level.ts" />
+    <Content Include="src\EnergyBar.ts" />
     <Content Include="src\Level.js">
       <DependentUpon>Level.ts</DependentUpon>
-    <Content Include="src\system\AssetManager.min.js">
-    </Content>
-      <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
     <Content Include="src\Walter.js">
       <DependentUpon>Walter.ts</DependentUpon>
@@ -149,12 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\images\README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="web.config" />
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
