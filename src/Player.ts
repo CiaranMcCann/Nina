@@ -62,10 +62,10 @@ class Player implements isPhysicsBody
         if (keyboard.isKeyDown(this.controls.jump) && this.canJump >= 1)
         {
             var currentPos = this.body.GetPosition();
-            var forces = new b2Vec2(this.direction, -2);
+            var forces = new b2Vec2(0, -2);
             forces.Multiply(5.5);
 
-            this.body.ApplyImpulse(forces, this.body.GetPosition());
+            this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
         }
 
         if (keyboard.isKeyDown(this.controls.left))
