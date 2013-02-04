@@ -13,7 +13,10 @@ class Player implements isPhysicsBody
     private sprite: Sprite;
 
     //Physics body
-    private body;
+    public body;
+
+
+    public Mayrespawn;
 
     // Direction character  is facing
     private direction: number;

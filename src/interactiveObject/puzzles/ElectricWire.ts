@@ -91,7 +91,7 @@ class ElectricWire extends BasePuzzle {
             prevBody = nextBody;
         }
 
-        this.objectWidth = 500;
+        this.objectWidth = Physics.metersToPixels(Math.abs(pole.body.GetPosition().x - pole2.body.GetPosition().x)+1);
         this.objectHeight = 50;
 
         this.setUpPhysics(this.objectWidth,this.objectHeight);
