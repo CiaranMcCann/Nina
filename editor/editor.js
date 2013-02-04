@@ -14,9 +14,11 @@ var tool_Create = true;
 var tool_Select = false;
 var tool_Remove = false;
 var levelId = 100;
-var levelData = {};
 
+var levelData = {};
 var platforms = [];
+
+var levelImage = '../data/images/';
 
 function Platform (x, y, w, h) {
 	this.x = x;
@@ -36,6 +38,11 @@ function Coin (x, y) {
 }
 
 jQuery(function ($) {
+
+	levelImage += prompt("Level image name");
+	levelImage += '.png';
+
+	$('.levelImage').attr('src', levelImage);
 
 	//Disable right click
 	$(this).bind("contextmenu", function (e) { e.preventDefault(); });
