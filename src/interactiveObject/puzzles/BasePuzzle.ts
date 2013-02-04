@@ -26,11 +26,6 @@ class BasePuzzle implements isPhysicsBody, IPuzzle
         this._yInPxs = yInPxs;     
     }
 
-    distance(v1, v2)
-    {
-        //return Math.sqrt( v1.x * v1.x  +  );
-    }
-
     Draw(ctx)
     {
 
@@ -70,9 +65,9 @@ class BasePuzzle implements isPhysicsBody, IPuzzle
 
         bodyDef.position.x = Physics.pixelToMeters(this._xInPxs);
         bodyDef.position.y = Physics.pixelToMeters(this._yInPxs);
+        console.log(bodyDef.position);
 
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
-        if (this instanceof Cloud) console.log( this.body );
         fixDef.isSensor = true;        
 
         this.body.SetUserData(this);

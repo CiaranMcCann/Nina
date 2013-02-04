@@ -16,21 +16,23 @@ class Cloud extends BasePuzzle
 
     private _speed: number;
 
-    constructor( pm: IPuzzleManager )
-    {
+    constructor(pm: IPuzzleManager) {
         //TODO: add the correct animation here
         super(new Sprite(Sprites.animations.walking), 200, 750);
 
-        var width   = Physics.pixelToMeters(200);
-        var height  = Physics.pixelToMeters(100);
+        var width = Physics.pixelToMeters(200);
+        var height = Physics.pixelToMeters(100);
         super.SetupPhysics(0.0, 1.0, 0.0, width, height);
 
         this._puzzleManager = pm;
-        
-        this._hoverPosMin = Utilies.VectorPixels( 200, 700 );
-        this._hoverPosMax = Utilies.VectorPixels( 200, 750 );
-        this._newPos = Utilies.VectorPixels( 200, 700 );
+
+        this._hoverPosMin = Physics.vectorPixelToMeters( new b2Vec2( 200, 700 ));
+        this._hoverPosMax = Physics.vectorPixelToMeters(new b2Vec2(200, 750));
+        this._newPos = Physics.vectorPixelToMeters(new b2Vec2(200, 700));
         this._speed = Physics.pixelToMeters(0.5);
+
+        console.log(this._newPos);
+        console.log(this.body.GetPosition());
     }
 
     beginContact( contact )
@@ -48,7 +50,7 @@ class Cloud extends BasePuzzle
 
     Draw( ctx )
     {
-    
+        
     }
 
     CloudWithAlex()
@@ -66,7 +68,7 @@ class Cloud extends BasePuzzle
     {
         var v = new b2Vec2(this._newPos.x, this._newPos.y);
         //alex hasn't joined yet, so we are just hovering over the fire for a bit
-        if (Utilies.Distance(this._newPos, this.body.GetPosition()) <= Physics.metersToPixels(this._speed))
+        if (Utilies.Distance(this._newPos, this.body.GetPosition()) <= Physics.pixelToMeters(this._speed))
         {
             v = Utilies.Distance(this._newPos, this._hoverPosMax) <= this._speed ? this._hoverPosMin : this._hoverPosMax;
             this._newPos.Set(v.x, v.y);
