@@ -10,6 +10,7 @@
 ///<reference path="Walter.ts"/>
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
+///<reference path="EnergyBar.ts"/>
 ///<reference path="Coin.ts"/>
 ///<reference path="Platform.ts"/>
 ///<reference path="Level.ts"/>
@@ -20,9 +21,10 @@ class Game
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
     camera: Camera;
+    energybar: EnergyBar;
     level: Level;
 
-    levelDataString = '{"platforms":[{"x":7,"y":674,"h":30,"w":430},{"x":407,"y":703,"h":1003,"w":30},{"x":407,"y":1706,"h":30,"w":1269},{"x":1646,"y":1736,"h":277,"w":30},{"x":1675,"y":1981,"h":30,"w":650},{"x":2296,"y":1641,"h":348,"w":30},{"x":2317,"y":1641,"h":30,"w":752},{"x":1977,"y":1953,"h":30,"w":331},{"x":2040,"y":1917,"h":37,"w":266},{"x":2089,"y":1876,"h":43,"w":211},{"x":2149,"y":1828,"h":59,"w":160},{"x":2200,"y":1774,"h":63,"w":111},{"x":2246,"y":1715,"h":69,"w":66}],"alex":{"x":2611,"y":1538},"walter":{"x":2392,"y":1538}}';
+    levelDataString = '{"platforms":[{"x":8,"y":858,"h":30,"w":1389},{"x":1367,"y":887,"h":1214,"w":30},{"x":1390,"y":2097,"h":30,"w":2856},{"x":4216,"y":2126,"h":445,"w":30},{"x":4243,"y":2554,"h":30,"w":764},{"x":4986,"y":2062,"h":522,"w":30},{"x":5015,"y":2062,"h":30,"w":659},{"x":4580,"y":2473,"h":87,"w":81},{"x":4661,"y":2392,"h":81,"w":82},{"x":4742,"y":2309,"h":86,"w":83},{"x":4823,"y":2227,"h":95,"w":83},{"x":4904,"y":2145,"h":89,"w":86}],"alex":{"x":5453,"y":1960},"walter":{"x":5217,"y":1961},"waterCoins":[{"x":4783,"y":2270}],"elecCoins":[{"x":4619,"y":2433}],"levelImage":"../data/images/level_design_level_01_00.png"}';
 
     constructor()
     {
@@ -36,6 +38,7 @@ class Game
 
         Physics.init(this.canvasContext);
 
+        this.energybar = new EnergyBar();
         this.level = new Level(this.levelDataString);
         this.camera = new Camera(this.level.image.width, this.level.image.height, this.canvas.width, this.canvas.height);
 
@@ -105,16 +108,18 @@ class Game
         //Modifying the GL context here, by translating the origin 
         this.canvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
-            //Draw all entities here
+        //Draw all entities here
+            
             this.level.draw(this.canvasContext);
             this.level.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
 
         //Restore previous GL context
-        this.canvasContext.restore();
+            this.canvasContext.restore();
+            this.energybar.draw(this.canvasContext, 100, 100);
         this.energybar.draw(this.canvasContext, 100, 100);
 
-
+        
     }
 }
