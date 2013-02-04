@@ -18,7 +18,7 @@ var levelId = 100;
 var levelData = {};
 var platforms = [];
 
-var levelImage = '../data/images/';
+var levelImage;
 
 function Platform (x, y, w, h) {
 	this.x = x;
@@ -40,9 +40,8 @@ function Coin (x, y) {
 jQuery(function ($) {
 
 	levelImage += prompt("Level image name");
-	levelImage += '.png';
 
-	$('.levelImage').attr('src', levelImage);
+	$('.levelImage').attr('src', '../data/images/'+levelImage+'.png');
 
 	//Disable right click
 	$(this).bind("contextmenu", function (e) { e.preventDefault(); });
@@ -183,6 +182,9 @@ jQuery(function ($) {
 			y = levelData['elecCoins'][i].y;
 			CreateElecCoin(x, y);
 		}
+
+		levelImage = levelData['levelImage'];
+		$('.levelImage').attr('src', '../data/images/'+levelImage+'.png');
 	});
 });
 
