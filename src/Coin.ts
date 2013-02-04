@@ -1,33 +1,72 @@
-///<reference path="system/Physics.ts"/>
-///<reference path="animation/Sprite.ts"/>
+///<reference path="../system/Physics.ts"/>
+///<reference path="../animation/Sprite.ts"/>
 
 class Coin implements isPhysicsBody
 {
+    static COIN_TYPE = {
+        water: 0,
+        electity: 1
+    }
+
+    coinType;
+
     // Animated sprite
-    private sprite: Sprite;
+    sprite: Sprite;
+
+    amountOfEnergy: number;
 
     //Box2d Physics body
     private body;
 
-    constructor(xInPixels: number, yInPixels: number)
+    constructor(xInPixels: number, yInPixels: number, coinType)
     {
         this.setUpPhysics(xInPixels, yInPixels);
+        this.amountOfEnergy = 20;
+        this.coinType = coinType;
+
+        if (this.coinType == Coin.COIN_TYPE.water)
+        {
+            this.sprite.setSpriteDef(Sprites.animations.waterCoin);
+        } else
+        {
+            this.sprite.setSpriteDef(Sprites.animations.electricityCoin);
+        }
     }
 
-    beginContact(contact)
+    beginContact(contact) 
     {
-        var obj1 = contact.GetFixtureA().GetBody().GetUserData();
-        var obj2 = contact.GetFixtureB().GetBody().GetUserData();
+    
+        var a = contact.GetFixtureA().GetBody().GetUserData();
+        var b = contact.GetFixtureB().GetBody().GetUserData();
 
-        
 
-        //if( instanceof   
-    }
+        if (this.coinType == Coin.COIN_TYPE.water)
+        {
+            if (a instanceof Walter)
+            {
+                a.setEnergy(a.getEnergy() + this.amountOfEnergy);
+            }
+            else if (b instanceof Walter)
+            {
+                b.setEnergy(a.getEnergy() + this.amountOfEnergy);
+            }
 
-    endContact(contact)
-    {
+        } else
+        {
+            if (a instanceof Alex)
+            {
+                a.setEnergy(a.getEnergy() + this.amountOfEnergy);
 
-    }
+            }else if (b instanceof Alex)
+            {
+                b.setEnergy(a.getEnergy() + this.amountOfEnergy);
+            }
+        }
+
+    };
+
+
+    endContact(contact) { };
 
     setUpPhysics(xInPixels, yInPixels)
     {
