@@ -11,6 +11,7 @@
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
 ///<reference path="Coin.ts"/>
+///<reference path="pump.ts"/>
 
 class Game
 {
@@ -20,7 +21,8 @@ class Game
     walter: Walter;
     alex: Alex;
     camera: Camera;
-    level: Level;
+    //level: Level;
+    pump: Pump;
     
     levelDataString = '{"platforms":[{"x":6,"y":677,"h":30,"w":386},{"x":362,"y":704,"h":1017,"w":30},{"x":362,"y":1720,"h":30,"w":1309},{"x":1641,"y":1749,"h":270,"w":30},{"x":1641,"y":2013,"h":30,"w":673},{"x":2304,"y":1670,"h":372,"w":36},{"x":2336,"y":1670,"h":30,"w":580}]}';
 
@@ -40,7 +42,7 @@ class Game
         this.alex = new Alex();
 
         this.camera = new Camera(AssetManager.getImage("level").width, AssetManager.getImage("level").height, this.canvas.width, this.canvas.height);
-        this.level = new Level(this.levelDataString);
+        //this.level = new Level(this.levelDataString);
     }
 
 
@@ -81,7 +83,8 @@ class Game
         //Modifying the GL context here, by translating the origin 
         this.canvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
-            //Draw all entities here
+        //Draw all entities here
+            this.pump.draw(this.canvasContext);
             this.alex.draw(this.canvasContext);
             this.walter.draw(this.canvasContext);
             Physics.world.DrawDebugData();

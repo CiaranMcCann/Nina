@@ -20,7 +20,8 @@ module AssetManager
     // you can then acess the image by AssetManager.getImages("placeHolderImage")
     // no need for the full url or the extenision
     var priorityImages = [
-         'data/images/level.png'
+         'data/images/level.png',
+         'data/images/PLACEHOLDERpump.png'
     ];
 
     var priorityAudio = [
