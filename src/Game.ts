@@ -10,6 +10,7 @@
 ///<reference path="Walter.ts"/>
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
+///<reference path="Coin.ts"/>
 
 class Game
 {
@@ -38,6 +39,7 @@ class Game
 
         this.walter = new Walter();
         this.alex = new Alex();
+
         this.camera = new Camera(AssetManager.getImage("level").width, AssetManager.getImage("level").height, this.canvas.width, this.canvas.height);
         this.createPlatforms();
     }
@@ -87,7 +89,6 @@ class Game
 
         //Restore previous GL context
         this.canvasContext.restore();
-
 
     }
 
