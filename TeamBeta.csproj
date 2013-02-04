@@ -41,8 +41,21 @@
     <Content Include="src\interactiveObject\puzzles\BasePuzzle.js">
       <DependentUpon>BasePuzzle.ts</DependentUpon>
     </Content>
+    <Content Include="src\interactiveObject\puzzles\Ladder.js">
+      <DependentUpon>Ladder.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\Ladder.min.js">
+      <DependentUpon>Ladder.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\Ladder.ts" />
     <Content Include="src\interactiveObject\puzzles\PuzzleManager.js">
       <DependentUpon>PuzzleManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\PuzzleManager.min.js">
+      <DependentUpon>PuzzleManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Player.min.js">
+      <DependentUpon>Player.ts</DependentUpon>
     </Content>
     <Content Include="src\Walter.js">
       <DependentUpon>Walter.ts</DependentUpon>
