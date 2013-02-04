@@ -36,12 +36,13 @@
     <Content Include="src\Alex.js">
       <DependentUpon>Alex.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\pump.ts" />
-    <Content Include="src\pump.js">
-      <DependentUpon>pump.ts</DependentUpon>
+    <TypeScriptCompile Include="src\Pump.ts" />
+    <TypeScriptCompile Include="src\Platform.ts" />
+    <Content Include="src\Platform.js">
+      <DependentUpon>Platform.ts</DependentUpon>
     </Content>
-    <Content Include="src\pump.min.js">
-      <DependentUpon>pump.ts</DependentUpon>
+    <Content Include="src\Pump.js">
+      <DependentUpon>Pump.ts</DependentUpon>
     </Content>
     <Content Include="src\system\AssetManager.min.js">
       <DependentUpon>AssetManager.ts</DependentUpon>

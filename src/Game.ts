@@ -11,7 +11,8 @@
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
 ///<reference path="Coin.ts"/>
-///<reference path="pump.ts"/>
+///<reference path=Pump.ts"/>
+///<reference path="Level.ts"/>
 ///<reference path="Platform.ts"/>
 
 class Game
@@ -20,7 +21,7 @@ class Game
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
     camera: Camera;
-    //level: Level;
+    level: Level;
     pump: Pump;
     
     levelDataString = '{"platforms":[{"x":7,"y":674,"h":30,"w":430},{"x":407,"y":703,"h":1003,"w":30},{"x":407,"y":1706,"h":30,"w":1269},{"x":1646,"y":1736,"h":277,"w":30},{"x":1675,"y":1981,"h":30,"w":650},{"x":2296,"y":1641,"h":348,"w":30},{"x":2317,"y":1641,"h":30,"w":752},{"x":1977,"y":1953,"h":30,"w":331},{"x":2040,"y":1917,"h":37,"w":266},{"x":2089,"y":1876,"h":43,"w":211},{"x":2149,"y":1828,"h":59,"w":160},{"x":2200,"y":1774,"h":63,"w":111},{"x":2246,"y":1715,"h":69,"w":66}],"alex":{"x":2611,"y":1538},"walter":{"x":2392,"y":1538}}';
@@ -38,7 +39,7 @@ class Game
         Physics.init(this.canvasContext);
 
         this.camera = new Camera(AssetManager.getImage("level").width, AssetManager.getImage("level").height, this.canvas.width, this.canvas.height);
-        //this.level = new Level(this.levelDataString);
+        this.level = new Level(this.levelDataString);
     }
 
 
