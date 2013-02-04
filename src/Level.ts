@@ -2,6 +2,8 @@
 class Level
 {
     coins: Coin[];
+    walter: Walter;
+    alex: Alex;
 
     constructor(levelData: string)
     {
@@ -14,6 +16,9 @@ class Level
             var h = level["platforms"][i].h / 2;
             var p = new Platform(x + w, y + h, w, h);
         }
+
+        this.walter = new Walter();
+        this.alex = new Alex();
 
         //Create a load of random coins
         /*for (var i = 0 ; i < 30; i++)
@@ -30,10 +35,13 @@ class Level
     {
         //for( var coin in this.coins )
         //    this.coins[coin].draw(ctx);
+        this.alex.draw(ctx);
+        this.walter.draw(ctx);
     }
 
     update()
     {
-
+        this.walter.update();
+        this.alex.update();
     }
 }

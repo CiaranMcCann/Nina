@@ -17,8 +17,6 @@ class Game
 
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
-    walter: Walter;
-    alex: Alex;
     camera: Camera;
     level: Level;
     
@@ -36,9 +34,6 @@ class Game
 
         Physics.init(this.canvasContext);
 
-        this.walter = new Walter();
-        this.alex = new Alex();
-
         this.camera = new Camera(AssetManager.getImage("level").width, AssetManager.getImage("level").height, this.canvas.width, this.canvas.height);
         this.level = new Level(this.levelDataString);
     }
@@ -46,8 +41,7 @@ class Game
 
     update()
     {
-        this.walter.update();
-        this.alex.update();
+        this.level.update();
         this.camera.update();
     }
 
@@ -82,8 +76,7 @@ class Game
         this.canvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
             //Draw all entities here
-            this.alex.draw(this.canvasContext);
-            this.walter.draw(this.canvasContext);
+            this.level.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
         //Restore previous GL context
