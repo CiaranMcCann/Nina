@@ -52,6 +52,21 @@
     <Content Include="src\interactiveObject\puzzles\PuzzleManager.js">
       <DependentUpon>PuzzleManager.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\Coin.ts" />
+    <Content Include="src\Coin.js">
+      <DependentUpon>Coin.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Coins.js">
+      <DependentUpon>Coin.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\Level.ts" />
+    <Content Include="src\EnergyBar.js">
+      <DependentUpon>EnergyBar.ts</DependentUpon>
+    </Content>
+    <Content Include="src\EnergyBar.ts" />
+    <Content Include="src\Level.js">
+      <DependentUpon>Level.ts</DependentUpon>
+    </Content>
     <Content Include="src\Walter.js">
       <DependentUpon>Walter.ts</DependentUpon>
     </Content>

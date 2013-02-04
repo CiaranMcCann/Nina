@@ -19,7 +19,7 @@ class Cloud extends BasePuzzle
     constructor( pm: IPuzzleManager )
     {
         //TODO: add the correct animation here
-        super(new Sprite(Sprites.animations.walking), 200, 750);
+        super(new Sprite(Sprites.animations.alexWalking), 200, 750);
 
         var width   = Physics.pixelToMeters(200);
         var height  = Physics.pixelToMeters(100);
