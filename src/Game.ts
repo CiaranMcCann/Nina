@@ -46,6 +46,7 @@ class Game
         this.walter.update();
         this.alex.update();
         this.camera.update();
+        this.puzzleManager.update();
     }
 
     step()
@@ -81,6 +82,7 @@ class Game
             //Draw all entities here
             this.alex.draw(this.canvasContext);
             this.walter.draw(this.canvasContext);
+            this.puzzleManager.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
         //Restore previous GL context
