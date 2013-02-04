@@ -32,6 +32,24 @@ module Sprites
             frameCount: 8,
             msPerFrame: 50,
 
+        },
+
+        waterCoin: {
+
+            imageName: "waterCoin",
+            frameY: 0,
+            frameCount: 6,
+            msPerFrame: 50,
+
+        },
+
+        electricityCoin: {
+
+            imageName: "electricityCoin",
+            frameY: 0,
+            frameCount: 6,
+            msPerFrame: 50,
+
         }
     }
 

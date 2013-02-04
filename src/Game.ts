@@ -84,7 +84,6 @@ class Game
         //Restore previous GL context
         this.canvasContext.restore();
 
-
     }
 
     demo()

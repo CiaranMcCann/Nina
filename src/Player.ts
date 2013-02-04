@@ -15,6 +15,9 @@ class Player implements isPhysicsBody
     //Physics body
     private body;
 
+    //Player energy, weather elecitty or water
+    private energy;
+
     // Direction character  is facing
     private direction: number;
 
@@ -44,6 +47,9 @@ class Player implements isPhysicsBody
         // can easily call the correct objects methods to handle it
         this.body.SetUserData(this)
     }
+
+    getEnergy() { return this.energy };
+    setEnergy(e) { this.energy = e };
 
     update()
     {

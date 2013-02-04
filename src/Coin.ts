@@ -1,5 +1,7 @@
-///<reference path="../system/Physics.ts"/>
-///<reference path="../animation/Sprite.ts"/>
+///<reference path="system/Physics.ts"/>
+///<reference path="Alex.ts"/>
+///<reference path="Walter.ts"/>
+///<reference path="animation/Sprite.ts"/>
 
 class Coin implements isPhysicsBody
 {
