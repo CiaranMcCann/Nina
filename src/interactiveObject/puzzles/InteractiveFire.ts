@@ -11,7 +11,7 @@ class InteractiveFire extends BasePuzzle
 
     constructor( pm: IPuzzleManager )
     {
-        super(new Sprite(Sprites.animations.walking), 200, 950);
+        super(new Sprite(Sprites.animations.alexWalking), 200, 950);
         var width   = Physics.pixelToMeters(150)
         var height  = Physics.pixelToMeters(10);
 

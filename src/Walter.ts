@@ -2,15 +2,16 @@
 ///<reference path="system/Utilies.ts">
 class Walter extends Player
 {
-    constructor()
+    constructor(x,y)
     {
-        super(200,100);
+        super(x,y,Sprites.animations.walterWalking);
 
         this.controls = {
             left: keyboard.keyCodes.a,
             right: keyboard.keyCodes.d,
             jump: keyboard.keyCodes.w
         }
+
     }
 
 }
