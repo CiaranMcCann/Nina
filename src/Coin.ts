@@ -28,10 +28,10 @@ class Coin implements isPhysicsBody
 
         if (this.coinType == Coin.COIN_TYPE.water)
         {
-            this.sprite.setSpriteDef(Sprites.animations.walking);
+           // this.sprite.setSpriteDef(Sprites.animations.w);
         } else
         {
-            this.sprite.setSpriteDef(Sprites.animations.walking);
+           // this.sprite.setSpriteDef(Sprites.animations.walking);
         }
     }
 

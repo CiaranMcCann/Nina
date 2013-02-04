@@ -10,7 +10,7 @@ class Player implements isPhysicsBody
     }
 
     // Animated image
-    private sprite: Sprite;
+    sprite: Sprite;
 
     //Physics body
     private body;
@@ -33,14 +33,13 @@ class Player implements isPhysicsBody
     // User to dectect weather the player is standing on somthing
     footSensor: any;
 
-    constructor(xInPixels: number, yInPixels: number)
+    constructor(xInPixels: number, yInPixels: number, animation : SpriteDefinition)
     {
-        this.sprite = new Sprite(Sprites.animations.walking);
-        this.setUpPhysics(xInPixels, yInPixels);
-
         this.speed = 3;
         this.canJump = 0;
         this.direction = Player.DIRECTION.right;
+        this.sprite = new Sprite(animation);
+        this.setUpPhysics(xInPixels,yInPixels);
 
         //Place a refer to this object in the physics bodies
         // user data so that when their is a collison we 

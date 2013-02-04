@@ -25,14 +25,22 @@ module Sprites
     // These are defined frames for said animations
     export var animations = {
 
-        walking: {
+        walterWalking: {
 
             imageName: "wwalk",
             frameY: 0,
             frameCount: 8,
             msPerFrame: 50,
 
-        }
+        },
+
+        walterJumping: {
+            imageName: "walter_jc_sprite",
+            frameY: 0,
+            frameCount: 6,
+            msPerFrame: 50,
+
+        },
 
         //waterCoin: {
 

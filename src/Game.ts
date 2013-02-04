@@ -34,8 +34,8 @@ class Game
         Physics.init(this.canvasContext);
         this.demo();
 
-        this.walter = new Walter();
-        this.alex = new Alex();
+        this.walter = new Walter(200,20);
+        this.alex = new Alex(400,10);
 
         this.camera = new Camera(AssetManager.getImage("level").width, AssetManager.getImage("level").height, this.canvas.width, this.canvas.height);
     }
