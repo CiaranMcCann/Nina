@@ -137,6 +137,8 @@ jQuery(function ($) {
 		});
 		levelData['elecCoins'] = elecCoins;
 
+		levelData['levelImage'] = levelImage;
+
 		alert(JSON.stringify(levelData));
 	});
 
