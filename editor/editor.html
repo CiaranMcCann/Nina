@@ -7,61 +7,33 @@
 		<link rel="stylesheet" href="styles/editorStyle.css">
 		<link rel="stylesheet" href="styles/jquery-ui.min.css">
 
+		<script src="../external/jquery.1.8.2.min.js"></script>
+		<script src="../external/jquery-ui-1.10.0.custom.min.js"></script>
+		<script src="editor.js"></script>
 	</head>
 
 	<body>
-		<div id="gridContainer">
-
-		</div>
-
-		<div id="gameEditorScreen">
-
-		</div>
+		<img src="../data/images/level.png" class="levelImage">
 
 		<div id="entitySelect">
 			<p id="title">Entities</p>
-
-			<a class="entitySelect">Implo</a>
+			<a class="entitySelect">Walter</a>
 			<br/>
-			<a class="entitySelect">Explo</a>
+			<a class="entitySelect">Alex</a>
 			<br/>
-			<a class="entitySelect active">Platform</a>
+			<a class="entitySelect">Platform</a>
 			<br/>
-			<a class="entitySelect">Movable Platform</a>
+			<a class="entitySelect">WaterCoin</a>
 			<br/>
-			<a class="entitySelect">Button</a>
-			<br/>
-			<a class="entitySelect">Implo End</a>
-			<br/>
-			<a class="entitySelect">Explo End</a>
-		</div>
-
-		<div id="toolSelect">
+			<a class="entitySelect">ElecCoin</a>
 			<p id="title">Tools</p>
 			<a class="tool active">Create</a>
 			<br/>
-			<a class="tool">Select</a>
-			<br/>
 			<a class="tool">Remove</a>
 			<br/>
-			<a id="toggleGrid">Toggle Grid</a>
+			<a class="tool" id="save">Save</a>
+			<br/>
+			<a class="tool" id="load">Load</a>
 		</div>
-
-		<div id="save">
-			<a id="saveLevel">Save</a>
-			<input type="text" class="text" id="saveLevelName"></input>
-		</div>
-
-		<div id="load">
-			<a id="loadLevel">Load</a>
-			<input type="text" class="text" id="loadLevelName"></input>
-		</div>
-
-		<div id="test">Begin Testing</div>
-		<div id="stopTest">Back to Editor</div>
- 
-		<script src="../external/jquery.1.8.2.min.js"></script>
-		<script src="../external/jquery-ui.min.js"></script>
-		<script src="editor.js"></script>
 	</body>
 </html>

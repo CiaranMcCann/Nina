@@ -46,7 +46,18 @@
     <Content Include="src\file1.js">
       <DependentUpon>EnergyBar.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\Coin.ts" />
+    <Content Include="src\Coin.js">
+      <DependentUpon>Coin.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Coins.js">
+      <DependentUpon>Coin.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\Level.ts" />
+    <Content Include="src\Level.js">
+      <DependentUpon>Level.ts</DependentUpon>
     <Content Include="src\system\AssetManager.min.js">
+    </Content>
       <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
     <Content Include="src\Walter.js">

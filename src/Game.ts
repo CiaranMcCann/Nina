@@ -11,16 +11,19 @@
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
 ///<reference path="EnergyBar.ts"/>
+///<reference path="Coin.ts"/>
+///<reference path="Platform.ts"/>
 
 class Game
 {
 
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
-    walter: Walter;
-    alex: Alex;
     camera: Camera;
     energybar: EnergyBar;
+    level: Level;
+    
+    levelDataString = '{"platforms":[{"x":7,"y":674,"h":30,"w":430},{"x":407,"y":703,"h":1003,"w":30},{"x":407,"y":1706,"h":30,"w":1269},{"x":1646,"y":1736,"h":277,"w":30},{"x":1675,"y":1981,"h":30,"w":650},{"x":2296,"y":1641,"h":348,"w":30},{"x":2317,"y":1641,"h":30,"w":752},{"x":1977,"y":1953,"h":30,"w":331},{"x":2040,"y":1917,"h":37,"w":266},{"x":2089,"y":1876,"h":43,"w":211},{"x":2149,"y":1828,"h":59,"w":160},{"x":2200,"y":1774,"h":63,"w":111},{"x":2246,"y":1715,"h":69,"w":66}],"alex":{"x":2611,"y":1538},"walter":{"x":2392,"y":1538}}';
 
     constructor()
     {
@@ -33,19 +36,16 @@ class Game
         this.canvasContext = this.canvas.getContext("2d");
 
         Physics.init(this.canvasContext);
-        this.demo();
 
-        this.walter = new Walter();
-        this.alex = new Alex();
         this.camera = new Camera(AssetManager.getImage("level").width, AssetManager.getImage("level").height, this.canvas.width, this.canvas.height);
         this.energybar = new EnergyBar();
+        this.level = new Level(this.levelDataString);
     }
 
 
     update()
     {
-        this.walter.update();
-        this.alex.update();
+        this.level.update();
         this.camera.update();
     }
 
@@ -65,8 +65,8 @@ class Game
             AssetManager.getImage("level"),
             this.camera.getX(),
             this.camera.getY(),
-            this.canvas.width * 1.5,
-            this.canvas.height * 1.5,
+            this.canvas.width,
+            this.canvas.height,
             0,
             0,
             this.canvas.width,
@@ -81,8 +81,8 @@ class Game
 
         //Draw all entities here
             
-            this.alex.draw(this.canvasContext);
-            this.walter.draw(this.canvasContext);
+            this.level.draw(this.canvasContext);
+            this.level.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
 
@@ -92,76 +92,4 @@ class Game
 
         
     }
-
-    demo()
-    {
-        var canvas = this.canvas;
-        // Create static ground
-        var bounds = 20;
-        var fixDef = new b2FixtureDef;
-        fixDef.density = 1.0;
-        fixDef.friction = 1.0;
-        fixDef.restitution = 0.2;
-        fixDef.shape = new b2PolygonShape;
-
-        var bodyDef = new b2BodyDef;
-        bodyDef.type = b2Body.b2_staticBody;
-
-        //bottom wall
-        fixDef.shape.SetAsBox(canvas.width / Physics.worldScale, 0);
-        bodyDef.position.x = 0;
-        bodyDef.position.y = canvas.height / Physics.worldScale;
-        Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
-
-        //left wall
-        fixDef.shape.SetAsBox(bounds / Physics.worldScale, canvas.height / Physics.worldScale);
-        bodyDef.position.x = bounds * -1 / Physics.worldScale;
-        bodyDef.position.y = 0;
-        Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
-
-        //right wall
-        //fixDef.shape.SetAsBox(0, canvas.height / Physics.worldScale);
-        //bodyDef.position.x = canvas.width / Physics.worldScale;
-        //bodyDef.position.y = 0;
-        //Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
-
-        //top wall
-        fixDef.shape.SetAsBox(canvas.width / Physics.worldScale, bounds / Physics.worldScale);
-        bodyDef.position.x = 0;
-        bodyDef.position.y = bounds * -1 / Physics.worldScale;
-        Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
-
-
-        var fixDef = new b2FixtureDef;
-        fixDef.density = 1.0;
-        fixDef.friction = 1.0;
-        fixDef.restitution = 0.0;
-        fixDef.shape = new b2PolygonShape;
-
-        //create some objects
-        var bodyDef = new b2BodyDef;
-        bodyDef.type = b2Body.b2_dynamicBody;
-        for (var i = 0; i < 20; ++i)
-        {
-            if (Math.random() > 0.5)
-            {
-                fixDef.shape = new b2PolygonShape;
-                fixDef.shape.SetAsBox(
-                Math.random() + 0.1 //half width
-                ,
-                Math.random() + 0.1 //half height
-                );
-            } else
-            {
-                fixDef.shape = new b2CircleShape(
-                Math.random() + 0.1 //radius
-                );
-            }
-            bodyDef.position.x = Math.random() * 25;
-            bodyDef.position.y = Math.random() * 10;
-            Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
-        }
-
-    }
-
 }
