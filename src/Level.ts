@@ -17,8 +17,8 @@ class Level
             var p = new Platform(x + w, y + h, w, h);
         }
 
-        this.walter = new Walter();
-        this.alex = new Alex();
+        this.walter = new Walter(level['walter'].x, level['walter'].y);
+        this.alex = new Alex(level['alex'].x, level['alex'].y);
 
         //Create a load of random coins
         /*for (var i = 0 ; i < 30; i++)

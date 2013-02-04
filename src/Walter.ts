@@ -2,9 +2,9 @@
 ///<reference path="system/Utilies.ts">
 class Walter extends Player
 {
-    constructor()
+    constructor(xInPixels: number, yInPixels: number)
     {
-        super(200,100);
+        super(xInPixels,yInPixels);
 
         this.controls = {
             left: keyboard.keyCodes.a,

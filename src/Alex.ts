@@ -2,9 +2,9 @@
 ///<reference path="system/Utilies.ts">
 class Alex extends Player
 {
-    constructor()
+    constructor(xInPixels: number, yInPixels: number)
     {
-        super(600,100);
+        super(xInPixels,yInPixels);
 
         this.controls = {
             left: keyboard.keyCodes.Leftarrow,
