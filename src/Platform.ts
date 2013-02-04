@@ -20,6 +20,5 @@ class Platform
 		bodyDef.position.x = Physics.pixelToMeters(xInPixels);
         bodyDef.position.y = Physics.pixelToMeters(yInPixels);
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
-        console.log(this.body);
 	}
 }
