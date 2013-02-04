@@ -44,6 +44,7 @@
       <DependentUpon>Coin.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Level.ts" />
+    <Content Include="src\EnergyBar.ts" />
     <Content Include="src\Level.js">
       <DependentUpon>Level.ts</DependentUpon>
     </Content>
