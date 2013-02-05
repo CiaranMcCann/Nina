@@ -1,6 +1,6 @@
-///<reference path="BasePuzzle.ts"/>
+///<reference path="../BasePuzzle.ts"/>
 ///<reference path="../../animation/Sprite.ts/>
-///<reference path="../../system/Physics.ts"/>
+///<reference path="../../../system/Physics.ts"/>
 ///<reference path="Cloud.ts"/>
 
 class InteractiveFire extends BasePuzzle
@@ -11,7 +11,7 @@ class InteractiveFire extends BasePuzzle
 
     constructor( pm: IPuzzleManager )
     {
-        super(new Sprite(Sprites.animations.fireAnim), 5000, 2070);
+        super(new Sprite(Sprites.animations.fireAnim), 4800, 2070);
         var width   = Physics.pixelToMeters(150)
         var height  = Physics.pixelToMeters(10);
 
@@ -37,7 +37,7 @@ class InteractiveFire extends BasePuzzle
         this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 0.935);
     }
 
-    Update( )
+    Update()
     {
         if (this._isCloudCreated)
         {

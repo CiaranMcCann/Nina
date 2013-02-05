@@ -3,17 +3,16 @@
 
 class RainDrop extends BasePuzzle
 {
-    private _startPosition;
-
-    constructor( xInPxs: number, yInPxs: number )
+    private _puzzleManager: IPuzzleManager;
+    constructor( pm: IPuzzleManager, xInPxs: number, yInPxs: number )
     {
         super(new Sprite(Sprites.animations.waterCoin), xInPxs, yInPxs);
-        this._startPosition = new b2Vec2(this.body.GetPosition().x, this.body.GetPosition().y);
+        this._puzzleManager = pm;
     }
 
     Update()
     {
-        
+        this.body.SetPosition(new b2Vec2(this.body.GetPosition().x, this.body.GetPosition().y + Physics.pixelToMeters(0.5)));
     }
 
     beginContact(contact)
@@ -26,6 +25,6 @@ class RainDrop extends BasePuzzle
 
         if (other instanceof RainDrop || other instanceof Cloud) return;
 
-        this.body.SetPosition(this._startPosition);
+        this._puzzleManager.RemovePuzzle(this);
     }
 };

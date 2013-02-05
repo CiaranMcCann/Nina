@@ -1,4 +1,4 @@
-///<reference path="InteractiveFire.ts"/>
+///<reference path="CloudPuzzle/InteractiveFire.ts"/>
 
 interface IPuzzleManager
 {

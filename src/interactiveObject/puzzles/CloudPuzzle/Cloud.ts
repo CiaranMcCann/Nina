@@ -26,7 +26,7 @@ class Cloud extends BasePuzzle
     {
         console.log("create cloud!");
         //TODO: add the correct animation here
-        super(new Sprite(Sprites.animations.alexWalking),5000, 1900);
+        super(new Sprite(Sprites.animations.cloudAnim, true),4800, 1900);
 
         var width   = Physics.pixelToMeters(200);
         var height  = Physics.pixelToMeters(100);
@@ -93,7 +93,7 @@ class Cloud extends BasePuzzle
                 var x: number = this.body.GetPosition().x + Math.random( ) * this.sprite.getFrameWidth( );
                 var y: number = this.body.GetPosition().y + Math.random( ) * this.sprite.getFrameHeight( );
 
-                this._puzzleManager.CreatePuzzle(new RainDrop(x, y));
+                this._puzzleManager.CreatePuzzle(new RainDrop(this._puzzleManager,x, y));
             }
             this._currentTime = newTime;
         }

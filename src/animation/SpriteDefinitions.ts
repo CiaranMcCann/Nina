@@ -73,8 +73,24 @@ module Sprites
         {
             imageName: "fire",
             frameY: 0,
-            frameCount: 3,
+            frameCount: 4,
             msPerFrame: 120
+        },
+
+        cloudAnim:
+        {
+            imageName: "cloud_sprite",
+            frameY: 0,
+            frameCount: 9,
+            msPerFrame: 150
+        },
+
+        droplet:
+        {
+            imageName: "droplet",
+            frameY: 0,
+            frameCount: 1,
+            msPerFrame: 0
         }
     }
 }
