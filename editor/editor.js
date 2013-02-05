@@ -1,14 +1,17 @@
-var currentEntity;
-
 var numPlatforms = 0;
 var numWaterCoins = 0;
 var numElecCoins = 0;
 
-var createPlatforms = true;
-var createWalter = false;
-var createAlex = false;
-var createWaterCoin = false;
-var createElecCoin = false;
+
+var entity = {
+	PLATFORM:		0,
+	WALTER: 		1,
+	ALEX:			2,
+	WATER_COIN:		3,
+	ELECTRIC_COIN: 	4
+};
+
+var currentEntity = entity.PLATFORM;
 
 var tool_Create = true;
 var tool_Select = false;
@@ -53,22 +56,16 @@ jQuery(function ($) {
 			$(this).removeClass('active');
 		});
 
-		createPlatforms = false;
-		createWalter = false;
-		createAlex = false;
-		createWaterCoin = false;
-		createElecCoin = false;
-
 		if ($(this).text() === 'Platform') {
-			createPlatforms = true;
+			currentEntity = entity.PLATFORM;
 		} else if ($(this).text() === 'Walter') {
-			createWalter = true;
+			currentEntity = entity.WALTER;
 		} else if ($(this).text() === 'Alex') {
-			createAlex = true;
+			currentEntity = entity.ALEX;
 		} else if ($(this).text() === 'WaterCoin') {
-			createWaterCoin = true;
+			currentEntity = entity.WATER_COIN;
 		} else if ($(this).text() === 'ElecCoin') {
-			createElecCoin = true;
+			currentEntity = entity.ELECTRIC_COIN;
 		}
 		$(this).addClass('active');
 	});
@@ -95,11 +92,26 @@ jQuery(function ($) {
 			y = e.pageY;
 
 		if (tool_Create) {
-			if (createPlatforms)		{ CreatePlatform(x, y, 30, 30); }
-			else if (createWalter)		{ CreateWalter(x, y); }
-			else if (createAlex)		{ CreateAlex(x, y); }
-			else if (createWaterCoin)	{ CreateWaterCoin(x, y); }
-			else if (createElecCoin)	{ CreateElecCoin(x, y); }
+			switch (currentEntity) {
+				case entity.PLATFORM:
+					CreatePlatform(x, y, 30, 30);
+					break;
+				case entity.WALTER:
+					CreateWalter(x, y);
+					break;
+				case entity.ALEX:
+					CreateAlex(x, y);
+					break;
+				case entity.WATER_COIN:
+					CreateWaterCoin(x, y);
+					break;
+				case entity.ELECTRIC_COIN:
+					CreateElecCoin(x, y);
+					break;
+				default:
+					alert("Does this ever happen?");
+					break;
+			}
 		}
 
 		if (tool_Remove) {

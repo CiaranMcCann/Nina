@@ -2,6 +2,8 @@ body
 {
 	background: #2E3235;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	margin: 0;
+	padding: 0;
 }
 
 .levelImage {
