@@ -36,6 +36,22 @@
     <Content Include="src\Alex.js">
       <DependentUpon>Alex.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\PuzzleManager.ts" />
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\BasePuzzle.ts" />
+    <Content Include="src\interactiveObject\puzzles\BasePuzzle.js">
+      <DependentUpon>BasePuzzle.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\InteractiveFire.ts" />
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\Cloud.ts" />
+    <Content Include="src\interactiveObject\puzzles\Cloud.js">
+      <DependentUpon>Cloud.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\InteractiveFire.js">
+      <DependentUpon>InteractiveFire.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\PuzzleManager.js">
+      <DependentUpon>PuzzleManager.ts</DependentUpon>
+    </Content>
     <TypeScriptCompile Include="src\Coin.ts" />
     <Content Include="src\Coin.js">
       <DependentUpon>Coin.ts</DependentUpon>
@@ -44,6 +60,9 @@
       <DependentUpon>Coin.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Level.ts" />
+    <Content Include="src\EnergyBar.js">
+      <DependentUpon>EnergyBar.ts</DependentUpon>
+    </Content>
     <Content Include="src\EnergyBar.ts" />
     <Content Include="src\Level.js">
       <DependentUpon>Level.ts</DependentUpon>
@@ -138,6 +157,7 @@
   <ItemGroup>
     <Content Include="data\images\README.md" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

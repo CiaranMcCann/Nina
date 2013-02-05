@@ -10,9 +10,11 @@
 ///<reference path="Walter.ts"/>
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
+///<reference path="interactiveObject/puzzles/PuzzleManager.ts"/>
 ///<reference path="EnergyBar.ts"/>
 ///<reference path="Coin.ts"/>
 ///<reference path="Platform.ts"/>
+///<reference path="Level.ts"/>
 
 class Game
 {
@@ -20,9 +22,10 @@ class Game
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
     camera: Camera;
+    puzzleManager: PuzzleManager;
     energybar: EnergyBar;
     level: Level;
-    
+
     levelDataString = '{"platforms":[{"x":8,"y":858,"h":30,"w":1389},{"x":1367,"y":887,"h":1214,"w":30},{"x":1390,"y":2097,"h":30,"w":2856},{"x":4216,"y":2126,"h":445,"w":30},{"x":4243,"y":2554,"h":30,"w":764},{"x":4986,"y":2062,"h":522,"w":30},{"x":5015,"y":2062,"h":30,"w":659},{"x":4580,"y":2473,"h":87,"w":81},{"x":4661,"y":2392,"h":81,"w":82},{"x":4742,"y":2309,"h":86,"w":83},{"x":4823,"y":2227,"h":95,"w":83},{"x":4904,"y":2145,"h":89,"w":86}],"alex":{"x":5453,"y":1960},"walter":{"x":5217,"y":1961},"waterCoins":[{"x":4783,"y":2270}],"elecCoins":[{"x":4619,"y":2433}],"levelImage":"level_design_level_01_00"}';
 
     constructor()
@@ -37,9 +40,12 @@ class Game
 
         Physics.init(this.canvasContext);
 
-        this.camera = new Camera(AssetManager.getImage("level").width, AssetManager.getImage("level").height, this.canvas.width, this.canvas.height);
+        this.puzzleManager = new PuzzleManager();
         this.energybar = new EnergyBar();
+ 
         this.level = new Level(this.levelDataString);
+        this.camera = new Camera(AssetManager.getImage(this.level.image).width, AssetManager.getImage(this.level.image).height, this.canvas.width, this.canvas.height);
+
     }
 
 
@@ -47,6 +53,34 @@ class Game
     {
         this.level.update();
         this.camera.update();
+        this.puzzleManager.update();
+
+        // Debug move camera
+        if (keyboard.isKeyDown(keyboard.keyCodes.y)) //up
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementY(-15)
+        }
+
+        if (keyboard.isKeyDown(keyboard.keyCodes.h)) //down
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementY(15)
+        }
+
+
+        if (keyboard.isKeyDown(keyboard.keyCodes.g)) //left
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementX(-15)
+        }
+
+
+        if (keyboard.isKeyDown(keyboard.keyCodes.j)) //right
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementX(15)
+        }
     }
 
     step()
@@ -62,7 +96,7 @@ class Game
 
         // Blit a section of the Level image onto the screen
         this.canvasContext.drawImage(
-            AssetManager.getImage("level"),
+            AssetManager.getImage(this.level.image),
             this.camera.getX(),
             this.camera.getY(),
             this.canvas.width,
@@ -83,12 +117,14 @@ class Game
             
             this.level.draw(this.canvasContext);
             this.level.draw(this.canvasContext);
+            this.puzzleManager.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
 
         //Restore previous GL context
             this.canvasContext.restore();
             this.energybar.draw(this.canvasContext, 100, 100);
+        this.energybar.draw(this.canvasContext, 100, 100);
 
         
     }

@@ -22,7 +22,8 @@ module AssetManager
     var priorityImages = [
          'data/images/level.png',
          'data/images/FirstAlexBar.png',
-         'data/images/FirstWalterBar.png'
+         'data/images/FirstWalterBar.png',
+         'data/images/level_design_level_01_00.png'
     ];
 
     var priorityAudio = [

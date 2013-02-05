@@ -45,6 +45,24 @@ module Utilies
         return newObject;
     };
 
+    export function Distance( v1, v2 )
+    {
+        return Math.sqrt( DistanceSquared( v1, v2) );
+    }
+
+    export function DistanceSquared(v1, v2)
+    {
+        var x: number = v1.x - v2.x
+        var y: number = v1.y - v2.y
+
+        return new b2Vec2(x, y).LengthSquared();
+    }
+
+    export function VectorPixels( x: number, y: number )
+    {
+        return new b2Vec2(Physics.pixelToMeters(x), Physics.pixelToMeters(y));
+    }
+
     export function findByValue(needle, haystack, haystackProperity, )
     {
 
