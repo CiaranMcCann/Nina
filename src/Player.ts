@@ -92,8 +92,9 @@ class Player implements isPhysicsBody
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
                 forces.Multiply(5.5);
+                AssetManager.getSound("jump").play();
 
-            this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
+                this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
             }
 
             if (this.canClimb) {

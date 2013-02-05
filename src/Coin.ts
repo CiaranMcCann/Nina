@@ -32,9 +32,10 @@ class Coin implements isPhysicsBody
         if (this.coinType == Coin.COIN_TYPE.water)
         {
             this.sprite = new Sprite(Sprites.animations.waterCoin);
-        } else
+        }
+        else
         {
-           this.sprite = new Sprite(Sprites.animations.electricityCoin);
+            this.sprite = new Sprite(Sprites.animations.electricityCoin);
         }
 
         this.setUpPhysics(xInPixels, yInPixels);
@@ -54,11 +55,13 @@ class Coin implements isPhysicsBody
             {
                 a.setEnergy(a.getEnergy() + this.amountOfEnergy);
                 this.isAlive = false;
+                AssetManager.getSound("marioCoin").play();
             }
             else if (b instanceof Walter)
             {
                 b.setEnergy(a.getEnergy() + this.amountOfEnergy);
                 this.isAlive = false;
+                AssetManager.getSound("marioCoin").play();
             }
 
         } else
@@ -67,11 +70,13 @@ class Coin implements isPhysicsBody
             {
                 a.setEnergy(a.getEnergy() + this.amountOfEnergy);
                 this.isAlive = false;
-
-            }else if (b instanceof Alex)
+                AssetManager.getSound("marioCoin").play();
+            }
+            else if (b instanceof Alex)
             {
                 b.setEnergy(a.getEnergy() + this.amountOfEnergy);
                 this.isAlive = false;
+                AssetManager.getSound("marioCoin").play();
             }
         }
 
