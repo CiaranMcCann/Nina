@@ -10,6 +10,7 @@ class Player implements isPhysicsBody
     }
 
     private _canWalk: bool = true;
+    private _canDraw: bool = true;
 
     // Animated image
     sprite: Sprite;
@@ -52,6 +53,10 @@ class Player implements isPhysicsBody
 
     setCanWalk(value: bool) { this._canWalk = value; }
     getCanWalk() { return this._canWalk; }
+
+    setCanDraw(value: bool) { this._canDraw = value; }
+    getCanDraw() { return this._canDraw; }
+
     getBody() { return this.body; }
     getEnergy() { return this.energy };
     setEnergy(e) { 
@@ -112,6 +117,8 @@ class Player implements isPhysicsBody
 
     draw(ctx)
     {
+        if ( !this._canDraw )   return;
+
         //Get position of the physics body and convert it to pixel cordinates
         var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
 

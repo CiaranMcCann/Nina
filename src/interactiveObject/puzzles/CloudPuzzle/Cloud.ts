@@ -19,6 +19,7 @@ class Cloud extends BasePuzzle
 
    // private _isAlexSpawned: bool;
     private _isAlexOnGround: bool;
+    private _isAlexSpawned: bool;
 
     private _newPos;
 
@@ -46,6 +47,13 @@ class Cloud extends BasePuzzle
         this._speed = Physics.pixelToMeters(5);
 
         this._currentTime = new Date().getTime();
+
+        this._walter = GameInstance.level.walter;
+        this._alex  = GameInstance.level.alex;
+
+        this._walter.getBody().SetPosition(new b2Vec2(this.body.GetPosition().x, this.body.GetPosition().y - Physics.pixelToMeters(220)));
+        this._walter.setCanDraw(false);
+        this._walter.setCanWalk(false);
     }
 
     beginContact( contact )
@@ -57,8 +65,11 @@ class Cloud extends BasePuzzle
 
         //we only do something if the other collider is alex and he hasn't already joined the cloud
         if (!(other instanceof Alex) || this._isAlexJoined) return;
+                
+        this._alex.setCanDraw(false);
+        this._alex.setCanWalk(false);
 
-        this._isAlexJoined = true;        
+        this._isAlexJoined = true;
     }
 
     DrawSprite( ctx )
@@ -80,38 +91,61 @@ class Cloud extends BasePuzzle
    
     Raining( )
     {
+        if ( this._isWalterOnGround)    return;
         if (!this._isWalterSpawned)
         {
             if (this._currentTime - this._timeRainStarted >= 3000) {
                 //here, we are going to place Walter in the cloud, and then he will move down
-                this._walter = GameInstance.level.walter;
-                this._walter.getBody().SetPosition(Physics.vectorPixelToMeters(new b2Vec2(this.body.GetPosition().x, this.body.GetPosition().y) + 120));
+                this._walter.getBody().SetPosition(new b2Vec2(this.body.GetPosition().x, this.body.GetPosition().y + Physics.pixelToMeters( 220 )));
                 this._isWalterSpawned = true;
+                this._walter.setCanDraw(true);
             }
         } else
         {
-            this._walter.setCanWalk(false);
-            this._walter.getBody( ).SetPosition(new b2Vec2(this.body.GetPosition().x - Physics.pixelToMeters(5), this.body.GetPosition().y + Physics.pixelToMeters(5)));
+           this._walter.getBody().SetPosition(new b2Vec2(this._walter.getBody().GetPosition().x - Physics.pixelToMeters(15), this._walter.getBody().GetPosition().y));
             //after six seconds, the player should be able to move again.
-            if (this._currentTime - this._timeRainStarted >= 4500)
-            {
+            if (this._currentTime - this._timeRainStarted >= 5500)
+            {               
                 this._walter.setCanWalk(true);
                 this._isWalterOnGround = true;
             }
         }
     }
 
-    Thundering()
+    Thundering( )
     {
-        
+        if (this._isAlexOnGround) return;
+        if (!this._isAlexSpawned) {
+            if (this._currentTime - this._timeRainStarted >= 2000) {
+                //here, we are going to place alex in the cloud, and then he will move down
+                this._alex.getBody().SetPosition(new b2Vec2(this.body.GetPosition().x, this.body.GetPosition().y + Physics.pixelToMeters(220)));
+                this._isAlexSpawned = true;
+                this._alex.setCanDraw(true);
+            }
+        } else {            
+            this._alex.getBody().SetPosition(new b2Vec2(this._alex.getBody().GetPosition().x - Physics.pixelToMeters(15), this._alex.getBody().GetPosition().y));
+            //after six seconds, the player should be able to move again.
+            if (this._currentTime - this._timeRainStarted >= 5500) {
+                this._alex.setCanWalk(true);
+                this._isAlexOnGround = true;
+            }
+        }
     }
 
     Update( )
     {
-        if (this._isAlexOnGround && this._isWalterOnGround) this.isAlive = false;
+        if (this._isAlexOnGround && this._isWalterOnGround)
+        {
+            this.isAlive = false;
+            this._isAlexJoined = false;
+            InteractiveFire.hasWalterCollision = false;
+            InteractiveFire.isCloudCreated = false;
+        }
         if (this._isAlexJoined )
         {
             this.CloudWithAlex();
+            if (!this._hasCloudReachedTop )
+            this._alex.getBody().SetPosition(new b2Vec2(this.body.GetPosition().x, this.body.GetPosition().y - Physics.pixelToMeters(220)));
         }
         if (this.sprite.getCurrentFrame() <= 7) super.Update();
         var newTime: number = new Date().getTime();

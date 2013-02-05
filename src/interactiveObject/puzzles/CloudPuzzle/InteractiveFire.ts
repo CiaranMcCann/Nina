@@ -6,8 +6,8 @@
 class InteractiveFire extends BasePuzzle
 {
     private _puzzleManager: IPuzzleManager;
-    private _isCloudCreated: bool = false;
-    private _hasWalterCollision: bool = false;
+    public static isCloudCreated: bool = false;
+    public static hasWalterCollision: bool = false;
 
     constructor( pm: IPuzzleManager, xInPixels: number, yInPixels: number )
     {
@@ -27,10 +27,10 @@ class InteractiveFire extends BasePuzzle
 
         var other: any = a instanceof InteractiveFire ? b : a;
 
-        if ( !(other instanceof Walter ) || this._hasWalterCollision ) return;
+        if (!(other instanceof Walter) || InteractiveFire.hasWalterCollision ) return;
         
         //if the other collider is Walter, we create a cloud
-        this._isCloudCreated = this._hasWalterCollision = true;
+        InteractiveFire.isCloudCreated = InteractiveFire.hasWalterCollision = true;
     }
 
     DrawSprite(ctx)
@@ -40,9 +40,9 @@ class InteractiveFire extends BasePuzzle
 
     Update()
     {
-        if (this._isCloudCreated)
+        if (InteractiveFire.isCloudCreated)
         {
-            this._isCloudCreated = false;
+            InteractiveFire.isCloudCreated = false;
             this._puzzleManager.CreatePuzzle(new Cloud(this._puzzleManager));
         }
         super.Update();
