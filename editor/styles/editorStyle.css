@@ -2,6 +2,8 @@ body
 {
 	background: #2E3235;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	margin: 0;
+	padding: 0;
 }
 
 .levelImage {
@@ -101,4 +103,11 @@ a:hover
 	background-color: yellow;
 	width: 30px;
 	height: 30px;
+}
+
+.fire {
+	position: absolute;
+	background-color: red;
+	width: 150px;
+	height: 10px;
 }

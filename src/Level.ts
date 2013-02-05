@@ -1,9 +1,11 @@
 ///<reference path="Coin.ts"/>
+///
 class Level
 {
     coins: Coin[];
     walter: Walter;
     alex: Alex;
+    transformer: Transformer;
     image: string;
 
     constructor(levelData: string)
@@ -27,6 +29,11 @@ class Level
             this.coins.push(new Coin(level['elecCoins'][i].x, level['elecCoins'][i].y, Coin.COIN_TYPE.electity));
         }
 
+        // creating the transformer
+        this.transformer = new Transformer(
+            2400, 1400
+        );
+
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);
 
@@ -35,17 +42,27 @@ class Level
 
     draw(ctx)
     {
-
         for( var coin in this.coins )
             this.coins[coin].draw(ctx);
 
         this.alex.draw(ctx);
         this.walter.draw(ctx);
+        this.transformer.draw(ctx);
     }
 
     update()
     {
+        for (var coin in this.coins)
+        {
+            if (this.coins[coin].isAlive == false)
+            {
+                Physics.world.DestroyBody(this.coins[coin].body);
+                Utilies.deleteFromCollection(this.coins, coin);
+            }
+        }
+
         this.walter.update();
         this.alex.update();
+        this.transformer.update();
     }
 }

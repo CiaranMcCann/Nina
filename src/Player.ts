@@ -40,6 +40,7 @@ class Player implements isPhysicsBody
         this.direction = Player.DIRECTION.right;
         this.sprite = new Sprite(animation);
         this.setUpPhysics(xInPixels,yInPixels);
+        this.energy = 50;
 
         //Place a refer to this object in the physics bodies
         // user data so that when their is a collison we 
@@ -48,7 +49,15 @@ class Player implements isPhysicsBody
     }
 
     getEnergy() { return this.energy };
-    setEnergy(e) { this.energy = e };
+    setEnergy(e) { 
+        this.energy = e;
+
+        if(this.energy < 0)
+            this.energy = 0;
+
+        if(this.energy > 100)
+            this.energy = 100;
+    };
 
     update()
     {
@@ -57,7 +66,7 @@ class Player implements isPhysicsBody
             this.direction = Player.DIRECTION.right;
             this.sprite.update();
 
-             // Small impluse to make the camera follow him: HACK :P
+             // Small impulse to make the camera follow him: HACK :P
             this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
 
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x + Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
@@ -82,6 +91,10 @@ class Player implements isPhysicsBody
             this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
 
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x - Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
+        }
+
+        if (keyboard.isKeyDown(this.controls.down)) {
+
         }
 
         //When the player starts to move have the camera follow them

@@ -9,7 +9,8 @@ class Walter extends Player
         this.controls = {
             left: keyboard.keyCodes.a,
             right: keyboard.keyCodes.d,
-            jump: keyboard.keyCodes.w
+            jump: keyboard.keyCodes.w,
+            use: keyboard.keyCodes.s
         }
 
     }
