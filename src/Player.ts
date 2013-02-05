@@ -40,6 +40,7 @@ class Player implements isPhysicsBody
         this.direction = Player.DIRECTION.right;
         this.sprite = new Sprite(animation);
         this.setUpPhysics(xInPixels,yInPixels);
+        this.energy = 50;
 
         //Place a refer to this object in the physics bodies
         // user data so that when their is a collison we 
@@ -48,7 +49,15 @@ class Player implements isPhysicsBody
     }
 
     getEnergy() { return this.energy };
-    setEnergy(e) { this.energy = e };
+    setEnergy(e) { 
+        this.energy = e;
+
+        if(this.energy < 0)
+            this.energy = 0;
+
+        if(this.energy > 100)
+            this.energy = 100;
+    };
 
     update()
     {

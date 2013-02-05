@@ -10,6 +10,8 @@
 ///<reference path="Walter.ts"/>
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
+///<reference path="interactiveObject/puzzles/PuzzleManager.ts"/>
+///<reference path="EnergyBar.ts"/>
 ///<reference path="Coin.ts"/>
 ///<reference path=Pump.ts"/>
 ///<reference path="Level.ts"/>
@@ -21,10 +23,13 @@ class Game
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
     camera: Camera;
+    puzzleManager: PuzzleManager;
+    energybar: EnergyBar;
     level: Level;
     pump: Pump;
     
-    levelDataString = '{"platforms":[{"x":7,"y":674,"h":30,"w":430},{"x":407,"y":703,"h":1003,"w":30},{"x":407,"y":1706,"h":30,"w":1269},{"x":1646,"y":1736,"h":277,"w":30},{"x":1675,"y":1981,"h":30,"w":650},{"x":2296,"y":1641,"h":348,"w":30},{"x":2317,"y":1641,"h":30,"w":752},{"x":1977,"y":1953,"h":30,"w":331},{"x":2040,"y":1917,"h":37,"w":266},{"x":2089,"y":1876,"h":43,"w":211},{"x":2149,"y":1828,"h":59,"w":160},{"x":2200,"y":1774,"h":63,"w":111},{"x":2246,"y":1715,"h":69,"w":66}],"alex":{"x":2611,"y":1538},"walter":{"x":2392,"y":1538}}';
+
+    levelDataString = '{"platforms":[{"x":-1,"y":881,"h":30,"w":1257},{"x":1226,"y":911,"h":1260,"w":30},{"x":1256,"y":2141,"h":30,"w":2154},{"x":3379,"y":2171,"h":465,"w":30},{"x":3409,"y":2606,"h":30,"w":765},{"x":4171,"y":2104,"h":532,"w":30},{"x":4200,"y":2104,"h":30,"w":687},{"x":3754,"y":2524,"h":82,"w":420},{"x":3838,"y":2441,"h":85,"w":334},{"x":3921,"y":2358,"h":84,"w":252},{"x":4004,"y":2273,"h":86,"w":167},{"x":4087,"y":2191,"h":87,"w":85}],"alex":{"x":4615,"y":2004},"walter":{"x":4352,"y":2004},"waterCoins":[{"x":4130,"y":2150},{"x":3965,"y":2319},{"x":3797,"y":2483}],"elecCoins":[{"x":4047,"y":2232},{"x":3883,"y":2403},{"x":3713,"y":2564}],"levelImage":"level_design_level_01_00"}';
 
     constructor()
     {
@@ -38,15 +43,46 @@ class Game
 
         Physics.init(this.canvasContext);
 
-        this.camera = new Camera(AssetManager.getImage("level").width, AssetManager.getImage("level").height, this.canvas.width, this.canvas.height);
+        this.puzzleManager = new PuzzleManager();
+ 
         this.level = new Level(this.levelDataString);
         this.pump = new Pump();
+        this.camera = new Camera(AssetManager.getImage(this.level.image).width, AssetManager.getImage(this.level.image).height, this.canvas.width, this.canvas.height);
+        this.energybar = new EnergyBar(this.level.alex,this.level.walter);
     }
 
     update()
     {
         this.level.update();
         this.camera.update();
+        this.puzzleManager.update();
+
+        // Debug move camera
+        if (keyboard.isKeyDown(keyboard.keyCodes.y)) //up
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementY(-15)
+        }
+
+        if (keyboard.isKeyDown(keyboard.keyCodes.h)) //down
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementY(15)
+        }
+
+
+        if (keyboard.isKeyDown(keyboard.keyCodes.g)) //left
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementX(-15)
+        }
+
+
+        if (keyboard.isKeyDown(keyboard.keyCodes.j)) //right
+        {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementX(15)
+        }
     }
 
     step()
@@ -62,7 +98,7 @@ class Game
 
         // Blit a section of the Level image onto the screen
         this.canvasContext.drawImage(
-            AssetManager.getImage("level"),
+            AssetManager.getImage(this.level.image),
             this.camera.getX(),
             this.camera.getY(),
             this.canvas.width,
@@ -83,9 +119,13 @@ class Game
 
         this.level.draw(this.canvasContext);
         this.pump.draw(this.canvasContext);
+            this.puzzleManager.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
+
         //Restore previous GL context
-        this.canvasContext.restore();
+            this.canvasContext.restore();
+            this.energybar.draw(this.canvasContext);
+        
     }
 }
