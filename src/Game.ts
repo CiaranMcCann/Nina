@@ -22,7 +22,6 @@ class Game
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
     camera: Camera;
-    puzzleManager: PuzzleManager;
     energybar: EnergyBar;
     level: Level;
 
@@ -40,7 +39,6 @@ class Game
 
         Physics.init(this.canvasContext);
 
-        this.puzzleManager = new PuzzleManager();
  
         this.level = new Level(this.levelDataString);
         this.camera = new Camera(AssetManager.getImage(this.level.image).width, AssetManager.getImage(this.level.image).height, this.canvas.width, this.canvas.height);
@@ -52,7 +50,6 @@ class Game
     {
         this.level.update();
         this.camera.update();
-        this.puzzleManager.update();
 
         // Debug move camera
         if (keyboard.isKeyDown(keyboard.keyCodes.y)) //up
@@ -115,8 +112,6 @@ class Game
         //Draw all entities here
             
             this.level.draw(this.canvasContext);
-            this.level.draw(this.canvasContext);
-            this.puzzleManager.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
 

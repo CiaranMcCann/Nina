@@ -5,9 +5,12 @@ class Level
     walter: Walter;
     alex: Alex;
     image: string;
+    puzzleManager: PuzzleManager;
 
     constructor(levelData: string)
     {
+        this.puzzleManager = new PuzzleManager();
+
         // Parers level
         var level = JSON.parse(levelData);
         var i;
@@ -27,6 +30,11 @@ class Level
             this.coins.push(new Coin(level['elecCoins'][i].x, level['elecCoins'][i].y, Coin.COIN_TYPE.electity));
         }
 
+        for (i in level['fires']) {
+            var tmpFire = new InteractiveFire(this.puzzleManager, level['fires'][i].x, level['fires'][i].y);
+            this.puzzleManager.CreatePuzzle(tmpFire);
+        }
+
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);
 
@@ -41,6 +49,8 @@ class Level
 
         this.alex.draw(ctx);
         this.walter.draw(ctx);
+
+        this.puzzleManager.draw(ctx);
     }
 
     update()
@@ -53,6 +63,8 @@ class Level
                 Utilies.deleteFromCollection(this.coins, coin);
             }
         }
+
+        this.puzzleManager.update();
 
         this.walter.update();
         this.alex.update();

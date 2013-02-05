@@ -13,7 +13,6 @@ class PuzzleManager implements IPuzzleManager
     constructor(  )
     {
         this._dynamicObjects = [];
-        this.CreatePuzzle(new InteractiveFire(this));
     }
 
     //creates a new puzzle and adds it to the array of dynamicPuzzles
