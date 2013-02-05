@@ -45,6 +45,15 @@ class Level
 
     update()
     {
+        for (var coin in this.coins)
+        {
+            if (this.coins[coin].isAlive == false)
+            {
+                Physics.world.DestroyBody(this.coins[coin].body);
+                Utilies.deleteFromCollection(this.coins, coin);
+            }
+        }
+
         this.walter.update();
         this.alex.update();
     }
