@@ -9,9 +9,9 @@ class InteractiveFire extends BasePuzzle
     private _isCloudCreated: bool = false;
     private _hasWalterCollision: bool = false;
 
-    constructor( pm: IPuzzleManager )
+    constructor( pm: IPuzzleManager, xInPixels: number, yInPixels: number )
     {
-        super(new Sprite(Sprites.animations.alexWalking), 200, 950);
+        super(new Sprite(Sprites.animations.alexWalking), xInPixels, yInPixels);
         var width   = Physics.pixelToMeters(150)
         var height  = Physics.pixelToMeters(10);
 

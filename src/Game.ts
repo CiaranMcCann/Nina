@@ -13,21 +13,22 @@
 ///<reference path="interactiveObject/puzzles/PuzzleManager.ts"/>
 ///<reference path="EnergyBar.ts"/>
 ///<reference path="Coin.ts"/>
-///<reference path="Platform.ts"/>
+///<reference path="Pump.ts"/>
 ///<reference path="Level.ts"/>
-///<reference path="interactiveObject/puzzles/PuzzleManager.ts"/>
+///<reference path="Platform.ts"/>
+///<reference path="Transformer.ts" />
 
 class Game
 {
-
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
     camera: Camera;
-    puzzleManager: PuzzleManager;
     energybar: EnergyBar;
     level: Level;
+    pump: Pump;
+    
 
-    levelDataString = '{"platforms":[{"x":8,"y":858,"h":30,"w":1389},{"x":1367,"y":887,"h":1214,"w":30},{"x":1390,"y":2097,"h":30,"w":2856},{"x":4216,"y":2126,"h":445,"w":30},{"x":4243,"y":2554,"h":30,"w":764},{"x":4986,"y":2062,"h":522,"w":30},{"x":5015,"y":2062,"h":30,"w":659},{"x":4580,"y":2473,"h":87,"w":81},{"x":4661,"y":2392,"h":81,"w":82},{"x":4742,"y":2309,"h":86,"w":83},{"x":4823,"y":2227,"h":95,"w":83},{"x":4904,"y":2145,"h":89,"w":86}],"alex":{"x":5453,"y":1960},"walter":{"x":5217,"y":1961},"waterCoins":[{"x":4783,"y":2270}],"elecCoins":[{"x":4619,"y":2433}],"levelImage":"level_design_level_01_00"}';
+    levelDataString = '{"platforms":[{"x":-1,"y":881,"h":30,"w":1257},{"x":1226,"y":911,"h":1260,"w":30},{"x":1256,"y":2141,"h":30,"w":2154},{"x":3379,"y":2171,"h":465,"w":30},{"x":3409,"y":2606,"h":30,"w":765},{"x":4171,"y":2104,"h":532,"w":30},{"x":4200,"y":2104,"h":30,"w":687},{"x":3754,"y":2524,"h":82,"w":420},{"x":3838,"y":2441,"h":85,"w":334},{"x":3921,"y":2358,"h":84,"w":252},{"x":4004,"y":2273,"h":86,"w":167},{"x":4087,"y":2191,"h":87,"w":85}],"alex":{"x":4615,"y":2004},"walter":{"x":4352,"y":2004},"waterCoins":[{"x":4130,"y":2150},{"x":3965,"y":2319},{"x":3797,"y":2483}],"elecCoins":[{"x":4047,"y":2232},{"x":3883,"y":2403},{"x":3713,"y":2564}],"levelImage":"level_design_level_01_00"}';
 
     constructor()
     {
@@ -41,20 +42,17 @@ class Game
 
         Physics.init(this.canvasContext);
 
-        this.energybar = new EnergyBar();
  
         this.level = new Level(this.levelDataString);
+        this.pump = new Pump();
         this.camera = new Camera(AssetManager.getImage(this.level.image).width, AssetManager.getImage(this.level.image).height, this.canvas.width, this.canvas.height);
-
-        this.puzzleManager = new PuzzleManager();
+        this.energybar = new EnergyBar(this.level.alex,this.level.walter);
     }
-
 
     update()
     {
         this.level.update();
         this.camera.update();
-        this.puzzleManager.update();
 
         // Debug move camera
         if (keyboard.isKeyDown(keyboard.keyCodes.y)) //up
@@ -117,16 +115,12 @@ class Game
         //Draw all entities here
             
             this.level.draw(this.canvasContext);
-            this.level.draw(this.canvasContext);
-            this.puzzleManager.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
 
         //Restore previous GL context
             this.canvasContext.restore();
-            this.energybar.draw(this.canvasContext, 100, 100);
-        this.energybar.draw(this.canvasContext, 100, 100);
-
+            this.energybar.draw(this.canvasContext);
         
     }
 }

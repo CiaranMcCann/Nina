@@ -25,7 +25,9 @@ module AssetManager
          'data/images/FirstWalterBar.png',
          'data/images/level_design_level_01_00.png',
          'data/images/Pipe2.png',
-         'data/images/extension.png'
+         'data/images/extension.png',
+         'data/images/PLACEHOLDERpump.png',
+         'data/images/PLACEHOLDERtransformer.png'
     ];
 
     var priorityAudio = [
