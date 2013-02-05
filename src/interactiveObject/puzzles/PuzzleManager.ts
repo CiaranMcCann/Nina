@@ -13,6 +13,7 @@ class PuzzleManager implements IPuzzleManager
     constructor(  )
     {
         this._dynamicObjects = [];
+        this.CreatePuzzle(new InteractiveFire(this, 4000, 2100));
     }
 
     //creates a new puzzle and adds it to the array of dynamicPuzzles
@@ -26,7 +27,8 @@ class PuzzleManager implements IPuzzleManager
     {
         var i: number = this._dynamicObjects.indexOf(puzzle);
         if ( i < 0 )    return; //if i is not in our array, we don't remove it ( logically =) )
-        this._dynamicObjects.splice(i);
+        this._dynamicObjects.splice(i, 1);
+
     }
 
     update( )

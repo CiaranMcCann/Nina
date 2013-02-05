@@ -83,7 +83,7 @@ class BasePuzzle implements isPhysicsBody, IPuzzle
         console.log(bodyDef.position);
 
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
-        fixDef.isSensor = true;        
+        //fixDef.isSensor = true;        
 
         this.body.SetUserData(this);
         return fixDef.shape;

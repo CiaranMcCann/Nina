@@ -23,10 +23,9 @@ class Cloud extends BasePuzzle
     private _timeRainStarted: number;
 
     constructor( pm: IPuzzleManager )
-    {
-        console.log("create cloud!");
+    {       
         //TODO: add the correct animation here
-        super(new Sprite(Sprites.animations.cloudAnim, true),4800, 1900);
+        super(new Sprite(Sprites.animations.cloudAnim, true), 4000, 1900);
 
         var width   = Physics.pixelToMeters(200);
         var height  = Physics.pixelToMeters(100);
@@ -34,7 +33,7 @@ class Cloud extends BasePuzzle
 
         this._puzzleManager = pm;
       
-        this._speed = Physics.pixelToMeters(0.5);
+        this._speed = Physics.pixelToMeters(5);
 
         this._currentTime = new Date().getTime();
     }
@@ -52,17 +51,17 @@ class Cloud extends BasePuzzle
         this._isAlexJoined = true;        
     }
 
-    Draw( ctx )
+    DrawSprite( ctx )
     {
-        
+        this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
     }
 
     CloudWithAlex()
     {
         if (this._hasCloudReachedTop) return;
         //this.body.SetPosition(;
-        this.body.SetPosition(new b2Vec2(0, this.body.GetPosition().y - Physics.pixelToMeters(1)));
-        if (this.body.GetPosition().y < Physics.pixelToMeters( 100 ))
+        this.body.SetPosition(new b2Vec2(this.body.GetPosition().x, this.body.GetPosition().y - this._speed));
+        if (this.body.GetPosition().y < Physics.pixelToMeters( 1000 ))
         {            
             this._hasCloudReachedTop    = true;
             this._timeRainStarted = new Date().getTime();
@@ -83,19 +82,17 @@ class Cloud extends BasePuzzle
         {
             this.CloudWithAlex();
         }
-
+        /*if (this.sprite.getCurrentFrame() <= 5)*/ super.Update();
         var newTime: number = new Date().getTime();
-        if (this._hasCloudReachedTop && newTime - this._currentTime >= 75 )
+        if (this._hasCloudReachedTop && newTime - this._currentTime >= 1500 )
         {
             this.Raining();
-            for (var i: number = 0; i < 2; i++)
+            for (var i: number = 0; i < 1; i++)
             {
-                var x: number = this.body.GetPosition().x + Math.random( ) * this.sprite.getFrameWidth( );
-                var y: number = this.body.GetPosition().y + Math.random( ) * this.sprite.getFrameHeight( );
-
-                this._puzzleManager.CreatePuzzle(new RainDrop(this._puzzleManager,x, y));
+                var x: number = this.body.GetPosition().x - Physics.pixelToMeters( 200 ) + Math.random() * Physics.pixelToMeters(400);
+                this._puzzleManager.CreatePuzzle(new RainDrop(this._puzzleManager, Physics.metersToPixels(x), Physics.metersToPixels(this.body.GetPosition().y)));
             }
             this._currentTime = newTime;
-        }
+        }        
     }
 }

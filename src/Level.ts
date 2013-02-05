@@ -16,7 +16,8 @@ class Level
         // Parers level
         var level = JSON.parse(levelData);
         var i;
-        for (i in level["platforms"]) {
+        for (i in level["platforms"])
+        {
             var x = level["platforms"][i].x;
             var y = level["platforms"][i].y;
             var w = level["platforms"][i].w / 2;
