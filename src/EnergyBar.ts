@@ -1,7 +1,18 @@
 class EnergyBar
 {
-    draw(ctx : CanvasRenderingContext2D, WalterEnergy, AlexEnergy)
+    alexReference: Alex;
+    walterReference: Walter;
+
+    constructor(alex, walter)
     {
+        this.alexReference = alex;
+        this.walterReference = walter;
+    }
+
+    draw(ctx : CanvasRenderingContext2D)
+    {
+        var AlexEnergy = this.alexReference.getEnergy();
+        var WalterEnergy = this.walterReference.getEnergy();
         
         //Tube size
         var tubeWidth = ctx.canvas.width * 0.15;
