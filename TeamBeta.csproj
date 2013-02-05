@@ -41,13 +41,17 @@
     <Content Include="src\interactiveObject\puzzles\BasePuzzle.js">
       <DependentUpon>BasePuzzle.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\interactiveObject\puzzles\InteractiveFire.ts" />
-    <TypeScriptCompile Include="src\interactiveObject\puzzles\Cloud.ts" />
-    <Content Include="src\interactiveObject\puzzles\Cloud.js">
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\InteractiveFire.ts" />
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\Cloud.ts" />
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\Cloud.js">
       <DependentUpon>Cloud.ts</DependentUpon>
     </Content>
-    <Content Include="src\interactiveObject\puzzles\InteractiveFire.js">
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\InteractiveFire.js">
       <DependentUpon>InteractiveFire.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\RainDrop.ts" />
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\RainDrop.js">
+      <DependentUpon>RainDrop.ts</DependentUpon>
     </Content>
     <Content Include="src\interactiveObject\puzzles\PuzzleManager.js">
       <DependentUpon>PuzzleManager.ts</DependentUpon>

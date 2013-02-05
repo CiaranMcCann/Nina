@@ -11,7 +11,7 @@ class InteractiveFire extends BasePuzzle
 
     constructor( pm: IPuzzleManager )
     {
-        super(new Sprite(Sprites.animations.alexWalking), 200, 950);
+        super(new Sprite(Sprites.animations.fireAnim), 5000, 2070);
         var width   = Physics.pixelToMeters(150)
         var height  = Physics.pixelToMeters(10);
 
@@ -32,6 +32,11 @@ class InteractiveFire extends BasePuzzle
         this._isCloudCreated = this._hasWalterCollision = true;
     }
 
+    DrawSprite(ctx)
+    {
+        this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 0.935);
+    }
+
     Update( )
     {
         if (this._isCloudCreated)
@@ -39,5 +44,6 @@ class InteractiveFire extends BasePuzzle
             this._isCloudCreated = false;
             this._puzzleManager.CreatePuzzle(new Cloud(this._puzzleManager));
         }
+        super.Update();
     }
 }

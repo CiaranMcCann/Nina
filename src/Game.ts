@@ -59,7 +59,8 @@ class Game
         if (keyboard.isKeyDown(keyboard.keyCodes.y)) //up
         {
             GameInstance.camera.cancelPan();
-            GameInstance.camera.incrementY(-15)
+            GameInstance.camera.incrementY(-15);
+            
         }
 
         if (keyboard.isKeyDown(keyboard.keyCodes.h)) //down
@@ -124,8 +125,6 @@ class Game
         //Restore previous GL context
             this.canvasContext.restore();
             this.energybar.draw(this.canvasContext, 100, 100);
-        this.energybar.draw(this.canvasContext, 100, 100);
-
-        
+            this.energybar.draw(this.canvasContext, 100, 100);       
     }
 }

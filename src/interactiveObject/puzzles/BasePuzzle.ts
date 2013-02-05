@@ -28,12 +28,27 @@ class BasePuzzle implements isPhysicsBody, IPuzzle
 
     Draw(ctx)
     {
+        if (Sprite === null) return;
+        
+        //Get position of the physics body and convert it to pixel cordinates
+        var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
+
+        ctx.save();
+        ctx.translate(pos.x, pos.y);
+
+        this.DrawSprite(ctx);
+
+        ctx.restore()
+    }
+
+    DrawSprite(ctx)
+    {
 
     }
 
     Update( )
     {
-
+        this.sprite.update();
     }
 
 

@@ -67,7 +67,14 @@ module Sprites
             frameCount: 7,
             msPerFrame: 100,
 
+        },
+
+        fireAnim:
+        {
+            imageName: "fire",
+            frameY: 0,
+            frameCount: 3,
+            msPerFrame: 120
         }
     }
-
 }
