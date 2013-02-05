@@ -21,7 +21,6 @@ class BasePuzzle implements isPhysicsBody, IPuzzle
     constructor(sprite: Sprite, xInpxs: number, yInPxs: number )
     {
         this.sprite = sprite;
-
         this._xInPxs = xInpxs;
         this._yInPxs = yInPxs;     
     }
@@ -31,7 +30,7 @@ class BasePuzzle implements isPhysicsBody, IPuzzle
         //return Math.sqrt( v1.x * v1.x  +  );
     }
 
-    Draw(ctx)
+    Draw(ctx:CanvasRenderingContext2D)
     {
 
     }
