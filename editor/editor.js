@@ -3,6 +3,7 @@ var numWaterCoins = 0;
 var numElecCoins = 0;
 var numFires = 0;
 var numPoles = 0;
+var numPipes = 0;
 
 
 var entity = {
@@ -12,7 +13,8 @@ var entity = {
 	WATER_COIN:		3,
 	ELECTRIC_COIN: 	4,
 	FIRE: 			5,
-	POLE: 			6
+	POLE: 			6,
+	PIPE: 			7
 };
 
 var currentEntity = entity.PLATFORM;
@@ -86,6 +88,8 @@ jQuery(function ($) {
 			currentEntity = entity.FIRE;
 		} else if ($(this).text() === 'Pole') {
 			currentEntity = entity.POLE;
+		} else if ($(this).text() === 'Pipe') {
+			currentEntity = entity.PIPE;
 		}
 		$(this).addClass('active');
 	});
@@ -134,6 +138,9 @@ jQuery(function ($) {
 				case entity.POLE:
 					CreatePole(x, y);
 					break;
+				case entity.PIPE:
+					CreatePipe(x, y);
+					break;
 				default:
 					alert("You forgot to add the entity creation");
 					break;
@@ -177,6 +184,7 @@ jQuery(function ($) {
 
 		SerialiseFires();
 		SerialisePoles();
+		SerialisePipes();
 
 		levelData['levelImage'] = levelImage;
 
@@ -299,4 +307,21 @@ function SerialisePoles () {
 	});
 
 	levelData['poles'] = poles;
+}
+
+function CreatePipe (x, y) {
+	numPipes++;
+
+	$('body').append('<div id="pipe' + numPipes + '" class="gameEntity pipe"></div>');
+	$('#pipe'+numPipes).draggable().offset({ top: y, left: x});
+}
+
+function SerialisePipes () {
+	var pipes = [];
+
+	$('.pipe').each( function () {
+		pipes.push(new entity_pos($(this).offset().left, $(this).offset().top));
+	});
+
+	levelData['pipes'] = pipes;
 }

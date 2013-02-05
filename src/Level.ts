@@ -8,6 +8,7 @@ class Level
     image: string;
     puzzleManager: PuzzleManager;
     poles: ElectricPole[];
+    pipes: Pipe[];
 
     constructor(levelData: string)
     {
@@ -40,14 +41,35 @@ class Level
         //Load electricity poles
         this.poles = [];
         for (i in level['poles']) {
-            var x = level['poles'][i].x;
-            var y = level['poles'][i].y;
+            // Magic numbers!!!!!! Poles could be resizable in the editor
+            var x = level['poles'][i].x + 5;
+            var y = level['poles'][i].y + 100;
             this.poles.push(new ElectricPole(x, y));
             this.puzzleManager.CreatePuzzle(this.poles[i]);
             this.puzzleManager.CreatePuzzle(new Ladder(x, y));
             if (i != 0) {
                 this.puzzleManager.CreatePuzzle(new ElectricWire(this.poles[i - 1], this.poles[i]));
             }
+        }
+
+        // Load pipes
+        this.pipes = [];
+        for (i in level['pipes']) {
+            var x = level['pipes'][i].x + 74;
+            var y = level['pipes'][i].y + 19;
+
+            if (i == 1) {
+                this.pipes.push(new Pipe(this.pipes[i - 1], x, y, false));
+                console.log(this.pipes[i - 1]);
+                console.log('reciever');
+            }
+            else {
+                this.pipes.push(new Pipe(null, x, y, false));
+                console.log(this.pipes[i]);
+                console.log('sender');
+            }
+
+            this.puzzleManager.CreatePuzzle(this.pipes[i]);
         }
 
         // creating the transformer

@@ -43,7 +43,7 @@ class Pipe extends BasePuzzle
          var distance = 0;
          for (var i: number = 1; i < 2; i++) {
              distance = 100 * i;
-             console.log(distance);
+             //console.log(distance);
              //ctx.drawImage(this.imageExtension, position.x - (this.image.width / 2)+21, position.y + 18+distance);
          }
          ctx.drawImage(this.image, 0,40, 120, 313-40, position.x - (this.image.width / 2), position.y + 20+40, 120, 313-40);

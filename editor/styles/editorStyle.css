@@ -118,3 +118,10 @@ a:hover
 	width: 10px;
 	height: 200px;
 }
+
+.pipe {
+	position: absolute;
+	background-color: green;
+	width: 148px;
+	height: 38px;
+}

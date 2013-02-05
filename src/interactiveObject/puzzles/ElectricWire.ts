@@ -47,7 +47,7 @@ class ElectricWire extends BasePuzzle {
         fixDef.shape = new b2CircleShape(0.3);
         var ropeDef = new b2DistanceJointDef();
         ropeDef.frequencyHz = 10.0;
-        ropeDef.dampingRatio = 0.0;
+        ropeDef.dampingRatio = 20.0;
         var prevBody = this.anchor;
 
         var direction = this.anchor.GetPosition().Copy();
@@ -73,8 +73,8 @@ class ElectricWire extends BasePuzzle {
             bd.position.SetV(pos);
             var nextBody;
             if (i == distance - 1) {
-                ropeDef.frequencyHz = 25.0;
-                // ropeDef.dampingRatio = 2.0;
+                ropeDef.frequencyHz = 20.0;
+                ropeDef.dampingRatio = 30.0;
                 nextBody = this.anchor2;
             } else {
                 nextBody = Physics.world.CreateBody(bd);
@@ -94,11 +94,11 @@ class ElectricWire extends BasePuzzle {
         this.objectWidth = Physics.metersToPixels(Math.abs(pole.body.GetPosition().x - pole2.body.GetPosition().x)+1);
         this.objectHeight = 50;
 
-        this.SetUpPhysics(this.objectWidth,this.objectHeight);
-        this.body.SetUserData(this);
+        //this.SetUpPhysics(this.objectWidth,this.objectHeight);
+        //this.body.SetUserData(this);
 
         var newPosition = new b2Vec2(pole2.body.GetPosition().x+5,pole2.body.GetPosition().y-3);
-        this.body.SetPosition(newPosition);
+        //this.body.SetPosition(newPosition);
     }
 
 
@@ -130,7 +130,7 @@ class ElectricWire extends BasePuzzle {
     beginContact(contact)
     {
       
-        if (contact.GetFixtureA().GetBody().GetUserData() instanceof Walter) {
+        /*if (contact.GetFixtureA().GetBody().GetUserData() instanceof Walter) {
           
             var player:Walter = contact.GetFixtureA().GetBody().GetUserData();
             var currentPos = contact.GetFixtureA().GetBody().GetPosition();
@@ -144,7 +144,7 @@ class ElectricWire extends BasePuzzle {
             contact.GetFixtureA().GetBody().ApplyImpulse(forces, currentPos);
            
             
-        }
+        }*/
 
     }
 
