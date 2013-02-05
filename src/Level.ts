@@ -1,9 +1,11 @@
 ///<reference path="Coin.ts"/>
+///
 class Level
 {
     coins: Coin[];
     walter: Walter;
     alex: Alex;
+    transformer: Transformer;
     image: string;
     puzzleManager: PuzzleManager;
 
@@ -34,6 +36,10 @@ class Level
             var tmpFire = new InteractiveFire(this.puzzleManager, level['fires'][i].x, level['fires'][i].y);
             this.puzzleManager.CreatePuzzle(tmpFire);
         }
+        // creating the transformer
+        this.transformer = new Transformer(
+            2400, 1400
+        );
 
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);
@@ -43,7 +49,6 @@ class Level
 
     draw(ctx)
     {
-
         for( var coin in this.coins )
             this.coins[coin].draw(ctx);
 
@@ -51,6 +56,7 @@ class Level
         this.walter.draw(ctx);
 
         this.puzzleManager.draw(ctx);
+        this.transformer.draw(ctx);
     }
 
     update()
@@ -68,5 +74,6 @@ class Level
 
         this.walter.update();
         this.alex.update();
+        this.transformer.update();
     }
 }

@@ -13,17 +13,20 @@
 ///<reference path="interactiveObject/puzzles/PuzzleManager.ts"/>
 ///<reference path="EnergyBar.ts"/>
 ///<reference path="Coin.ts"/>
-///<reference path="Platform.ts"/>
+///<reference path=Pump.ts"/>
 ///<reference path="Level.ts"/>
+///<reference path="Platform.ts"/>
+///<reference path="Transformer.ts" />
 
 class Game
 {
-
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
     camera: Camera;
     energybar: EnergyBar;
     level: Level;
+    pump: Pump;
+    
 
     levelDataString = '{"platforms":[{"x":-1,"y":881,"h":30,"w":1257},{"x":1226,"y":911,"h":1260,"w":30},{"x":1256,"y":2141,"h":30,"w":2154},{"x":3379,"y":2171,"h":465,"w":30},{"x":3409,"y":2606,"h":30,"w":765},{"x":4171,"y":2104,"h":532,"w":30},{"x":4200,"y":2104,"h":30,"w":687},{"x":3754,"y":2524,"h":82,"w":420},{"x":3838,"y":2441,"h":85,"w":334},{"x":3921,"y":2358,"h":84,"w":252},{"x":4004,"y":2273,"h":86,"w":167},{"x":4087,"y":2191,"h":87,"w":85}],"alex":{"x":4615,"y":2004},"walter":{"x":4352,"y":2004},"waterCoins":[{"x":4130,"y":2150},{"x":3965,"y":2319},{"x":3797,"y":2483}],"elecCoins":[{"x":4047,"y":2232},{"x":3883,"y":2403},{"x":3713,"y":2564}],"levelImage":"level_design_level_01_00"}';
 
@@ -41,10 +44,10 @@ class Game
 
  
         this.level = new Level(this.levelDataString);
+        this.pump = new Pump();
         this.camera = new Camera(AssetManager.getImage(this.level.image).width, AssetManager.getImage(this.level.image).height, this.canvas.width, this.canvas.height);
         this.energybar = new EnergyBar(this.level.alex,this.level.walter);
     }
-
 
     update()
     {
@@ -118,7 +121,6 @@ class Game
         //Restore previous GL context
             this.canvasContext.restore();
             this.energybar.draw(this.canvasContext);
-
         
     }
 }
