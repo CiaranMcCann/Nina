@@ -13,7 +13,7 @@
 ///<reference path="interactiveObject/puzzles/PuzzleManager.ts"/>
 ///<reference path="EnergyBar.ts"/>
 ///<reference path="Coin.ts"/>
-///<reference path=Pump.ts"/>
+///<reference path="Pump.ts"/>
 ///<reference path="Level.ts"/>
 ///<reference path="Platform.ts"/>
 ///<reference path="Transformer.ts" />
