@@ -140,11 +140,12 @@ jQuery(function ($) {
 			}
 		}
 
-		if (tool_Remove) {
-			$('.gameEntity').click(function () {
+		$('.gameEntity').click(function () {
+			console.log('gameEntity .click');
+			if (tool_Remove) {
 				$(this).remove();
-			});
-		}
+			}
+		});
 	});
 
 	$('#save').click(function (e) {
@@ -246,31 +247,31 @@ function CreatePlatform (x, y, w, h) {
 
 function CreateWalter (x, y) {
 	$('.walter').remove();
-	$('body').append('<div class="walter"></div>');
+	$('body').append('<div class="walter gameEntity"></div>');
 	$('.walter').draggable().offset({ top: y, left: x});
 }
 
 function CreateAlex (x, y) {
 	$('.alex').remove();
-	$('body').append('<div class="alex"></div>');
+	$('body').append('<div class="alex gameEntity"></div>');
 	$('.alex').draggable().offset({ top: y, left: x});
 }
 
 function CreateWaterCoin (x, y) {
 	numWaterCoins++;
-	$('body').append('<div id="wc'+numWaterCoins+'" class="waterCoin"></div>');
+	$('body').append('<div id="wc'+numWaterCoins+'" class="waterCoin gameEntity"></div>');
 	$('#wc'+numWaterCoins).draggable().offset({ top: y, left: x});
 }
 
 function CreateElecCoin (x, y) {
 	numElecCoins++;
-	$('body').append('<div id="ec'+numElecCoins+'" class="elecCoin"></div>');
+	$('body').append('<div id="ec'+numElecCoins+'" class="elecCoin gameEntity"></div>');
 	$('#ec'+numElecCoins).draggable().offset({ top: y, left: x});
 }
 
 function CreateFire (x, y) {
 	numFires++;
-	$('body').append('<div id="fire'+numFires+'" class="fire"></div>');
+	$('body').append('<div id="fire'+numFires+'" class="fire gameEntity"></div>');
 	$('#fire'+numFires).draggable().offset({ top: y, left: x});
 }
 
@@ -286,7 +287,7 @@ function SerialiseFires() {
 
 function CreatePole(x, y) {
 	numPoles++;
-	$('body').append('<div id="pole' + numPoles + '" class="pole"></div>');
+	$('body').append('<div id="pole' + numPoles + '" class="pole gameEntity"></div>');
 	$('#pole'+numPoles).draggable().offset({ top: y, left: x});
 }
 
