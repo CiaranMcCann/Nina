@@ -242,6 +242,18 @@ jQuery(function ($) {
 			CreateFire(x, y);
 		}
 
+		for (i in levelData['pipes']) {
+			x = levelData['pipes'][i].x;
+			y = levelData['pipes'][i].y;
+			CreatePipe(x, y);
+		}
+
+		for (i in levelData['poles']) {
+			x = levelData['poles'][i].x;
+			y = levelData['poles'][i].y;
+			CreatePole(x, y);
+		}
+
 		levelImage = levelData['levelImage'];
 		$('.levelImage').attr('src', '../data/images/'+levelImage+'.png');
 	});
