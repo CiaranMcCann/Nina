@@ -22,13 +22,14 @@ class Transformer {
     // So we can turn the pump on or off
     private pump: Pump;
 
-    constructor(x : number, y : number) {
+    constructor(x: number, y: number, actualPump: Pump) {
+        this.sprite = new Sprite(Sprites.animations.transformerAlex);
         this.setUpPhysics(x, y);
         this.body.SetUserData(this)
         this.mashedPotatoes = false;
         this.powerUp = 0;
 
-        this.pump = new Pump();
+        this.pump = actualPump;
     }
 
     update() {
@@ -45,9 +46,11 @@ class Transformer {
                 console.log(this.powerUp);
             }            
         }
-        if (this.powerUp == 100) {
+        if (this.powerUp == 100 && !this.pump.isPumpOn()) {
+            console.log("This should be false - " + this.pump.isPumpOn());
             this.pump.pumpState(true);
-            console.log("This just happened");
+            console.log("so it is changed to " + this.pump.isPumpOn());
+            console.log("something");
         }
     }
 
@@ -63,15 +66,23 @@ class Transformer {
     }
 
     endContact(contact) {
-        console.log("Contact ended.");
-        this.mashedPotatoes = false;
+        var a = contact.GetFixtureA().GetBody().GetUserData();
+        var b = contact.GetFixtureB().GetBody().GetUserData();
+
+        // checking to see if Alex is near the transformer
+        if (a instanceof Alex || b instanceof Alex) {
+            console.log("Contact ended.");
+            this.mashedPotatoes = false;
+        }
     };
 
     draw(ctx: CanvasRenderingContext2D) {
-        //Get position of the physics body and convert it to pixel cordinates
+        this.sprite.update();
         var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
-        var image = AssetManager.getImage("PLACEHOLDERtransformer");
-        ctx.drawImage(image, pos.x - (image.width / 2), pos.y - (image.height / 2));
+        ctx.save();
+        ctx.translate(pos.x, pos.y)
+        this.sprite.draw(ctx, (-this.sprite.getFrameWidth() / 2), (-this.sprite.getFrameHeight() / 2));
+        ctx.restore();
     }
 
     setUpPhysics(xInPixels, yInPixels) {
@@ -82,14 +93,14 @@ class Transformer {
         fixDef.shape = new b2PolygonShape();
 
         fixDef.shape.SetAsBox(
-            Physics.pixelToMeters(96 / 2.5),
-            Physics.pixelToMeters(96 / 2)
+            Physics.pixelToMeters(this.sprite.getFrameWidth() / 2),
+            Physics.pixelToMeters(this.sprite.getFrameHeight() / 2)
         );
 
         var bodyDef = new b2BodyDef;
-        bodyDef.type = b2Body.b2_dynamicBody;
-        bodyDef.position.x = Physics.pixelToMeters(xInPixels);
-        bodyDef.position.y = Physics.pixelToMeters(yInPixels);
+        bodyDef.type = b2Body.b2_staticBody;
+        bodyDef.position.x = Physics.pixelToMeters(xInPixels + 1750);
+        bodyDef.position.y = Physics.pixelToMeters(yInPixels + 650);
 
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
         this.body.SetSleepingAllowed(false);
