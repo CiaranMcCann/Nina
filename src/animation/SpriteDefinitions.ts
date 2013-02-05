@@ -77,13 +77,21 @@ module Sprites
             msPerFrame: 120
         },
 
-        cloudAnim:
+        cloudAnimCreation:
         {
             imageName: "cloud_sprite",
             frameY: 0,
             frameCount: 9,
             msPerFrame: 150
         },
+
+        /*cloudAnimRemove:
+        {
+            imageName: "cloud_sprite(2)",
+            frameY: 0,
+            frameCount: 9,
+            msPerFrame:150
+        },*/
 
         droplet:
         {

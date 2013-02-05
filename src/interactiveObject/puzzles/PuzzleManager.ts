@@ -27,17 +27,19 @@ class PuzzleManager implements IPuzzleManager
     {
         var i: number = this._dynamicObjects.indexOf(puzzle);
         if ( i < 0 )    return; //if i is not in our array, we don't remove it ( logically =) )
-        this._dynamicObjects.splice(i, 1);
-
+        Physics.world.DestroyBody(puzzle.body);
+        Utilies.deleteFromCollection(this._dynamicObjects, i);
     }
 
     update( )
     {
-        for (var i = 0; i < this._dynamicObjects.length; i++)
+        for (var i in this._dynamicObjects)
         {
             var p: BasePuzzle = this._dynamicObjects[i];
             p.Update();
+            if (!p.isAlive) this.RemovePuzzle(p);
         }
+
     }
 
     draw(ctx)

@@ -10,6 +10,7 @@ interface IPuzzle
 
 class BasePuzzle implements isPhysicsBody, IPuzzle
 {
+    public isAlive: bool = true;
     public sprite: Sprite;
 
     //the physics body, PROTECTED YA BASTARDS ^.^
@@ -64,7 +65,7 @@ class BasePuzzle implements isPhysicsBody, IPuzzle
     }
 
     //create a 
-    SetupPhysics(density: number, friction: number, restitution: number, width: number = 50, height: number = 50 )
+    SetupPhysics(density: number, friction: number, restitution: number, width: number = 50, height: number = 50, type: any = b2Body.b2_kinematicBody )
     {
         var fixDef = new b2FixtureDef;
 
@@ -76,7 +77,7 @@ class BasePuzzle implements isPhysicsBody, IPuzzle
         fixDef.shape.SetAsBox(width, height);
 
         var bodyDef = new b2BodyDef;
-        bodyDef.type = b2Body.b2_kinematicBody;
+        bodyDef.type = type;
 
         bodyDef.position.x = Physics.pixelToMeters(this._xInPxs);
         bodyDef.position.y = Physics.pixelToMeters(this._yInPxs);
