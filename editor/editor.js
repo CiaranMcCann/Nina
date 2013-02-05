@@ -2,6 +2,7 @@ var numPlatforms = 0;
 var numWaterCoins = 0;
 var numElecCoins = 0;
 var numFires = 0;
+var numPoles = 0;
 
 
 var entity = {
@@ -10,7 +11,8 @@ var entity = {
 	ALEX:			2,
 	WATER_COIN:		3,
 	ELECTRIC_COIN: 	4,
-	FIRE: 			5
+	FIRE: 			5,
+	POLE: 			6
 };
 
 var currentEntity = entity.PLATFORM;
@@ -82,6 +84,8 @@ jQuery(function ($) {
 			currentEntity = entity.ELECTRIC_COIN;
 		} else if ($(this).text() === 'Fire') {
 			currentEntity = entity.FIRE;
+		} else if ($(this).text() === 'Pole') {
+			currentEntity = entity.POLE;
 		}
 		$(this).addClass('active');
 	});
@@ -127,8 +131,11 @@ jQuery(function ($) {
 				case entity.FIRE:
 					CreateFire(x, y);
 					break;
+				case entity.POLE:
+					CreatePole(x, y);
+					break;
 				default:
-					alert("You forgot to addd the entity creation");
+					alert("You forgot to add the entity creation");
 					break;
 			}
 		}
@@ -168,6 +175,7 @@ jQuery(function ($) {
 		levelData['elecCoins'] = elecCoins;
 
 		SerialiseFires();
+		SerialisePoles();
 
 		levelData['levelImage'] = levelImage;
 
@@ -274,4 +282,20 @@ function SerialiseFires() {
 	});
 
 	levelData['fires'] = fires;
+}
+
+function CreatePole(x, y) {
+	numPoles++;
+	$('body').append('<div id="pole' + numPoles + '" class="pole"></div>');
+	$('#pole'+numPoles).draggable().offset({ top: y, left: x});
+}
+
+function SerialisePoles () {
+	var poles = [];
+
+	$('.pole').each( function () {
+		poles.push(new entity_pos($(this).offset().left, $(this).offset().top));
+	});
+
+	levelData['poles'] = poles;
 }
