@@ -38,10 +38,10 @@ class Game
 
         Physics.init(this.canvasContext);
 
-        this.energybar = new EnergyBar();
+       
         this.level = new Level(this.levelDataString);
         this.camera = new Camera(AssetManager.getImage(this.level.image).width, AssetManager.getImage(this.level.image).height, this.canvas.width, this.canvas.height);
-
+        this.energybar = new EnergyBar(this.level.alex,this.level.walter);
     }
 
 
@@ -117,8 +117,7 @@ class Game
 
         //Restore previous GL context
             this.canvasContext.restore();
-            this.energybar.draw(this.canvasContext, 100, 100);
-        this.energybar.draw(this.canvasContext, 100, 100);
+            this.energybar.draw(this.canvasContext);
 
         
     }
