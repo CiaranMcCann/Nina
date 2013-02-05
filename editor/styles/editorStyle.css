@@ -104,3 +104,10 @@ a:hover
 	width: 30px;
 	height: 30px;
 }
+
+.fire {
+	position: absolute;
+	background-color: red;
+	width: 150px;
+	height: 10px;
+}

@@ -1,6 +1,7 @@
 var numPlatforms = 0;
 var numWaterCoins = 0;
 var numElecCoins = 0;
+var numFires = 0;
 
 
 var entity = {
@@ -8,7 +9,8 @@ var entity = {
 	WALTER: 		1,
 	ALEX:			2,
 	WATER_COIN:		3,
-	ELECTRIC_COIN: 	4
+	ELECTRIC_COIN: 	4,
+	FIRE: 			5
 };
 
 var currentEntity = entity.PLATFORM;
@@ -40,6 +42,18 @@ function Coin (x, y) {
 	this.y = y;
 }
 
+function entity_pos (x, y) {
+	this.x = x;
+	this.y = y;
+}
+
+function entity_box (x, y, w, h) {
+	this.x = x;
+	this.y = y;
+	this.w = w;
+	this.h = h;
+}
+
 jQuery(function ($) {
 
 	levelImage = prompt("level_design_level_01_00");
@@ -66,6 +80,8 @@ jQuery(function ($) {
 			currentEntity = entity.WATER_COIN;
 		} else if ($(this).text() === 'ElecCoin') {
 			currentEntity = entity.ELECTRIC_COIN;
+		} else if ($(this).text() === 'Fire') {
+			currentEntity = entity.FIRE;
 		}
 		$(this).addClass('active');
 	});
@@ -108,8 +124,11 @@ jQuery(function ($) {
 				case entity.ELECTRIC_COIN:
 					CreateElecCoin(x, y);
 					break;
+				case entity.FIRE:
+					CreateFire(x, y);
+					break;
 				default:
-					alert("Does this ever happen?");
+					alert("You forgot to addd the entity creation");
 					break;
 			}
 		}
@@ -148,6 +167,8 @@ jQuery(function ($) {
 		});
 		levelData['elecCoins'] = elecCoins;
 
+		SerialiseFires();
+
 		levelData['levelImage'] = levelImage;
 
 		alert(JSON.stringify(levelData));
@@ -157,6 +178,9 @@ jQuery(function ($) {
 		var levelDataString = prompt("Level data");
 		levelData = JSON.parse(levelDataString);
 		numPlatforms = 0;
+		numWaterCoins = 0;
+		numElecCoins = 0;
+		numFires = 0;
 
 		var x, y, w, h, i;
 
@@ -195,6 +219,12 @@ jQuery(function ($) {
 			CreateElecCoin(x, y);
 		}
 
+		for (i in levelData['fires']) {
+			x = levelData['fires'][i].x;
+			y = levelData['fires'][i].y;
+			CreateFire(x, y);
+		}
+
 		levelImage = levelData['levelImage'];
 		$('.levelImage').attr('src', '../data/images/'+levelImage+'.png');
 	});
@@ -228,4 +258,20 @@ function CreateElecCoin (x, y) {
 	numElecCoins++;
 	$('body').append('<div id="ec'+numElecCoins+'" class="elecCoin"></div>');
 	$('#ec'+numElecCoins).draggable().offset({ top: y, left: x});
+}
+
+function CreateFire (x, y) {
+	numFires++;
+	$('body').append('<div id="fire'+numFires+'" class="fire"></div>');
+	$('#fire'+numFires).draggable().offset({ top: y, left: x});
+}
+
+function SerialiseFires() {
+	var fires = [];
+
+	$('.fire').each( function () {
+		fires.push(new entity_pos($(this).offset().left, $(this).offset().top));
+	});
+
+	levelData['fires'] = fires;
 }
