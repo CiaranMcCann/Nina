@@ -18,10 +18,10 @@ class ElectricWire extends BasePuzzle {
 
     constructor(pole:ElectricPole,pole2:ElectricPole)
     {
-        super();
+        super(null, 0, 0);
         this.ropeJoints = [];
         this.ropeNots = [];
-
+        
         var fixDef = new b2FixtureDef();
         fixDef.density = 0.5;
         fixDef.friction = 1.0;
@@ -94,7 +94,7 @@ class ElectricWire extends BasePuzzle {
         this.objectWidth = Physics.metersToPixels(Math.abs(pole.body.GetPosition().x - pole2.body.GetPosition().x)+1);
         this.objectHeight = 50;
 
-        this.setUpPhysics(this.objectWidth,this.objectHeight);
+        this.SetUpPhysics(this.objectWidth,this.objectHeight);
         this.body.SetUserData(this);
 
         var newPosition = new b2Vec2(pole2.body.GetPosition().x+5,pole2.body.GetPosition().y-3);
@@ -102,7 +102,7 @@ class ElectricWire extends BasePuzzle {
     }
 
 
-    setUpPhysics(xInPixels, yInPixels) {
+    SetUpPhysics(xInPixels, yInPixels) {
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
         fixDef.friction = 1.0;

@@ -41,7 +41,6 @@ class Game
 
         Physics.init(this.canvasContext);
 
-        this.puzzleManager = new PuzzleManager();
         this.energybar = new EnergyBar();
  
         this.level = new Level(this.levelDataString);

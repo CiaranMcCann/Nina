@@ -9,7 +9,7 @@ class ElectricPole extends BasePuzzle {
 
     constructor(xInPixels: number, yInPixels: number)
     {
-        super();
+        super(null,xInPixels,yInPixels);
         this.objectWidth = 10;
         this.objectHeight = 200;
         this.setUpPhysics(xInPixels, yInPixels);

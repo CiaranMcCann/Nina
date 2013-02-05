@@ -12,7 +12,7 @@ class Pipe extends BasePuzzle
     constructor(spawn: Pipe, xInPixels: number, yInPixels: number)
     {
   
-        super();
+        super(new Sprite(Sprites.animations.alexWalking), xInPixels, yInPixels);
         if (spawn != null) {
             this.respawnPipe = spawn;
         }

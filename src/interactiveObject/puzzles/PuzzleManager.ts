@@ -6,29 +6,37 @@
 
 interface IPuzzleManager
 {
-
+    CreatePuzzle(puzzle: BasePuzzle);
+    RemovePuzzle(puzzle: BasePuzzle);
 }
 
 class PuzzleManager implements IPuzzleManager
 {
     private _dynamicObjects: BasePuzzle[];
-        ladder: Ladder;
+    //ladder: Ladder;
     pole: ElectricPole;
     pole2: ElectricPole;
-    wire: ElectricWire;
+    //wire: ElectricWire;
     pipe: Pipe;
     pipe2: Pipe;
 
     constructor(  )
     {
-        this.ladder = new Ladder(550, 580);
-        this.pole = new ElectricPole(450, 580);
-        this.pole2 = new ElectricPole(150, 580);
-        this.wire = new ElectricWire(this.pole, this.pole2);
-        this.pipe = new Pipe(null, 800, 640);
-        this.pipe2 = new Pipe(this.pipe, 1100, 640);
+       // this.ladder = new Ladder(550, 580);
+       // this.pole = new ElectricPole(450, 580);
+       // this.pole2 = new ElectricPole(150, 580);
+       // this.wire = new ElectricWire(this.pole, this.pole2);
+       // this.pipe = new Pipe(null, 800, 640);
+       // this.pipe2 = new Pipe(this.pipe, 1100, 640);
         this._dynamicObjects = [];
-        this.CreatePuzzle(new InteractiveFire(this));
+          this.CreatePuzzle(new InteractiveFire(this));
+          this.CreatePuzzle(this.pole = new ElectricPole(450, 580));
+          this.CreatePuzzle(this.pole2 = new ElectricPole(150, 580));
+          this.CreatePuzzle(new Ladder(550, 580));
+          this.CreatePuzzle(new ElectricWire(this.pole, this.pole2));
+          this.CreatePuzzle(this.pipe = new Pipe(null, 800, 640));
+          this.CreatePuzzle(this.pipe2 = new Pipe(this.pipe, 1100, 640));
+          
     }
 
     //creates a new puzzle and adds it to the array of dynamicPuzzles
