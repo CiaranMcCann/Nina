@@ -6,3 +6,5 @@
 web.Release.config
 web.config
 *.db
+*.csproj
+*.orig
