@@ -1,5 +1,4 @@
 ///<reference path="Coin.ts"/>
-///
 class Level
 {
     coins: Coin[];
@@ -8,6 +7,7 @@ class Level
     transformer: Transformer;
     image: string;
     puzzleManager: PuzzleManager;
+    poles: ElectricPole[];
 
     constructor(levelData: string)
     {
@@ -36,6 +36,20 @@ class Level
             var tmpFire = new InteractiveFire(this.puzzleManager, level['fires'][i].x, level['fires'][i].y);
             this.puzzleManager.CreatePuzzle(tmpFire);
         }
+
+        //Load electricity poles
+        this.poles = [];
+        for (i in level['poles']) {
+            var x = level['poles'][i].x;
+            var y = level['poles'][i].y;
+            this.poles.push(new ElectricPole(x, y));
+            this.puzzleManager.CreatePuzzle(this.poles[i]);
+            this.puzzleManager.CreatePuzzle(new Ladder(x, y));
+            if (i != 0) {
+                this.puzzleManager.CreatePuzzle(new ElectricWire(this.poles[i - 1], this.poles[i]));
+            }
+        }
+
         // creating the transformer
         this.transformer = new Transformer(
             2400, 1400

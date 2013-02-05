@@ -115,6 +115,6 @@ a:hover
 .pole {
 	position: absolute;
 	background-color: red;
-	width: 30px;
-	height: 150px;
+	width: 10px;
+	height: 200px;
 }

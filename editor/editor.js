@@ -58,7 +58,7 @@ function entity_box (x, y, w, h) {
 
 jQuery(function ($) {
 
-	levelImage = prompt("level_design_level_01_00");
+	levelImage = prompt("level_design_level_01_00_front");
 
 	$('.levelImage').attr('src', '../data/images/'+levelImage+'.png');
 
