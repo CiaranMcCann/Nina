@@ -11,7 +11,7 @@ class Ladder extends BasePuzzle {
 
     constructor(xInPixels: number, yInPixels: number)
     {
-        super(this.sprite, xInPixels,yInPixels);
+        super(null, xInPixels,yInPixels);
         this.objectWidth = 100;
         this.objectHeight = 200;
         this.setUpPhysics(xInPixels, yInPixels);

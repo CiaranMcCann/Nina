@@ -16,7 +16,7 @@ class InteractiveFire extends BasePuzzle
         var height  = Physics.pixelToMeters(10);
 
         super.SetupPhysics(0.0, 1.0, 0.0, width, height);
-        this._puzzleManager = pm;
+        this._puzzleManager = pm;   
     }
 
     beginContact( contact )
