@@ -34,8 +34,8 @@ class PuzzleManager implements IPuzzleManager
         this.CreatePuzzle(this.pole2 = new ElectricPole(150, 580));
         this.CreatePuzzle(new Ladder(550, 580));
         this.CreatePuzzle(new ElectricWire(this.pole, this.pole2));
-        this.CreatePuzzle(this.pipe = new Pipe(null, 800, 640,false));
-        this.CreatePuzzle(this.pipe2 = new Pipe(this.pipe, 4360, 2100,true));
+        this.CreatePuzzle(this.pipe = new Pipe(null, 3000, 2100,true));
+        this.CreatePuzzle(this.pipe2 = new Pipe(this.pipe, 4360, 2100,false));
           
     }
 

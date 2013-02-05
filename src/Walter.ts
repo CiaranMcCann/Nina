@@ -1,10 +1,10 @@
 ///<reference path="Player.ts"/>
 ///<reference path="system/Utilies.ts">
+///<reference path="system/timer.ts"/>
 class Walter extends Player
 {
     public respawnPosition;
-    public Mayrespawn;
-
+    public timer;
     constructor(x,y)
     {
         super(x,y,Sprites.animations.walterWalking);
@@ -17,17 +17,20 @@ class Walter extends Player
 
     }
 
-
-
-
-
+    public respawn() {
+        this.timer = new Date().getTime();
+        this.Mayrespawn = true;
+    }
 
     update() {
         super.update();
         if (this.Mayrespawn) {
-
-            this.body.SetPosition(this.respawnPosition);
-            this.Mayrespawn = false;
+            var _time = new Date().getTime();
+            if (_time - this.timer > 3000) {
+                this.body.SetPosition(this.respawnPosition);
+                this.Mayrespawn = false;
+            }
+           
         }
     }
 

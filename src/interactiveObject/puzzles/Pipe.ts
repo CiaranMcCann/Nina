@@ -27,46 +27,39 @@ class Pipe extends BasePuzzle
         this.objectHeight = 38;
         this.setUpPhysics(xInPixels, yInPixels);
         this.body.SetUserData(this);
-        
-
+       
     }
 
 
     Draw(ctx: CanvasRenderingContext2D) {
         var position = Physics.vectorMetersToPixels(this.body.GetPosition());
-        // ctx.drawImage(this.image, position.x - 62, position.y - 65);
-        
-       
-        
-       // ctx.drawImage(this.image,0,0,120,100, position.x-(this.image.width / 2), position.y+20,120,100);
+        ctx.save();
+
+        ctx.drawImage(this.image,0,0,120,100, position.x-(this.image.width / 2), position.y+20,120,100);
        
          var distance = 0;
-         for (var i: number = 1; i < 2; i++) {
+         for (var i: number = 1; i < 4; i++) {
              distance = 100 * i;
-             console.log(distance);
-             //ctx.drawImage(this.imageExtension, position.x - (this.image.width / 2)+21, position.y + 18+distance);
+             ctx.drawImage(this.imageExtension, position.x - (this.image.width / 2)+21, position.y + 18+distance);
          }
-         ctx.drawImage(this.image, 0,40, 120, 313-40, position.x - (this.image.width / 2), position.y + 20+40, 120, 313-40);
 
+         if (this.rotated) {
+             ctx.translate(position.x - (this.image.width / 2)+127, position.y + 20 + 40 + distance);
+             ctx.scale(-1, 1);
+            
+         } else {
+             ctx.translate(position.x - (this.image.width / 2), position.y + 20 + 40 + distance);
+         }
+         ctx.drawImage(this.image, 0, 40, 120, 313 - 40, 0, 0, 120, 313 - 40);
 
-         /*
-         distance += 400;
-         ctx.drawImage(this.image, 0, 200, 150, 250, position.x - 62, position.y - 65+distance, 150, 250);
-       
-        for (var i: number = 1; i < 2; i++) {
-            distance = 200 * i;
-            console.log(distance);
-            ctx.drawImage(this.image, 0, 100, 150, 150, position.x - 62, position.y - 65 + distance, 150, 250 + distance);
-        }*/
-
-  
-
-       // ctx.save();
-       // ctx.translate(position.x - 62, position.y - 65);
-       // ctx.rotate(Utilies.toRadians(90));
-        //ctx.drawImage(this.image, -(this.image.width / 2), -(this.image.height / 2));
-        //ctx.restore();
-    
+         ctx.rotate(Utilies.toRadians(90));
+         var distance2 = 0;
+         for (var i: number = 0; i < 6; i++) {
+             distance2 = 100 * i;
+             ctx.drawImage(this.imageExtension, 190, distance2-2);
+         }
+         
+         ctx.restore();
     }
 
 
@@ -75,8 +68,9 @@ class Pipe extends BasePuzzle
             if(this.respawnPipe == null)return;
             var walter:Walter = contact.GetFixtureA().GetBody().GetUserData();
             if (!walter.Mayrespawn) {
+                walter.respawn();
                 walter.respawnPosition = new b2Vec2(this.respawnPipe.body.GetPosition().x, this.respawnPipe.body.GetPosition().y-1);
-                walter.Mayrespawn = true;
+                
             }
         }
     }
