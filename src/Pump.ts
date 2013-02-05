@@ -11,9 +11,13 @@ class Pump {
     // rotation
     private angle: number;
 
+    // image
+    private image;
+
     constructor {
-        this.runPump = true;
+        this.runPump = false;
         this.angle = 0;
+        this.image = AssetManager.getImage("PLACEHOLDERpump");
     }
 
     draw(ctx: CanvasRenderingContext2D) {
@@ -31,19 +35,20 @@ class Pump {
             ctx.rotate(Utilies.toRadians(this.angle));
 
             // draw it up and to the left by half the width and height of the image
-            var image = AssetManager.getImage("PLACEHOLDERpump");
-            ctx.drawImage(image, -(image.width / 2), -(image.height / 2));
+            //this.image = AssetManager.getImage("PLACEHOLDERpump");
+            ctx.drawImage(this.image, -(this.image.width / 2), -(this.image.height / 2));
 
             // and restore the co-ords to how they were when we began
             ctx.restore();
         }
         else {
             // freeze the image
-            ctx.drawImage(AssetManager.getImage("PLACEHOLDERpump"), 2500, 1850);
+            ctx.drawImage(this.image, 2500, 1850);
         }
     }
 
     pumpState(state) {
         this.runPump = state;
+        console.log("");
     }
 }

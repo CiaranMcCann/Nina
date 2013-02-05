@@ -19,11 +19,16 @@ class Transformer {
     // is alex and the transformer in contact with each other?
     private mashedPotatoes: bool;
 
+    // So we can turn the pump on or off
+    private pump: Pump;
+
     constructor(x : number, y : number) {
         this.setUpPhysics(x, y);
         this.body.SetUserData(this)
         this.mashedPotatoes = false;
         this.powerUp = 0;
+
+        this.pump = new Pump();
     }
 
     update() {
@@ -40,6 +45,10 @@ class Transformer {
                 console.log(this.powerUp);
             }            
         }
+        if (this.powerUp == 100) {
+            this.pump.pumpState(true);
+            console.log("This just happened");
+        }
     }
 
     beginContact(contact) {
@@ -48,11 +57,13 @@ class Transformer {
 
         // checking to see if Alex is near the transformer
         if (a instanceof Alex || b instanceof Alex) {
+            console.log("Contact.");
             this.mashedPotatoes = true;
         }
     }
 
     endContact(contact) {
+        console.log("Contact ended.");
         this.mashedPotatoes = false;
     };
 
