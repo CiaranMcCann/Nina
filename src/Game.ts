@@ -10,6 +10,7 @@
 ///<reference path="Walter.ts"/>
 ///<reference path="Alex.ts"/>
 ///<reference path="animation/Sprite.ts"/>
+///<reference path="interactiveObject/puzzles/PuzzleManager.ts"/>
 ///<reference path="EnergyBar.ts"/>
 ///<reference path="Coin.ts"/>
 ///<reference path="Platform.ts"/>
@@ -21,6 +22,7 @@ class Game
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
     camera: Camera;
+    puzzleManager: PuzzleManager;
     energybar: EnergyBar;
     level: Level;
 
@@ -38,7 +40,8 @@ class Game
 
         Physics.init(this.canvasContext);
 
-       
+        this.puzzleManager = new PuzzleManager();
+ 
         this.level = new Level(this.levelDataString);
         this.camera = new Camera(AssetManager.getImage(this.level.image).width, AssetManager.getImage(this.level.image).height, this.canvas.width, this.canvas.height);
         this.energybar = new EnergyBar(this.level.alex,this.level.walter);
@@ -49,6 +52,7 @@ class Game
     {
         this.level.update();
         this.camera.update();
+        this.puzzleManager.update();
 
         // Debug move camera
         if (keyboard.isKeyDown(keyboard.keyCodes.y)) //up
@@ -112,6 +116,7 @@ class Game
             
             this.level.draw(this.canvasContext);
             this.level.draw(this.canvasContext);
+            this.puzzleManager.draw(this.canvasContext);
             Physics.world.DrawDebugData();
 
 
