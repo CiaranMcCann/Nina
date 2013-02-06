@@ -103,7 +103,6 @@ class Pipe extends BasePuzzle
         if (_time - this.timer > 500) {
             this.timer = _time;
             this.EmitParticle();
-            console.log("Emit Particle");
         }
 
         for (var i: number = 0; i < this.waterArray.length; i++) {
@@ -113,7 +112,6 @@ class Pipe extends BasePuzzle
            
             if (this.waterArray[i].destroyed) {
                 this.waterArray.splice(i, 1);
-                console.log("dead");
             }
         }
     }
