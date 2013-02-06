@@ -13,6 +13,8 @@ class Alex extends Player
             use: keyboard.keyCodes.Downarrow
         }
 
+        this.controlImage = AssetManager.getImage("alexControl");
+
     }
 
 }

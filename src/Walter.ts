@@ -18,6 +18,8 @@ class Walter extends Player
             jump: keyboard.keyCodes.w,
             use: keyboard.keyCodes.s
         }
+
+        this.controlImage = AssetManager.getImage("walterControl");
     }
    
 

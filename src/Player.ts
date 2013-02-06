@@ -39,6 +39,13 @@ class Player implements isPhysicsBody
     // User to dectect weather the player is standing on somthing
     footSensor: any;
 
+    public controlImage;
+
+    hasMovedLeft:bool;
+    hasMovedRight:bool;
+    hasMovedUp:bool;
+
+
     constructor(xInPixels: number, yInPixels: number, animation : SpriteDefinition)
     {
         this.speed = 3;
@@ -51,6 +58,8 @@ class Player implements isPhysicsBody
         //Place a refer to this object in the physics bodies
         // user data so that when their is a collison we 
         // can easily call the correct objects methods to handle it
+
+        this.hasMovedLeft = this.hasMovedRight = this.hasMovedUp = false;
         this.body.SetUserData(this)
     }
 
@@ -78,6 +87,7 @@ class Player implements isPhysicsBody
 
         if (keyboard.isKeyDown(this.controls.right))
         {
+            this.hasMovedRight = true;
             this.direction = Player.DIRECTION.right;
             this.sprite.update();
 
@@ -90,6 +100,7 @@ class Player implements isPhysicsBody
 
         if (keyboard.isKeyDown(this.controls.jump))
         {
+            this.hasMovedUp = true;
             if (this.canJump >= 1) {
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
@@ -118,7 +129,7 @@ class Player implements isPhysicsBody
         {
             this.direction = Player.DIRECTION.left;
             this.sprite.update();
-           
+            this.hasMovedLeft = true;
              // Small impluse to make the camera follow him: HACK :P
             this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
 
@@ -140,9 +151,18 @@ class Player implements isPhysicsBody
         //Get position of the physics body and convert it to pixel cordinates
         var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
 
+        // ctx.translate(pos.x, pos.y-10);
         ctx.save();
         ctx.translate(pos.x, pos.y);
 
+
+
+        if (!this.hasMovedLeft || !this.hasMovedRight || !this.hasMovedUp) {
+            if (this.controlImage != null) {
+                ctx.drawImage(this.controlImage, -(this.controlImage.width / 2), -(this.controlImage.height / 2) - 100);
+            }
+         }
+       
         if (this.direction == Player.DIRECTION.left) {
             // Used to flip the sprites       
             ctx.scale(-1, 1);
