@@ -80,6 +80,7 @@ class ElectricWire extends BasePuzzle {
             } else {
                 nextBody = Physics.world.CreateBody(bd);
                 nextBody.CreateFixture(fixDef);
+                nextBody.SetUserData(this);
                 nextBody.SetFixedRotation(true);
                 this.lastRopeDef = ropeDef;
                 this.ropeNots.push(nextBody);
@@ -163,21 +164,21 @@ class ElectricWire extends BasePuzzle {
     beginContact(contact)
     {
       
-        /*if (contact.GetFixtureA().GetBody().GetUserData() instanceof Walter) {
-          
-            var player:Walter = contact.GetFixtureA().GetBody().GetUserData();
-            var currentPos = contact.GetFixtureA().GetBody().GetPosition();
-            var direction = currentPos.x - this.body.GetPosition().x;
+        var a = contact.GetFixtureA().GetBody().GetUserData();
+        var b = contact.GetFixtureB().GetBody().GetUserData();
+        if (a instanceof Walter)
+        {
+            //TODO put in electiry sound
 
-           
-            var forces = new b2Vec2(direction, -5);
-            forces.normal;
-            forces.Multiply(10);
+            a.body.ApplyImpulse(new b2Vec2(50, -50), a.body.GetWorldCenter());
+        }
 
-            contact.GetFixtureA().GetBody().ApplyImpulse(forces, currentPos);
-           
-            
-        }*/
+        if (b instanceof Walter)
+        {
+            //TODO put in electiry sound
+
+            b.body.ApplyImpulse(new b2Vec2(50, -50), b.body.GetWorldCenter());
+        }
 
     }
 
