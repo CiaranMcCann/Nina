@@ -22,14 +22,14 @@ class Transformer {
     // So we can turn the pump on or off
     private pump: Pump;
 
-    constructor(x: number, y: number, actualPump: Pump) {
-        this.sprite = new Sprite(Sprites.animations.waterCoin);
+    constructor(x: number, y: number) {
+        this.sprite = new Sprite(Sprites.animations.transformerAlex);
         this.setUpPhysics(x, y);
         this.body.SetUserData(this)
         this.mashedPotatoes = false;
         this.powerUp = 0;
 
-        this.pump = actualPump;
+        this.pump = new Pump(x+1300,y+300);
     }
 
     update() {
@@ -83,6 +83,8 @@ class Transformer {
         ctx.translate(pos.x, pos.y)
         this.sprite.draw(ctx, (-this.sprite.getFrameWidth() / 2), (-this.sprite.getFrameHeight() / 2));
         ctx.restore();
+
+        this.pump.draw(ctx);
     }
 
     setUpPhysics(xInPixels, yInPixels) {
@@ -99,8 +101,8 @@ class Transformer {
 
         var bodyDef = new b2BodyDef;
         bodyDef.type = b2Body.b2_staticBody;
-        bodyDef.position.x = Physics.pixelToMeters(xInPixels + 1750);
-        bodyDef.position.y = Physics.pixelToMeters(yInPixels + 650);
+        bodyDef.position.x = Physics.pixelToMeters( xInPixels );
+        bodyDef.position.y = Physics.pixelToMeters(yInPixels);
 
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
         this.body.SetSleepingAllowed(false);

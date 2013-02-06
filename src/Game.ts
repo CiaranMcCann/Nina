@@ -44,7 +44,7 @@ class Game
 
  
         this.level = new Level(this.levelDataString);
-        this.pump = new Pump();
+      
         this.camera = new Camera(AssetManager.getImage(this.level.image).width, AssetManager.getImage(this.level.image).height, this.canvas.width, this.canvas.height);
         this.energybar = new EnergyBar(this.level.alex,this.level.walter);
     }
@@ -93,31 +93,31 @@ class Game
         //Clear the previous frame from the screen
         this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.canvasContext.drawImage(
-            AssetManager.getImage("level_design_level_01_00_back"),
-            this.camera.getX(),
-            this.camera.getY(),
-            this.canvas.width,
-            this.canvas.height,
-            0,
-            0,
-            this.canvas.width,
-            this.canvas.height
-       );
+       // this.canvasContext.drawImage(
+       //     AssetManager.getImage("level_design_level_01_00_back"),
+       //     this.camera.getX(),
+       //     this.camera.getY(),
+       //     this.canvas.width,
+       //     this.canvas.height,
+       //     0,
+       //     0,
+       //     this.canvas.width,
+       //     this.canvas.height
+       //);
 
 
-        // Blit a section of the Level image onto the screen
-        this.canvasContext.drawImage(
-            AssetManager.getImage(this.level.image),
-            this.camera.getX(),
-            this.camera.getY(),
-            this.canvas.width,
-            this.canvas.height,
-            0,
-            0,
-            this.canvas.width,
-            this.canvas.height
-       );
+       // // Blit a section of the Level image onto the screen
+       // this.canvasContext.drawImage(
+       //     AssetManager.getImage(this.level.image),
+       //     this.camera.getX(),
+       //     this.camera.getY(),
+       //     this.canvas.width,
+       //     this.canvas.height,
+       //     0,
+       //     0,
+       //     this.canvas.width,
+       //     this.canvas.height
+       //);
 
         // Saving the GL context here
         this.canvasContext.save();
@@ -134,6 +134,7 @@ class Game
         //Restore previous GL context
             this.canvasContext.restore();
             this.energybar.draw(this.canvasContext);
+      
         
     }
 }

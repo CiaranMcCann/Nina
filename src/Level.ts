@@ -1,4 +1,6 @@
 ///<reference path="Coin.ts"/>
+///<reference path="interactiveObject/puzzles/Pipe.ts"/>
+
 class Level
 {
     coins: Coin[];
@@ -9,7 +11,6 @@ class Level
     puzzleManager: PuzzleManager;
     poles: ElectricPole[];
     pipes: Pipe[];
-    pump: Pump;
 
     constructor(levelData: string)
     {
@@ -74,10 +75,7 @@ class Level
         }
 
         // creating the transformer
-        this.pump = new Pump();
-        this.transformer = new Transformer(
-            2400, 1400, this.pump
-        );
+        this.transformer = new Transformer(2850, 1800);
 
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);
