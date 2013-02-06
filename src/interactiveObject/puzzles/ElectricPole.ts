@@ -32,6 +32,7 @@ class ElectricPole extends BasePuzzle {
         ctx.restore();
     }
 
+
      beginContact(contact) {
 
        var a = contact.GetFixtureA().GetBody().GetUserData();
@@ -79,6 +80,7 @@ class ElectricPole extends BasePuzzle {
         this.body.SetSleepingAllowed(false);
         this.body.SetFixedRotation(true);
         this.body.SetUserData(this);
+
     }
 
 
