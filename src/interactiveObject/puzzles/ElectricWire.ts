@@ -47,17 +47,17 @@ class ElectricWire extends BasePuzzle {
         fixDef.shape = new b2CircleShape(0.3);
         var ropeDef = new b2DistanceJointDef();
         ropeDef.frequencyHz = 10.0;
-        ropeDef.dampingRatio = 20.0;
+        ropeDef.dampingRatio = 60.0;
         var prevBody = this.anchor;
 
         var direction = this.anchor.GetPosition().Copy();
         var Pos = this.anchor2.GetPosition().Copy();
         Pos.Subtract(direction);
         
-        var distance = 5;
+        var distance = 2;
         
         if (Pos.Length() > distance) {
-            distance = Math.floor(Pos.Length() / 0.5);
+            distance = Math.floor(Pos.Length() / 1.6);
         }
 
         Pos.Normalize();
@@ -68,13 +68,11 @@ class ElectricWire extends BasePuzzle {
             bd.type = b2Body.b2_dynamicBody;
             var pos = this.anchor.GetPosition().Copy();
             var dScaled = direction.Copy();
-            dScaled.Multiply(0.5 * i);
+            dScaled.Multiply(2 * i);
             pos.Add(dScaled);
             bd.position.SetV(pos);
             var nextBody;
             if (i == distance - 1) {
-                ropeDef.frequencyHz = 20.0;
-                ropeDef.dampingRatio = 30.0;
                 nextBody = this.anchor2;
             } else {
                 nextBody = Physics.world.CreateBody(bd);
@@ -87,7 +85,7 @@ class ElectricWire extends BasePuzzle {
             ropeDef.bodyB = nextBody;
             var joint = Physics.world.CreateJoint(ropeDef);
             this.ropeJoints.push(joint);
-            joint.SetLength(0.02);
+            joint.SetLength(0.001);
             prevBody = nextBody;
         }
 
