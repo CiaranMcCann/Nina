@@ -34,7 +34,11 @@ class Cloud extends BasePuzzle {
 
     constructor(pm: IPuzzleManager) {
         //TODO: add the correct animation here
-        super(new Sprite(Sprites.animations.cloudAnimCreation, true), 1600, 1700);
+        super(new Sprite(Sprites.animations.cloudAnimCreation, true), 1800, 1540);
+        this.sprite.onAnimationFinish(function =>
+        {
+            this.sprite = new Sprite( Sprites.animations.cloudAnimWithoutAlex );
+        });
 
         var width = Physics.pixelToMeters(200);
         var height = Physics.pixelToMeters(100);
@@ -63,6 +67,7 @@ class Cloud extends BasePuzzle {
         //we only do something if the other collider is alex and he hasn't already joined the cloud
         if (!(other instanceof Alex) || this._isAlexJoined) return;
 
+        this.sprite = new Sprite(Sprites.animations.cloudAnimWithAlex);
         this._alex.setCanDraw(false);
         this._alex.setCanWalk(false);
 
@@ -96,9 +101,9 @@ class Cloud extends BasePuzzle {
                 this._walter.setCanDraw(true);
             }
         } else {
-            this._walter.getBody().SetPosition(new b2Vec2(this._walter.getBody().GetPosition().x - Physics.pixelToMeters(15), this._walter.getBody().GetPosition().y));
+            this._walter.getBody().SetPosition(new b2Vec2(this._walter.getBody().GetPosition().x - Physics.pixelToMeters(25), this._walter.getBody().GetPosition().y));
             //after six seconds, the player should be able to move again.
-            if (this._currentTime - this._timeRainStarted >= 5500) {
+            if (this._currentTime - this._timeRainStarted >= 4500) {
                 this._walter.setCanWalk(true);
                 this._isWalterOnGround = true;
             }
@@ -115,9 +120,9 @@ class Cloud extends BasePuzzle {
                 this._alex.setCanDraw(true);
             }
         } else {
-            this._alex.getBody().SetPosition(new b2Vec2(this._alex.getBody().GetPosition().x - Physics.pixelToMeters(15), this._alex.getBody().GetPosition().y));
+            this._alex.getBody().SetPosition(new b2Vec2(this._alex.getBody().GetPosition().x - Physics.pixelToMeters(25), this._alex.getBody().GetPosition().y));
             //after six seconds, the player should be able to move again.
-            if (this._currentTime - this._timeRainStarted >= 5500) {
+            if (this._currentTime - this._timeRainStarted >= 3500) {
                 this._alex.setCanWalk(true);
                 this._isAlexOnGround = true;
             }
@@ -136,7 +141,7 @@ class Cloud extends BasePuzzle {
             if (!this._hasCloudReachedTop)
                 this._alex.getBody().SetPosition(new b2Vec2(this.body.GetPosition().x, this.body.GetPosition().y - Physics.pixelToMeters(220)));
         }
-        if (this.sprite.getCurrentFrame() <= 7) super.Update();
+        super.Update();
         var newTime: number = new Date().getTime();
         if (this._hasCloudReachedTop && newTime - this._currentTime >= 75) {
             this.Raining();

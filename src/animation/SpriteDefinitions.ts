@@ -92,6 +92,22 @@ module Sprites
             msPerFrame: 150
         },
 
+        cloudAnimWithoutAlex:
+        {
+            imageName: "cloud",
+            frameY: 0,
+            frameCount: 1,
+            msPerFrame: 0
+        },
+
+        cloudAnimWithAlex:
+        {
+            imageName: "thunder",
+            frameY: 0,
+            frameCount: 5,
+            msPerFrame: 200
+        },
+
         /*cloudAnimRemove:
         {
             imageName: "cloud_sprite(2)",
