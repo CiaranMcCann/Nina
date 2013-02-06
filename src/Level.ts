@@ -18,8 +18,7 @@ class Level
         // Parers level
         var level = JSON.parse(levelData);
         var i;
-        for (i in level["platforms"])
-        {
+        for (i in level["platforms"]) {
             var x = level["platforms"][i].x;
             var y = level["platforms"][i].y;
             var w = level["platforms"][i].w / 2;
@@ -55,17 +54,14 @@ class Level
         }
 
         // Load pipes
-        this.puzzleManager.CreatePuzzle(new Pipe(3950, 1870));
+        this.puzzleManager.CreatePuzzle(new Pipe(4050, 1840));
         
 
         // creating the transformer
-        this.transformer = new Transformer(2850, 1800);
+        this.transformer = new Transformer(2980, 1650);
 
-        this.walter = new Walter(2700, 1900);
-        this.alex = new Alex(2500, 1900);
-
-        //this.walter = new Walter(level['walter'].x, level['walter'].y);
-        //this.alex = new Alex(level['alex'].x, level['alex'].y);
+        this.walter = new Walter(level['walter'].x, level['walter'].y);
+        this.alex = new Alex(level['alex'].x, level['alex'].y);
 
         this.image = level["levelImage"];
     }

@@ -26,7 +26,6 @@ module Sprites
     export var animations = {
 
         walterWalking: {
-
             imageName: "wwalk",
             frameY: 0,
             frameCount: 8,
@@ -35,7 +34,6 @@ module Sprites
         },
 
        alexWalking: {
-
             imageName: "elecs_wc_small_small",
             frameY: 0,
             frameCount: 8,
@@ -43,13 +41,22 @@ module Sprites
 
         },
 
-        walterJumping: {
-            imageName: "walter_jc_sprite",
+       walterJumping: {
+
+           imageName: "walter_jc_sprite",
             frameY: 0,
-            frameCount: 6,
-            msPerFrame: 50,
+            frameCount: 11,
+            msPerFrame: 200,
 
         },
+
+       alexJumping: {
+           imageName: "Alex_full_jump",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 50,
+
+       },
 
         waterCoin: {
 
@@ -106,6 +113,20 @@ module Sprites
             frameY: 0,
             frameCount: 4,
             msPerFrame: 50,
+        },
+
+        transformerAlex: {
+            imageName: "generator",
+            frameY: 0,
+            frameCount: 4,
+            msPerFrame: 50,
+    },
+        alexElectrified: {
+            imageName: "Alex_electrified_sprite",
+            frameY: 0,
+            frameCount: 9,
+            msPerFrame: 10,
+
         }
      
     }

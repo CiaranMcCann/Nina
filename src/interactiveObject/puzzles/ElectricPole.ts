@@ -32,6 +32,32 @@ class ElectricPole extends BasePuzzle {
         ctx.restore();
     }
 
+
+     beginContact(contact) {
+
+       var a = contact.GetFixtureA().GetBody().GetUserData();
+        var b = contact.GetFixtureB().GetBody().GetUserData();
+
+        if (a instanceof Walter)
+        {
+                var currentPos = this.body.GetPosition();
+                currentPos.Multiply(-4);
+               //TODO put in electiry sound
+
+               a.body.ApplyImpulse(currentPos, this.body.GetWorldCenter());
+        }
+
+          if (b instanceof Walter)
+        {
+                var currentPos = this.body.GetPosition();
+                currentPos.Multiply(-4);
+               //TODO put in electiry sound
+
+               b.body.ApplyImpulse(currentPos, this.body.GetWorldCenter());
+        }
+   
+    }
+
     setUpPhysics(xInPixels, yInPixels) {
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
@@ -53,6 +79,8 @@ class ElectricPole extends BasePuzzle {
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
         this.body.SetSleepingAllowed(false);
         this.body.SetFixedRotation(true);
+        this.body.SetUserData(this);
+
     }
 
 

@@ -15,6 +15,9 @@ class Player implements isPhysicsBody
     // Animated image
     sprite: Sprite;
 
+    // Animated image Jump
+    jumpSprite: Sprite;
+
     //Physics body
     public body;
 
@@ -42,12 +45,14 @@ class Player implements isPhysicsBody
     // User to dectect weather the player is standing on somthing
     footSensor: any;
 
-    constructor(xInPixels: number, yInPixels: number, animation : SpriteDefinition)
-    {
+    constructor(xInPixels: number, yInPixels: number, animation: SpriteDefinition, jumpAnimation: SpriteDefinition)
+        {
         this.speed = 3;
         this.canJump = 0;
         this.direction = Player.DIRECTION.right;
         this.sprite = new Sprite(animation);
+        this.jumpSprite = new Sprite(jumpAnimation);
+
         this.setUpPhysics(xInPixels,yInPixels);
         this.energy = 50;
 
@@ -110,8 +115,9 @@ class Player implements isPhysicsBody
             if (this.canJump >= 1) {
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
-                forces.Multiply(5.5);
                // AssetManager.getSound("jump").play();
+                forces.Multiply(7.5);
+
 
                 this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
             }
@@ -129,6 +135,15 @@ class Player implements isPhysicsBody
             }
         }
 
+        // Check it player is in the air and he is not climbing, if this is correct then update the jump animation
+        if (this.canJump < 1 && !this.canClimb) {
+            if (this.jumpSprite.getCurrentFrame()== 9) {
+                this.jumpSprite.setCurrentFrame(4);
+            }
+            this.jumpSprite.update();
+        } else if (this.canJump >= 1 && !this.canClimb) {
+            this.jumpSprite.setCurrentFrame(1);
+        }
         
 
         if (keyboard.isKeyDown(this.controls.left))
@@ -166,10 +181,12 @@ class Player implements isPhysicsBody
             // Used to flip the sprites       
             ctx.scale(-1, 1);
         }
-
-        if (!this.Mayrespawn){
+        if (this.canJump < 1 && !this.canClimb) {
+            this.jumpSprite.draw(ctx, -this.jumpSprite.getFrameWidth() / 2, -this.jumpSprite.getFrameHeight() / 2);
+        } else {
             this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
-         }
+        }
+        
         ctx.restore()
     }
 

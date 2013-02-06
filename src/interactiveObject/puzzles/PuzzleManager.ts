@@ -3,6 +3,11 @@
 ///<reference path="CloudPuzzle/InteractiveFire.ts"/>
 ///<reference path="ElectricPole.ts"/>
 ///<reference path="ElectricWire.ts"/>
+///<reference path="Ladder.ts"/>
+///<reference path="Pipe.ts"/>
+///<reference path="CloudPuzzle/InteractiveFire.ts"/>
+///<reference path="ElectricPole.ts"/>
+///<reference path="ElectricWire.ts"/>
 
 interface IPuzzleManager
 {
