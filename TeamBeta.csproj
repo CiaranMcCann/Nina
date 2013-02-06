@@ -33,11 +33,17 @@
     <Content Include="external\Stats.js" />
     <Content Include="index.htm" />
     <TypeScriptCompile Include="src\interactiveObject\puzzles\Pipe.ts" />
+    <Content Include="src\Coin.min.js">
+      <DependentUpon>Coin.ts</DependentUpon>
+    </Content>
     <Content Include="src\interactiveObject\puzzles\Pipe.js">
       <DependentUpon>Pipe.ts</DependentUpon>
     </Content>
     <Content Include="src\interactiveObject\puzzles\Pipe.min.js">
       <DependentUpon>Pipe.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\AssetManager.min.js">
+      <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
     <Content Include="src\Walter.min.js">
       <DependentUpon>Walter.ts</DependentUpon>
