@@ -57,12 +57,7 @@ module Utilies
 
         return new b2Vec2(x, y).LengthSquared();
     }
-
-    export function VectorPixels( x: number, y: number )
-    {
-        return new b2Vec2(Physics.pixelToMeters(x), Physics.pixelToMeters(y));
-    }
-
+        
     export function findByValue(needle, haystack, haystackProperity, )
     {
 
