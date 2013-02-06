@@ -33,26 +33,23 @@
     <Content Include="external\Stats.js" />
     <Content Include="index.htm" />
     <TypeScriptCompile Include="src\interactiveObject\puzzles\Pipe.ts" />
-    <Content Include="src\Alex.min.js">
-      <DependentUpon>Alex.ts</DependentUpon>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\Cloud.ts" />
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\Cloud.js">
+      <DependentUpon>Cloud.ts</DependentUpon>
     </Content>
-    <Content Include="src\animation\Sprite.min.js">
-      <DependentUpon>Sprite.ts</DependentUpon>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\InteractiveFire.ts" />
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\InteractiveFire.js">
+      <DependentUpon>InteractiveFire.ts</DependentUpon>
     </Content>
-    <Content Include="src\animation\SpriteDefinitions.min.js">
-      <DependentUpon>SpriteDefinitions.ts</DependentUpon>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\RainDrop.ts" />
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\RainDrop.js">
+      <DependentUpon>RainDrop.ts</DependentUpon>
     </Content>
     <Content Include="src\interactiveObject\puzzles\Pipe.js">
       <DependentUpon>Pipe.ts</DependentUpon>
     </Content>
     <Content Include="src\interactiveObject\puzzles\Pipe.min.js">
       <DependentUpon>Pipe.ts</DependentUpon>
-    </Content>
-    <Content Include="src\main.min.js">
-      <DependentUpon>main.ts</DependentUpon>
-    </Content>
-    <Content Include="src\system\AssetManager.min.js">
-      <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
     <Content Include="src\Walter.min.js">
       <DependentUpon>Walter.ts</DependentUpon>
@@ -87,14 +84,6 @@
       <DependentUpon>Ladder.ts</DependentUpon>
     </Content>
     <Content Include="src\interactiveObject\puzzles\Ladder.ts" />
-    <TypeScriptCompile Include="src\interactiveObject\puzzles\InteractiveFire.ts" />
-    <TypeScriptCompile Include="src\interactiveObject\puzzles\Cloud.ts" />
-    <Content Include="src\interactiveObject\puzzles\Cloud.js">
-      <DependentUpon>Cloud.ts</DependentUpon>
-    </Content>
-    <Content Include="src\interactiveObject\puzzles\InteractiveFire.js">
-      <DependentUpon>InteractiveFire.ts</DependentUpon>
-    </Content>
     <Content Include="src\interactiveObject\puzzles\PuzzleManager.js">
       <DependentUpon>PuzzleManager.ts</DependentUpon>
     </Content>
