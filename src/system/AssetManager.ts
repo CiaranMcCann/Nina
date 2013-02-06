@@ -30,12 +30,16 @@ module AssetManager
          'data/images/waterParticle.png',
          'data/images/extension.png',
          'data/images/PLACEHOLDERpump.png',
+         'data/images/eyes.png',
          'data/images/PLACEHOLDERtransformer.png',
-         'data/images/eyes.png'
+         'data/images/level_design_level_01_00_front.png',
+         'data/images/level_design_level_01_00_back.png',
+         'data/images/Propeller.png'
     ];
 
     var priorityAudio = [
-        
+        //'data/sounds/jump.wav',
+        //'data/sounds/marioCoin.wav'
     ]
 
     export var images = [];
@@ -105,23 +109,34 @@ module AssetManager
         loadImages(priorityImages, function ()
         {
             loadSounds(priorityAudio, callback);
-            callback();
+
+            if (priorityAudio.length <= 0)
+            {
+                callback();
+            }
         });
     }
 
     export function loadSounds(sources, callback)
-    {
-        var bufferLoader = new BufferLoader(Sound.context, sources, function (bufferList)
+    {   
+        try
         {
 
-            for (var i = 0; i < bufferList.length; i++)
+            var bufferLoader = new BufferLoader(Sound.context, sources, function (bufferList)
             {
-                sounds[bufferList[i].name] = new Sound(bufferList[i].buffer);
-            }
+
+                for (var i = 0; i < bufferList.length; i++)
+                {
+                    sounds[bufferList[i].name] = new Sound(bufferList[i].buffer);
+                }
+
+                callback();
+            });
+            bufferLoader.load();
+        }catch(e) {
 
             callback();
-        });
-        bufferLoader.load();
+        }
     }
 
 }

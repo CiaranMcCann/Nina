@@ -140,7 +140,7 @@ class Pipe extends BasePuzzle
         fixDef.density = 1.0;
         fixDef.friction = 1.0;
         fixDef.restitution = 0.1;
-        
+        fixDef.isSensor = true;
         fixDef.shape = new b2PolygonShape();
 
         fixDef.shape.SetAsBox(

@@ -2,6 +2,8 @@ var numPlatforms = 0;
 var numWaterCoins = 0;
 var numElecCoins = 0;
 var numFires = 0;
+var numPoles = 0;
+var numPipes = 0;
 
 
 var entity = {
@@ -10,7 +12,9 @@ var entity = {
 	ALEX:			2,
 	WATER_COIN:		3,
 	ELECTRIC_COIN: 	4,
-	FIRE: 			5
+	FIRE: 			5,
+	POLE: 			6,
+	PIPE: 			7
 };
 
 var currentEntity = entity.PLATFORM;
@@ -56,7 +60,7 @@ function entity_box (x, y, w, h) {
 
 jQuery(function ($) {
 
-	levelImage = prompt("level_design_level_01_00");
+	levelImage = prompt("level_design_level_01_00_front");
 
 	$('.levelImage').attr('src', '../data/images/'+levelImage+'.png');
 
@@ -82,6 +86,10 @@ jQuery(function ($) {
 			currentEntity = entity.ELECTRIC_COIN;
 		} else if ($(this).text() === 'Fire') {
 			currentEntity = entity.FIRE;
+		} else if ($(this).text() === 'Pole') {
+			currentEntity = entity.POLE;
+		} else if ($(this).text() === 'Pipe') {
+			currentEntity = entity.PIPE;
 		}
 		$(this).addClass('active');
 	});
@@ -127,17 +135,24 @@ jQuery(function ($) {
 				case entity.FIRE:
 					CreateFire(x, y);
 					break;
+				case entity.POLE:
+					CreatePole(x, y);
+					break;
+				case entity.PIPE:
+					CreatePipe(x, y);
+					break;
 				default:
-					alert("You forgot to addd the entity creation");
+					alert("You forgot to add the entity creation");
 					break;
 			}
 		}
 
-		if (tool_Remove) {
-			$('.gameEntity').click(function () {
+		$('.gameEntity').click(function () {
+			console.log('gameEntity .click');
+			if (tool_Remove) {
 				$(this).remove();
-			});
-		}
+			}
+		});
 	});
 
 	$('#save').click(function (e) {
@@ -168,6 +183,8 @@ jQuery(function ($) {
 		levelData['elecCoins'] = elecCoins;
 
 		SerialiseFires();
+		SerialisePoles();
+		SerialisePipes();
 
 		levelData['levelImage'] = levelImage;
 
@@ -225,6 +242,18 @@ jQuery(function ($) {
 			CreateFire(x, y);
 		}
 
+		for (i in levelData['pipes']) {
+			x = levelData['pipes'][i].x;
+			y = levelData['pipes'][i].y;
+			CreatePipe(x, y);
+		}
+
+		for (i in levelData['poles']) {
+			x = levelData['poles'][i].x;
+			y = levelData['poles'][i].y;
+			CreatePole(x, y);
+		}
+
 		levelImage = levelData['levelImage'];
 		$('.levelImage').attr('src', '../data/images/'+levelImage+'.png');
 	});
@@ -238,31 +267,31 @@ function CreatePlatform (x, y, w, h) {
 
 function CreateWalter (x, y) {
 	$('.walter').remove();
-	$('body').append('<div class="walter"></div>');
+	$('body').append('<div class="walter gameEntity"></div>');
 	$('.walter').draggable().offset({ top: y, left: x});
 }
 
 function CreateAlex (x, y) {
 	$('.alex').remove();
-	$('body').append('<div class="alex"></div>');
+	$('body').append('<div class="alex gameEntity"></div>');
 	$('.alex').draggable().offset({ top: y, left: x});
 }
 
 function CreateWaterCoin (x, y) {
 	numWaterCoins++;
-	$('body').append('<div id="wc'+numWaterCoins+'" class="waterCoin"></div>');
+	$('body').append('<div id="wc'+numWaterCoins+'" class="waterCoin gameEntity"></div>');
 	$('#wc'+numWaterCoins).draggable().offset({ top: y, left: x});
 }
 
 function CreateElecCoin (x, y) {
 	numElecCoins++;
-	$('body').append('<div id="ec'+numElecCoins+'" class="elecCoin"></div>');
+	$('body').append('<div id="ec'+numElecCoins+'" class="elecCoin gameEntity"></div>');
 	$('#ec'+numElecCoins).draggable().offset({ top: y, left: x});
 }
 
 function CreateFire (x, y) {
 	numFires++;
-	$('body').append('<div id="fire'+numFires+'" class="fire"></div>');
+	$('body').append('<div id="fire'+numFires+'" class="fire gameEntity"></div>');
 	$('#fire'+numFires).draggable().offset({ top: y, left: x});
 }
 
@@ -274,4 +303,37 @@ function SerialiseFires() {
 	});
 
 	levelData['fires'] = fires;
+}
+
+function CreatePole(x, y) {
+	numPoles++;
+	$('body').append('<div id="pole' + numPoles + '" class="pole gameEntity"></div>');
+	$('#pole'+numPoles).draggable().offset({ top: y, left: x});
+}
+
+function SerialisePoles () {
+	var poles = [];
+
+	$('.pole').each( function () {
+		poles.push(new entity_pos($(this).offset().left, $(this).offset().top));
+	});
+
+	levelData['poles'] = poles;
+}
+
+function CreatePipe (x, y) {
+	numPipes++;
+
+	$('body').append('<div id="pipe' + numPipes + '" class="gameEntity pipe"></div>');
+	$('#pipe'+numPipes).draggable().offset({ top: y, left: x});
+}
+
+function SerialisePipes () {
+	var pipes = [];
+
+	$('.pipe').each( function () {
+		pipes.push(new entity_pos($(this).offset().left, $(this).offset().top));
+	});
+
+	levelData['pipes'] = pipes;
 }
