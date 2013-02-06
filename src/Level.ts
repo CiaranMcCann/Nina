@@ -9,6 +9,7 @@ class Level
     puzzleManager: PuzzleManager;
     poles: ElectricPole[];
     pipes: Pipe[];
+    pump: Pump;
 
     constructor(levelData: string)
     {
@@ -73,8 +74,9 @@ class Level
         }
 
         // creating the transformer
+        this.pump = new Pump();
         this.transformer = new Transformer(
-            2400, 1400
+            2400, 1400, this.pump
         );
 
         this.walter = new Walter(level['walter'].x, level['walter'].y);

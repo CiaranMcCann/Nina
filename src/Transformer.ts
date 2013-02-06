@@ -23,7 +23,7 @@ class Transformer {
     private pump: Pump;
 
     constructor(x: number, y: number, actualPump: Pump) {
-        this.sprite = new Sprite(Sprites.animations.transformerAlex);
+        this.sprite = new Sprite(Sprites.animations.waterCoin);
         this.setUpPhysics(x, y);
         this.body.SetUserData(this)
         this.mashedPotatoes = false;
