@@ -10,6 +10,7 @@ interface IPuzzle
 
 class BasePuzzle implements isPhysicsBody, IPuzzle
 {
+    public isAlive: bool = true;
     public sprite: Sprite;
 
     //the physics body, PROTECTED YA BASTARDS ^.^
@@ -25,19 +26,30 @@ class BasePuzzle implements isPhysicsBody, IPuzzle
         this._yInPxs = yInPxs;     
     }
 
-    distance(v1, v2)
+    Draw(ctx)
     {
-        //return Math.sqrt( v1.x * v1.x  +  );
+        if (Sprite === null) return;
+        
+        //Get position of the physics body and convert it to pixel cordinates
+        var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
+
+        ctx.save();
+        ctx.translate(pos.x, pos.y);
+
+        this.DrawSprite(ctx);
+
+        ctx.restore()
     }
 
-    Draw(ctx:CanvasRenderingContext2D)
+    DrawSprite(ctx)
     {
 
     }
 
     Update( )
     {
-
+        if ( this.sprite != null )
+        this.sprite.update();
     }
 
 
@@ -53,7 +65,7 @@ class BasePuzzle implements isPhysicsBody, IPuzzle
     }
 
     //create a 
-    SetupPhysics(density: number, friction: number, restitution: number, width: number = 50, height: number = 50 )
+    SetupPhysics(density: number, friction: number, restitution: number, width: number = 50, height: number = 50, type: any = b2Body.b2_kinematicBody )
     {
         var fixDef = new b2FixtureDef;
 
@@ -65,14 +77,14 @@ class BasePuzzle implements isPhysicsBody, IPuzzle
         fixDef.shape.SetAsBox(width, height);
 
         var bodyDef = new b2BodyDef;
-        bodyDef.type = b2Body.b2_kinematicBody;
+        bodyDef.type = type;
 
         bodyDef.position.x = Physics.pixelToMeters(this._xInPxs);
         bodyDef.position.y = Physics.pixelToMeters(this._yInPxs);
+        console.log(bodyDef.position);
 
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
-        if (this instanceof Cloud) console.log( this.body );
-        fixDef.isSensor = true;        
+        //fixDef.isSensor = true;        
 
         this.body.SetUserData(this);
         return fixDef.shape;
