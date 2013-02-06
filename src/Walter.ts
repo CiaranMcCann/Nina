@@ -24,7 +24,6 @@ class Walter extends Player
     beginContact(contact) {
 
      super.beginContact(contact);
-   
     }
 
 
