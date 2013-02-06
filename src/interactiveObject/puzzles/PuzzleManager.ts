@@ -1,18 +1,35 @@
+///<reference path="Ladder.ts"/>
+///<reference path="Pipe.ts"/>
 ///<reference path="CloudPuzzle/InteractiveFire.ts"/>
+///<reference path="ElectricPole.ts"/>
+///<reference path="ElectricWire.ts"/>
 
 interface IPuzzleManager
 {
     CreatePuzzle(puzzle: BasePuzzle);
     RemovePuzzle(puzzle: BasePuzzle);
-};
+}
 
 class PuzzleManager implements IPuzzleManager
 {
     private _dynamicObjects: BasePuzzle[];
+    pole: ElectricPole;
+    pole2: ElectricPole;
+    pipe: Pipe;
+
 
     constructor(  )
     {
-        this._dynamicObjects = [];       
+
+        this._dynamicObjects = [];
+       // this.CreatePuzzle(this.pole = new ElectricPole(450, 580));
+       // this.CreatePuzzle(this.pole2 = new ElectricPole(150, 580));
+       // this.CreatePuzzle(new Ladder(550, 580));
+        // this.CreatePuzzle(new ElectricWire(this.pole, this.pole2));
+        this.CreatePuzzle(new InteractiveFire(this, 1600, 1953));        
+        //this.CreatePuzzle(this.pipe = new Pipe(null, 3000, 2100,true));
+       //this.CreatePuzzle(this.pipe2 = new Pipe(4360, 2100));
+          
     }
 
     //creates a new puzzle and adds it to the array of dynamicPuzzles
@@ -41,7 +58,7 @@ class PuzzleManager implements IPuzzleManager
 
     }
 
-    draw(ctx)
+    draw(ctx:CanvasRenderingContext2D)
     {
         for (var i = 0; i < this._dynamicObjects.length; i++)
         {

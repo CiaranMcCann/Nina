@@ -99,6 +99,14 @@ module Sprites
             frameY: 0,
             frameCount: 1,
             msPerFrame: 0
+        },
+
+        transformerAlex: {
+            imageName: "generator",
+            frameY: 0,
+            frameCount: 4,
+            msPerFrame: 50,
         }
+     
     }
 }

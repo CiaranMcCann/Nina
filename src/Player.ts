@@ -16,7 +16,10 @@ class Player implements isPhysicsBody
     sprite: Sprite;
 
     //Physics body
-    private body;
+    public body;
+
+
+    public Mayrespawn;
 
     //Player energy, weather elecitty or water
     private energy;
@@ -26,6 +29,9 @@ class Player implements isPhysicsBody
 
     //Amount player moves at
     private speed: number;
+
+    //player can climb
+     canClimb: bool;
 
     //Keyboard Controls
     controls: any;
@@ -78,6 +84,15 @@ class Player implements isPhysicsBody
 
         if ( !this._canWalk ) return;
 
+
+        if(this.Mayrespawn)return;
+
+
+        if (this.canClimb) {
+             this.body.SetAwake(false);
+        }
+        
+
         if (keyboard.isKeyDown(this.controls.right))
         {
             this.direction = Player.DIRECTION.right;
@@ -90,14 +105,31 @@ class Player implements isPhysicsBody
 
         }
 
-        if (keyboard.isKeyDown(this.controls.jump) && this.canJump >= 1)
+        if (keyboard.isKeyDown(this.controls.jump))
         {
-            var currentPos = this.body.GetPosition();
-            var forces = new b2Vec2(0, -2);
-            forces.Multiply(5.5);
+            if (this.canJump >= 1) {
+                var currentPos = this.body.GetPosition();
+                var forces = new b2Vec2(0, -2);
+                forces.Multiply(5.5);
+               // AssetManager.getSound("jump").play();
 
-            this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
+                this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
+            }
+
+            if (this.canClimb) {
+                var currentPos = this.body.GetPosition();
+                var forces = new b2Vec2(0, -2);
+                forces.Multiply(2);
+                //this.body.ApplyForce(forces, this.body.GetPosition());
+               
+                var newPosition = new b2Vec2(this.body.GetPosition().x, this.body.GetPosition().y-=0.2);
+                this.body.SetPosition(newPosition);
+               
+                
+            }
         }
+
+        
 
         if (keyboard.isKeyDown(this.controls.left))
         {
@@ -115,8 +147,13 @@ class Player implements isPhysicsBody
         }
     }
 
-    draw(ctx)
+    MakeCameraFollow()
     {
+        this.body.ApplyImpulse(new b2Vec2(this.direction * 0.5, 0), this.body.GetPosition());
+    }
+
+
+    draw(ctx) {
         if ( !this._canDraw )   return;
 
         //Get position of the physics body and convert it to pixel cordinates
@@ -125,19 +162,21 @@ class Player implements isPhysicsBody
         ctx.save();
         ctx.translate(pos.x, pos.y);
 
-        if (this.direction == Player.DIRECTION.left)
-        {
+        if (this.direction == Player.DIRECTION.left) {
             // Used to flip the sprites       
             ctx.scale(-1, 1);
         }
 
-        this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
-
+        if (!this.Mayrespawn){
+            this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
+         }
         ctx.restore()
     }
 
     beginContact(contact)
     {
+
+            
         if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
         {
             this.canJump++;
@@ -158,6 +197,7 @@ class Player implements isPhysicsBody
         fixDef.density = 1.0;
         fixDef.friction = 1.0;
         fixDef.restitution = 0.1;
+
         fixDef.shape = new b2PolygonShape();
 
         fixDef.shape.SetAsBox(
