@@ -12,7 +12,7 @@ class PuzzleManager implements IPuzzleManager
 
     constructor(  )
     {
-        this._dynamicObjects = [];
+        this._dynamicObjects = [];       
     }
 
     //creates a new puzzle and adds it to the array of dynamicPuzzles
