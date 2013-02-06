@@ -124,6 +124,7 @@ class Game
            );
         }
 
+
         // Saving the GL context here
         this.canvasContext.save();
 
