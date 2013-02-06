@@ -103,7 +103,6 @@ module AssetManager
         loadImages(priorityImages, function ()
         {
             loadSounds(priorityAudio, callback);
-            callback();
         });
     }
 
