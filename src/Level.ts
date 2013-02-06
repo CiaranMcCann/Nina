@@ -1,4 +1,6 @@
 ///<reference path="Coin.ts"/>
+///<reference path="interactiveObject/puzzles/Pipe.ts"/>
+
 class Level
 {
     coins: Coin[];
@@ -8,7 +10,6 @@ class Level
     image: string;
     puzzleManager: PuzzleManager;
     poles: ElectricPole[];
-    pipes: Pipe[];
 
     constructor(levelData: string)
     {
@@ -55,26 +56,11 @@ class Level
         }
 
         // Load pipes
-        this.pipes = [];
-        count = 0;
-        for (i = level['pipes'].length - 1; i >= 0; --i) {
-            var x = level['pipes'][i].x + 74;
-            var y = level['pipes'][i].y + 19;
-
-            if (!(i%2)) {
-                this.pipes.push(new Pipe(this.pipes[count - 1], x, y, false));
-            } else {
-                this.pipes.push(new Pipe(null, x, y, false));
-            }
-
-            this.puzzleManager.CreatePuzzle(this.pipes[count]);
-            ++count;
-        }
+        this.puzzleManager.CreatePuzzle(new Pipe(3950, 1870));
+        
 
         // creating the transformer
-        this.transformer = new Transformer(
-            2400, 1400
-        );
+        this.transformer = new Transformer(2850, 1800);
 
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);

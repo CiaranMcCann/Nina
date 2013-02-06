@@ -21,11 +21,14 @@ class ElectricWire extends BasePuzzle {
         super(null, 0, 0);
         this.ropeJoints = [];
         this.ropeNots = [];
+        this.pole = pole;
+        this.pole2 = pole2;
         
         var fixDef = new b2FixtureDef();
         fixDef.density = 0.5;
         fixDef.friction = 1.0;
         fixDef.restitution = 0.0;
+        
         fixDef.shape = new b2PolygonShape();
         fixDef.shape.SetAsBox(0.2, 0.2);
 
@@ -47,17 +50,17 @@ class ElectricWire extends BasePuzzle {
         fixDef.shape = new b2CircleShape(0.3);
         var ropeDef = new b2DistanceJointDef();
         ropeDef.frequencyHz = 10.0;
-        ropeDef.dampingRatio = 20.0;
+        ropeDef.dampingRatio = 60.0;
         var prevBody = this.anchor;
 
         var direction = this.anchor.GetPosition().Copy();
         var Pos = this.anchor2.GetPosition().Copy();
         Pos.Subtract(direction);
         
-        var distance = 5;
+        var distance = 2;
         
         if (Pos.Length() > distance) {
-            distance = Math.floor(Pos.Length() / 0.5);
+            distance = Math.floor(Pos.Length() / 1.2);
         }
 
         Pos.Normalize();
@@ -68,13 +71,11 @@ class ElectricWire extends BasePuzzle {
             bd.type = b2Body.b2_dynamicBody;
             var pos = this.anchor.GetPosition().Copy();
             var dScaled = direction.Copy();
-            dScaled.Multiply(0.5 * i);
+            dScaled.Multiply(i*0.7);
             pos.Add(dScaled);
             bd.position.SetV(pos);
             var nextBody;
             if (i == distance - 1) {
-                ropeDef.frequencyHz = 20.0;
-                ropeDef.dampingRatio = 30.0;
                 nextBody = this.anchor2;
             } else {
                 nextBody = Physics.world.CreateBody(bd);
@@ -87,7 +88,7 @@ class ElectricWire extends BasePuzzle {
             ropeDef.bodyB = nextBody;
             var joint = Physics.world.CreateJoint(ropeDef);
             this.ropeJoints.push(joint);
-            joint.SetLength(0.02);
+            joint.SetLength(0.0001);
             prevBody = nextBody;
         }
 
@@ -125,6 +126,38 @@ class ElectricWire extends BasePuzzle {
         this.body.SetFixedRotation(true);
 
 
+    }
+
+
+
+    Draw(ctx: CanvasRenderingContext2D) {
+    
+        var context = ctx;
+        context.strokeStyle = "rgb(0, 0, 0)";
+        context.lineWidth = 4;
+        //TODO Optimize this draw
+        for (var i = 0; i < this.ropeNots.length - 2; i += 2) {
+            var p1 = Physics.vectorMetersToPixels(this.ropeNots[i].GetPosition());
+            var p2 = Physics.vectorMetersToPixels(this.ropeNots[i + 2].GetPosition());
+            context.beginPath();
+            context.moveTo(p1.x, p1.y);
+            context.lineTo(p2.x, p2.y);
+            context.closePath();
+            context.stroke();
+        }
+
+
+
+
+        var p1 = Physics.vectorMetersToPixels(this.ropeNots[this.ropeNots.length - 1].GetPosition());
+        var p2 = Physics.vectorMetersToPixels(this.pole2.body.GetPosition());
+        p2.y -= 90;
+        p2.x += 20;
+        context.beginPath() ;
+        context.moveTo(p1.x, p1.y);
+        context.lineTo(p2.x, p2.y);
+        context.closePath();
+        context.stroke();
     }
 
     beginContact(contact)

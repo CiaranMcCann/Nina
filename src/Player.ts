@@ -68,6 +68,8 @@ class Player implements isPhysicsBody
     update()
     {
 
+        if(this.Mayrespawn)return;
+
 
         if (this.canClimb) {
              this.body.SetAwake(false);
@@ -92,7 +94,7 @@ class Player implements isPhysicsBody
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
                 forces.Multiply(5.5);
-                AssetManager.getSound("jump").play();
+               // AssetManager.getSound("jump").play();
 
                 this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
             }
@@ -134,27 +136,28 @@ class Player implements isPhysicsBody
         }
     }
 
-    draw(ctx)
-    {
+    draw(ctx) {
         //Get position of the physics body and convert it to pixel cordinates
         var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
 
         ctx.save();
         ctx.translate(pos.x, pos.y);
 
-        if (this.direction == Player.DIRECTION.left)
-        {
+        if (this.direction == Player.DIRECTION.left) {
             // Used to flip the sprites       
             ctx.scale(-1, 1);
         }
 
-        this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
-
+        if (!this.Mayrespawn){
+            this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
+         }
         ctx.restore()
     }
 
     beginContact(contact)
     {
+
+            
         if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
         {
             this.canJump++;

@@ -24,17 +24,23 @@ module AssetManager
          'data/images/FirstAlexBar.png',
          'data/images/FirstWalterBar.png',
          'data/images/level_design_level_01_00.png',
-         'data/images/Pipe2.png',
+         'data/images/Pipe1.png',
+         'data/images/Pipe3.png',
+         'data/images/Pipe4.png',
+         'data/images/waterParticle.png',
          'data/images/extension.png',
          'data/images/PLACEHOLDERpump.png',
+         'data/images/eyes.png',
+         'data/images/objectmap.png',
          'data/images/PLACEHOLDERtransformer.png',
          'data/images/level_design_level_01_00_front.png',
-         'data/images/level_design_level_01_00_back.png'
+         'data/images/level_design_level_01_00_back.png',
+         'data/images/Propeller.png'
     ];
 
     var priorityAudio = [
-        'data/sounds/jump.wav',
-        'data/sounds/marioCoin.wav'
+        //'data/sounds/jump.wav',
+        //'data/sounds/marioCoin.wav'
     ]
 
     export var images = [];
@@ -104,6 +110,11 @@ module AssetManager
         loadImages(priorityImages, function ()
         {
             loadSounds(priorityAudio, callback);
+
+            if (priorityAudio.length <= 0)
+            {
+                callback();
+            }
         });
     }
 
