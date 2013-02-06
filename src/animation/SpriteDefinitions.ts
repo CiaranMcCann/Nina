@@ -43,10 +43,10 @@ module Sprites
 
        walterJumping: {
 
-           imageName: "walter_jc_sprite",
+           imageName: "Walter_full_jump",
             frameY: 0,
-            frameCount: 11,
-            msPerFrame: 200,
+            frameCount: 10,
+            msPerFrame: 50,
 
         },
 

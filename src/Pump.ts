@@ -25,34 +25,25 @@ class Pump {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
+        // save the current co-ordinate system before we screw with it
+        ctx.save();
+
+        // move to the middle of where we want to draw our image
+        ctx.translate(this.x, this.y);
+        ctx.scale(0.5, 0.5);
         if (this.isPumpOn()) {
             // increasing the angle
             this.angle++;
-
-            // save the current co-ordinate system before we screw with it
-            ctx.save();
-
-            // move to the middle of where we want to draw our image
-            ctx.translate(this.x, this.y);
-            ctx.scale(0.5, 0.5);
-            if (this.isPumpOn()) {
-                // increasing the angle
-                this.angle++;
-                // rotate around that point, converting our angle from degrees to radians
-                ctx.rotate(Utilies.toRadians(this.angle));
-            }
-
-            // draw it up and to the left by half the width and height of the image
-            //this.image = AssetManager.getImage("PLACEHOLDERpump");
-            ctx.drawImage(this.image, -(this.image.width / 2), -(this.image.height / 2));
-
-            // and restore the co-ords to how they were when we began
-            ctx.restore();
+            // rotate around that point, converting our angle from degrees to radians
+            ctx.rotate(Utilies.toRadians(this.angle));
         }
-        else {
-            // freeze the image
-            ctx.drawImage(this.image, -(this.image.width / 2) + this.x, -(this.image.height / 2) + this.y);
-        }
+
+        // draw it up and to the left by half the width and height of the image
+        //this.image = AssetManager.getImage("PLACEHOLDERpump");
+        ctx.drawImage(this.image, -(this.image.width / 2), -(this.image.height / 2));
+
+        // and restore the co-ords to how they were when we began
+        ctx.restore();
     }
 
     pumpState(state) {

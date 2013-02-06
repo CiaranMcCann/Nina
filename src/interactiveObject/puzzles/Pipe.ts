@@ -128,7 +128,7 @@ class Pipe extends BasePuzzle
 
         if(this.walter == null)return;
 
-        console.log(this.canRespawn);
+
         if (this.canRespawn) {
             if (GameInstance.level.transformer.pump.isPumpOn()) {
                 this.walter.respawn();
