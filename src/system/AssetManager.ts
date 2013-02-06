@@ -24,10 +24,14 @@ module AssetManager
          'data/images/FirstAlexBar.png',
          'data/images/FirstWalterBar.png',
          'data/images/level_design_level_01_00.png',
-         'data/images/Pipe2.png',
+         'data/images/Pipe1.png',
+         'data/images/Pipe3.png',
+         'data/images/Pipe4.png',
+         'data/images/waterParticle.png',
          'data/images/extension.png',
          'data/images/PLACEHOLDERpump.png',
-         'data/images/PLACEHOLDERtransformer.png'
+         'data/images/PLACEHOLDERtransformer.png',
+         'data/images/eyes.png'
     ];
 
     var priorityAudio = [

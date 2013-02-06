@@ -1,10 +1,13 @@
 ///<reference path="Player.ts"/>
 ///<reference path="system/Utilies.ts">
 ///<reference path="system/timer.ts"/>
+
 class Walter extends Player
 {
     public respawnPosition;
     public timer;
+
+
     constructor(x,y)
     {
         super(x,y,Sprites.animations.walterWalking);
@@ -15,7 +18,9 @@ class Walter extends Player
             jump: keyboard.keyCodes.w,
             use: keyboard.keyCodes.s
         }
-
+    }
+   
+    animateEyes() {
     }
 
     public respawn() {
