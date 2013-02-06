@@ -9,6 +9,9 @@ class Player implements isPhysicsBody
         right: 1
     }
 
+    private _canWalk: bool = true;
+    private _canDraw: bool = true;
+
     // Animated image
     sprite: Sprite;
 
@@ -18,13 +21,14 @@ class Player implements isPhysicsBody
     //Physics body
     public body;
 
+
     public Mayrespawn;
 
     //Player energy, weather elecitty or water
     private energy;
 
     // Direction character  is facing
-    private direction: number;
+    public direction: number;
 
     //Amount player moves at
     private speed: number;
@@ -41,8 +45,11 @@ class Player implements isPhysicsBody
     // User to dectect weather the player is standing on somthing
     footSensor: any;
 
+    drawable: bool;
+
     constructor(xInPixels: number, yInPixels: number, animation: SpriteDefinition, jumpAnimation: SpriteDefinition)
-        {
+    {
+        this.drawable = true;
         this.speed = 3;
         this.canJump = 0;
         this.direction = Player.DIRECTION.right;
@@ -58,6 +65,13 @@ class Player implements isPhysicsBody
         this.body.SetUserData(this)
     }
 
+    setCanWalk(value: bool) { this._canWalk = value; }
+    getCanWalk() { return this._canWalk; }
+
+    setCanDraw(value: bool) { this._canDraw = value; }
+    getCanDraw() { return this._canDraw; }
+
+    getBody() { return this.body; }
     getEnergy() { return this.energy };
     setEnergy(e) { 
         this.energy = e;
@@ -71,6 +85,13 @@ class Player implements isPhysicsBody
 
     update()
     {
+        //When the player starts to move have the camera follow them
+        if (this.body.GetLinearVelocity().Length() >= 0.01) {
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.body.GetPosition()));
+        }
+
+        if ( !this._canWalk ) return;
+
 
         if(this.Mayrespawn)return;
 
@@ -142,32 +163,35 @@ class Player implements isPhysicsBody
         if (keyboard.isKeyDown(this.controls.down)) {
 
         }
-
-        //When the player starts to move have the camera follow them
-        if (this.body.GetLinearVelocity().Length() >= 0.01)
-        {
-            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.body.GetPosition()));
-        }
     }
 
+    MakeCameraFollow()
+    {
+        this.body.ApplyImpulse(new b2Vec2(this.direction * 0.5, 0), this.body.GetPosition());
+    }
+
+
     draw(ctx) {
-        //Get position of the physics body and convert it to pixel cordinates
-        var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
+        if (this.drawable) {
+            //Get position of the physics body and convert it to pixel cordinates
+            var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
 
-        ctx.save();
-        ctx.translate(pos.x, pos.y);
+            ctx.save();
+            ctx.translate(pos.x, pos.y);
 
-        if (this.direction == Player.DIRECTION.left) {
-            // Used to flip the sprites       
-            ctx.scale(-1, 1);
+            if (this.direction == Player.DIRECTION.left) {
+                // Used to flip the sprites       
+                ctx.scale(-1, 1);
+            }
+
+            if (this.canJump < 1 && !this.canClimb) {
+                this.jumpSprite.draw(ctx, -this.jumpSprite.getFrameWidth() / 2, -this.jumpSprite.getFrameHeight() / 2);
+            } else {
+                this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
+            }
+
+            ctx.restore();
         }
-        if (this.canJump < 1 && !this.canClimb) {
-            this.jumpSprite.draw(ctx, -this.jumpSprite.getFrameWidth() / 2, -this.jumpSprite.getFrameHeight() / 2);
-        } else {
-            this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
-        }
-        
-        ctx.restore()
     }
 
     beginContact(contact)
