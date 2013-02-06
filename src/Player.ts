@@ -28,7 +28,7 @@ class Player implements isPhysicsBody
     private energy;
 
     // Direction character  is facing
-    private direction: number;
+    public direction: number;
 
     //Amount player moves at
     private speed: number;
