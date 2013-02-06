@@ -49,6 +49,7 @@ class Transformer {
         if (this.powerUp == 100 && !this.pump.isPumpOn()) {
             console.log("This should be false - " + this.pump.isPumpOn());
             this.pump.pumpState(true);
+            GameInstance.camera.panToPosition(new b2Vec2(this.pump.x,this.pump.y));
             console.log("so it is changed to " + this.pump.isPumpOn());
             console.log("something");
         }
