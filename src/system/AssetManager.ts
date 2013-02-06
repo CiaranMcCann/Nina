@@ -28,7 +28,8 @@ module AssetManager
          'data/images/extension.png',
          'data/images/PLACEHOLDERpump.png',
          'data/images/PLACEHOLDERtransformer.png',
-         'data/images/level_design_level_01_00_front.png'
+         'data/images/level_design_level_01_00_front.png',
+         'data/images/level_design_level_01_00_back.png'
     ];
 
     var priorityAudio = [
@@ -107,18 +108,25 @@ module AssetManager
     }
 
     export function loadSounds(sources, callback)
-    {
-        var bufferLoader = new BufferLoader(Sound.context, sources, function (bufferList)
+    {   
+        try
         {
 
-            for (var i = 0; i < bufferList.length; i++)
+            var bufferLoader = new BufferLoader(Sound.context, sources, function (bufferList)
             {
-                sounds[bufferList[i].name] = new Sound(bufferList[i].buffer);
-            }
+
+                for (var i = 0; i < bufferList.length; i++)
+                {
+                    sounds[bufferList[i].name] = new Sound(bufferList[i].buffer);
+                }
+
+                callback();
+            });
+            bufferLoader.load();
+        }catch(e) {
 
             callback();
-        });
-        bufferLoader.load();
+        }
     }
 
 }
