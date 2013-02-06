@@ -7,6 +7,9 @@ class Transformer {
     // animated image (CURRENTLY NOT USED)
     private sprite: Sprite;
 
+    //animated image of alex zzzzzzz
+    electrifiedAlex: Sprite;
+
     // displays the % of the powering of the transformer
     private powerUp: number;
 
@@ -23,6 +26,7 @@ class Transformer {
     public pump: Pump;
 
     constructor(x: number, y: number) {
+        this.electrifiedAlex = new Sprite(Sprites.animations.alexElectrified);
         this.sprite = new Sprite(Sprites.animations.transformerAlex);
         this.setUpPhysics(x, y);
         this.body.SetUserData(this)
@@ -35,6 +39,7 @@ class Transformer {
     update() {
         // if he's near the transformer and spamming the 'Power Up'-button.
         if (this.mashedPotatoes && this.powerUp < 100) { // && keyboard.isKeyDown(this.controls.use)
+            this.electrifiedAlex.update();
             this.powerUp += 0.5;
             console.log(this.powerUp);
         }
@@ -83,6 +88,12 @@ class Transformer {
         ctx.save();
         ctx.translate(pos.x, pos.y)
         this.sprite.draw(ctx, (-this.sprite.getFrameWidth() / 2), (-this.sprite.getFrameHeight() / 2));
+        if (this.mashedPotatoes) {
+            GameInstance.level.alex.drawable = false;
+            this.electrifiedAlex.draw(ctx, -this.electrifiedAlex.getFrameWidth(), -this.electrifiedAlex.getFrameHeight() / 2);
+        } else {
+            GameInstance.level.alex.drawable = true;
+        }
         ctx.restore();
 
         this.pump.draw(ctx);

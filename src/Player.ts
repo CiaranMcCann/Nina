@@ -41,8 +41,11 @@ class Player implements isPhysicsBody
     // User to dectect weather the player is standing on somthing
     footSensor: any;
 
+    drawable: bool;
+
     constructor(xInPixels: number, yInPixels: number, animation: SpriteDefinition, jumpAnimation: SpriteDefinition)
-        {
+    {
+        this.drawable = true;
         this.speed = 3;
         this.canJump = 0;
         this.direction = Player.DIRECTION.right;
@@ -151,23 +154,26 @@ class Player implements isPhysicsBody
     }
 
     draw(ctx) {
-        //Get position of the physics body and convert it to pixel cordinates
-        var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
+        if (this.drawable) {
+            //Get position of the physics body and convert it to pixel cordinates
+            var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
 
-        ctx.save();
-        ctx.translate(pos.x, pos.y);
+            ctx.save();
+            ctx.translate(pos.x, pos.y);
 
-        if (this.direction == Player.DIRECTION.left) {
-            // Used to flip the sprites       
-            ctx.scale(-1, 1);
+            if (this.direction == Player.DIRECTION.left) {
+                // Used to flip the sprites       
+                ctx.scale(-1, 1);
+            }
+
+            if (this.canJump < 1 && !this.canClimb) {
+                this.jumpSprite.draw(ctx, -this.jumpSprite.getFrameWidth() / 2, -this.jumpSprite.getFrameHeight() / 2);
+            } else {
+                this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
+            }
+
+            ctx.restore();
         }
-        if (this.canJump < 1 && !this.canClimb) {
-            this.jumpSprite.draw(ctx, -this.jumpSprite.getFrameWidth() / 2, -this.jumpSprite.getFrameHeight() / 2);
-        } else {
-            this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
-        }
-        
-        ctx.restore()
     }
 
     beginContact(contact)
