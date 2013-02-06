@@ -19,7 +19,9 @@ class Pipe extends BasePuzzle
     private x;
     private y;
     water: waterParticle;
-    waterArray :waterParticle[];
+    waterArray: waterParticle[];
+    private canRespawn: bool;
+    private walter: Walter;
 
     constructor(xInPixels: number, yInPixels: number)
     {
@@ -39,6 +41,8 @@ class Pipe extends BasePuzzle
         this.x = xInPixels;
         this.y = yInPixels;
         this.waterArray = [];
+
+        this.canRespawn = false;
     }
 
     EmitParticle() {
@@ -98,13 +102,15 @@ class Pipe extends BasePuzzle
 
         ctx.restore();
 
-
-        var _time = new Date().getTime();
-        if (_time - this.timer > 500) {
-            this.timer = _time;
-            this.EmitParticle();
-            //console.log("Emit Particle");
+        
+        if (GameInstance.level.transformer.pump.isPumpOn()) {
+            var _time = new Date().getTime();
+            if (_time - this.timer > 500) {
+                this.timer = _time;
+                this.EmitParticle();
+            }
         }
+        
 
         for (var i: number = 0; i < this.waterArray.length; i++) {
             
@@ -113,26 +119,42 @@ class Pipe extends BasePuzzle
            
             if (this.waterArray[i].destroyed) {
                 this.waterArray.splice(i, 1);
-                //console.log("dead");
             }
         }
+
+       
+
+       
+
+        if(this.walter == null)return;
+
+        console.log(this.canRespawn);
+        if (this.canRespawn) {
+            if (GameInstance.level.transformer.pump.isPumpOn()) {
+                this.walter.respawn();
+                this.canRespawn = false;
+               
+            }
+        }
+
     }
 
 
     beginContact(contact) {
+
         if (contact.GetFixtureA().GetBody().GetUserData() instanceof Walter) {
-            
-            var walter:Walter = contact.GetFixtureA().GetBody().GetUserData();
-            if (!walter.Mayrespawn) {
-                walter.respawn();
-                walter.respawnPosition = this.spawnLocation;
-                
-            }
+            this.canRespawn = true;
+            this.walter = contact.GetFixtureA().GetBody().GetUserData();
+            this.walter.respawnPosition = this.spawnLocation;
+
         }
+        
     }
 
     endContact(contact) {
-       
+        if (contact.GetFixtureA().GetBody().GetUserData() instanceof Walter) {
+            this.canRespawn = false;
+        }
     }
 
     setUpPhysics(xInPixels, yInPixels) {

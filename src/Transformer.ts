@@ -20,7 +20,7 @@ class Transformer {
     private mashedPotatoes: bool;
 
     // So we can turn the pump on or off
-    private pump: Pump;
+    public pump: Pump;
 
     constructor(x: number, y: number) {
         this.sprite = new Sprite(Sprites.animations.transformerAlex);

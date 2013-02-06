@@ -20,8 +20,13 @@ class Walter extends Player
         }
     }
    
-    animateEyes() {
+
+    beginContact(contact) {
+
+     super.beginContact(contact);
+   
     }
+
 
     public respawn() {
         this.timer = new Date().getTime();
@@ -32,8 +37,9 @@ class Walter extends Player
         super.update();
         if (this.Mayrespawn) {
             var _time = new Date().getTime();
-            if (_time - this.timer > 3000) {
+            if (_time - this.timer > 2500) {
                 this.body.SetPosition(this.respawnPosition);
+                this.body.ApplyImpulse(new b2Vec2(0, -100), this.body.GetPosition());
                 this.Mayrespawn = false;
             }
            

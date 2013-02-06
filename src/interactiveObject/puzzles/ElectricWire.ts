@@ -28,6 +28,7 @@ class ElectricWire extends BasePuzzle {
         fixDef.density = 0.5;
         fixDef.friction = 1.0;
         fixDef.restitution = 0.0;
+        
         fixDef.shape = new b2PolygonShape();
         fixDef.shape.SetAsBox(0.2, 0.2);
 

@@ -156,6 +156,8 @@ class Player implements isPhysicsBody
 
     beginContact(contact)
     {
+
+            
         if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
         {
             this.canJump++;
