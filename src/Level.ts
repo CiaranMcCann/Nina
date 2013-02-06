@@ -1,7 +1,8 @@
 ///<reference path="Coin.ts"/>
+///<reference path="interactiveObject/puzzles/Pipe.ts"/>
 ///<reference path="Transformer.ts"/>
-///<reference path="Pump.ts" />
-///<reference path="ButtonBashing.ts" />
+///<reference path="ButtonBashing.ts"/>
+
 class Level
 {
     coins: Coin[];
@@ -10,8 +11,7 @@ class Level
     transformer: Transformer;
     image: string;
     puzzleManager: PuzzleManager;
-    pump: Pump;
-    buttonbashing: ButtonBashing;
+    poles: ElectricPole[];
 
     constructor(levelData: string)
     {
@@ -40,15 +40,31 @@ class Level
             var tmpFire = new InteractiveFire(this.puzzleManager, level['fires'][i].x, level['fires'][i].y);
             this.puzzleManager.CreatePuzzle(tmpFire);
         }
-        // creating the transformer
-        this.pump = new Pump();
+
+        //Load electricity poles
+        this.poles = [];
+        for (i in level['poles']) {
+            // Magic numbers!!!!!! Poles could be resizable in the editor
+            var x = level['poles'][i].x + 5;
+            var y = level['poles'][i].y + 100;
+            this.poles.push(new ElectricPole(x, y));
+            this.puzzleManager.CreatePuzzle(this.poles[i]);
+            this.puzzleManager.CreatePuzzle(new Ladder(x, y));
+            if (i != 0) {
+                this.puzzleManager.CreatePuzzle(new ElectricWire(this.poles[i - 1], this.poles[i]));
+            }
+        }
+
+        // Load pipes
+        this.puzzleManager.CreatePuzzle(new Pipe(4050, 1840));
         
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);
-        
+
         this.transformer = new Transformer(
-            2400, 1400, this.pump, new ButtonBashing(this.alex.controls, this.alex)
+            2980, 1650, new ButtonBashing(this.alex.controls, this.alex)
         );
+
         this.image = level["levelImage"];
     }
 
@@ -61,7 +77,6 @@ class Level
         this.walter.draw(ctx);
 
         this.puzzleManager.draw(ctx);
-        this.pump.draw(ctx);
         this.transformer.draw(ctx);
     }
 

@@ -32,6 +32,28 @@
     <Content Include="external\jquery.1.8.2.min.js" />
     <Content Include="external\Stats.js" />
     <Content Include="index.htm" />
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\Pipe.ts" />
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\Cloud.ts" />
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\Cloud.js">
+      <DependentUpon>Cloud.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\InteractiveFire.ts" />
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\InteractiveFire.js">
+      <DependentUpon>InteractiveFire.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\RainDrop.ts" />
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\RainDrop.js">
+      <DependentUpon>RainDrop.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\Pipe.js">
+      <DependentUpon>Pipe.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\Pipe.min.js">
+      <DependentUpon>Pipe.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Walter.min.js">
+      <DependentUpon>Walter.ts</DependentUpon>
+    </Content>
     <TypeScriptCompile Include="src\Alex.ts" />
     <Content Include="src\Alex.js">
       <DependentUpon>Alex.ts</DependentUpon>
@@ -48,16 +70,35 @@
     <Content Include="src\interactiveObject\puzzles\BasePuzzle.js">
       <DependentUpon>BasePuzzle.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\interactiveObject\puzzles\InteractiveFire.ts" />
-    <TypeScriptCompile Include="src\interactiveObject\puzzles\Cloud.ts" />
-    <Content Include="src\interactiveObject\puzzles\Cloud.js">
-      <DependentUpon>Cloud.ts</DependentUpon>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\ElectricWire.ts" />
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\ElectricPole.ts" />
+    <Content Include="src\interactiveObject\puzzles\ElectricPole.js">
+      <DependentUpon>ElectricPole.ts</DependentUpon>
     </Content>
-    <Content Include="src\interactiveObject\puzzles\InteractiveFire.js">
-      <DependentUpon>InteractiveFire.ts</DependentUpon>
+    <Content Include="src\interactiveObject\puzzles\ElectricPole.min.js">
+      <DependentUpon>ElectricPole.ts</DependentUpon>
     </Content>
+    <Content Include="src\interactiveObject\puzzles\ElectricWire.js">
+      <DependentUpon>ElectricWire.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\ElectricWire.min.js">
+      <DependentUpon>ElectricWire.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\Ladder.js">
+      <DependentUpon>Ladder.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\Ladder.min.js">
+      <DependentUpon>Ladder.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\Ladder.ts" />
     <Content Include="src\interactiveObject\puzzles\PuzzleManager.js">
       <DependentUpon>PuzzleManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\interactiveObject\puzzles\PuzzleManager.min.js">
+      <DependentUpon>PuzzleManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Player.min.js">
+      <DependentUpon>Player.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Coin.ts" />
     <Content Include="src\Coin.js">

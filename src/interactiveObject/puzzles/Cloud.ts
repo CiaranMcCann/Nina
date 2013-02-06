@@ -2,7 +2,7 @@
 
 class Cloud extends BasePuzzle
 {
-    private _puzzleManager: IPuzzleManager;
+    private _puzzleManager;
 
     //after Walter has jumped into the fire, we create a cloud.
     //when Alex has joined Walter, the cloud will turn into a thundercloud

@@ -1,11 +1,17 @@
 ///<reference path="Player.ts"/>
 ///<reference path="system/Utilies.ts">
+///<reference path="system/timer.ts"/>
+
 class Walter extends Player
 {
+    public respawnPosition;
+    public timer;
+
+
     constructor(x,y)
     {
-        super(x,y,Sprites.animations.walterWalking);
-
+        super(x, y, Sprites.animations.walterWalking, Sprites.animations.walterJumping);
+        this.respawnPosition = new b2Vec2(0, 0);
         this.controls = {
             left: keyboard.keyCodes.a,
             right: keyboard.keyCodes.d,
@@ -13,7 +19,31 @@ class Walter extends Player
             positive: keyboard.keyCodes.e,
             negative: keyboard.keyCodes.q
         }
+    }
+   
 
+    beginContact(contact) {
+
+     super.beginContact(contact);
+    }
+
+
+    public respawn() {
+        this.timer = new Date().getTime();
+        this.Mayrespawn = true;
+    }
+
+    update() {
+        super.update();
+        if (this.Mayrespawn) {
+            var _time = new Date().getTime();
+            if (_time - this.timer > 2500) {
+                this.body.SetPosition(this.respawnPosition);
+                this.body.ApplyImpulse(new b2Vec2(0, -100), this.body.GetPosition());
+                this.Mayrespawn = false;
+            }
+           
+        }
     }
 
 }

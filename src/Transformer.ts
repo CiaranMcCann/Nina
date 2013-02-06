@@ -22,49 +22,32 @@ class Transformer {
     private mashedPotatoes: bool;
 
     // So we can turn the pump on or off
-    private pump: Pump;
+    public pump: Pump;
 
-    // so we can do the button bashing
-    private buttonbashing: ButtonBashing;
+    private buttonBashing: ButtonBashing;
 
-    constructor(x: number, y: number, actualPump: Pump, buttonBasher: ButtonBashing)
-    {
+    constructor(x: number, y: number, buttonBashing: ButtonBashing) {
         this.sprite = new Sprite(Sprites.animations.transformerAlex);
         this.setUpPhysics(x, y);
         this.body.SetUserData(this)
         this.mashedPotatoes = false;
         this.powerUp = 0;
 
-        this.pump = actualPump;
-        console.log(this.pump);
-        this.buttonbashing = buttonBasher;
-        this.buttonbashing.SetOnDone(function () =>
+        this.pump = new Pump(x + 1070, y + 300);
+          this.buttonBashing = buttonBashing;
+        this.buttonBashing.SetOnDone(function () =>
         {
-            console.log("Percentage should be 100 now");
+            
             if (!this.pump.isPumpOn()) {
                 this.pump.pumpState(true);
+                GameInstance.camera.panToPosition(new b2Vec2(this.pump.x, this.pump.y));
             }
         }
-        );
+       );
     }
 
-
-    update() {
-        // if he's near the transformer and spamming the 'Power Up'-button.
-        if (this.mashedPotatoes && this.powerUp < 100) { // && keyboard.isKeyDown(this.controls.use)
-            this.powerUp += 0.5;
-        }
-
-        // if he's reaching a hundred, he's fully powered up the transformer.
-        if (this.powerUp < 100 && !this.mashedPotatoes) {
-            if (this.powerUp > 0) {
-                this.powerUp--;
-            }            
-        }
-        if (this.powerUp == 100 && !this.pump.isPumpOn()) {
-           // this.pump.pumpState(true);
-        }        
-        this.buttonbashing.update(this.mashedPotatoes);
+    update() {       
+        this.buttonBashing.update(this.mashedPotatoes);
     }
 
     beginContact(contact) {
@@ -94,8 +77,9 @@ class Transformer {
         ctx.translate(pos.x, pos.y)
         this.sprite.draw(ctx, (-this.sprite.getFrameWidth() / 2), (-this.sprite.getFrameHeight() / 2));
         ctx.restore();
-        
-        this.buttonbashing.draw(ctx);
+
+        this.pump.draw(ctx);
+        this.buttonBashing.draw(ctx);
     }
 
     setUpPhysics(xInPixels, yInPixels) {
@@ -112,8 +96,8 @@ class Transformer {
 
         var bodyDef = new b2BodyDef;
         bodyDef.type = b2Body.b2_staticBody;
-        bodyDef.position.x = Physics.pixelToMeters(xInPixels + 1750);
-        bodyDef.position.y = Physics.pixelToMeters(yInPixels + 650);
+        bodyDef.position.x = Physics.pixelToMeters( xInPixels );
+        bodyDef.position.y = Physics.pixelToMeters(yInPixels);
 
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
         this.body.SetSleepingAllowed(false);
