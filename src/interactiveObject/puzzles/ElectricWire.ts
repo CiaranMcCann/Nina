@@ -57,7 +57,7 @@ class ElectricWire extends BasePuzzle {
         var distance = 2;
         
         if (Pos.Length() > distance) {
-            distance = Math.floor(Pos.Length() / 1.6);
+            distance = Math.floor(Pos.Length() / 1.2);
         }
 
         Pos.Normalize();
@@ -68,7 +68,7 @@ class ElectricWire extends BasePuzzle {
             bd.type = b2Body.b2_dynamicBody;
             var pos = this.anchor.GetPosition().Copy();
             var dScaled = direction.Copy();
-            dScaled.Multiply(2 * i);
+            dScaled.Multiply(i*0.7);
             pos.Add(dScaled);
             bd.position.SetV(pos);
             var nextBody;
@@ -85,7 +85,7 @@ class ElectricWire extends BasePuzzle {
             ropeDef.bodyB = nextBody;
             var joint = Physics.world.CreateJoint(ropeDef);
             this.ropeJoints.push(joint);
-            joint.SetLength(0.001);
+            joint.SetLength(0.0001);
             prevBody = nextBody;
         }
 
