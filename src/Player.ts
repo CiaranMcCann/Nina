@@ -9,6 +9,9 @@ class Player implements isPhysicsBody
         right: 1
     }
 
+    private _canWalk: bool = true;
+    private _canDraw: bool = true;
+
     // Animated image
     sprite: Sprite;
 
@@ -41,13 +44,20 @@ class Player implements isPhysicsBody
         this.sprite = new Sprite(animation);
         this.setUpPhysics(xInPixels,yInPixels);
         this.energy = 50;
-
+        
         //Place a refer to this object in the physics bodies
         // user data so that when their is a collison we 
         // can easily call the correct objects methods to handle it
         this.body.SetUserData(this)
     }
 
+    setCanWalk(value: bool) { this._canWalk = value; }
+    getCanWalk() { return this._canWalk; }
+
+    setCanDraw(value: bool) { this._canDraw = value; }
+    getCanDraw() { return this._canDraw; }
+
+    getBody() { return this.body; }
     getEnergy() { return this.energy };
     setEnergy(e) { 
         this.energy = e;
@@ -61,6 +71,13 @@ class Player implements isPhysicsBody
 
     update()
     {
+        //When the player starts to move have the camera follow them
+        if (this.body.GetLinearVelocity().Length() >= 0.01) {
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.body.GetPosition()));
+        }
+
+        if ( !this._canWalk ) return;
+
         if (keyboard.isKeyDown(this.controls.right))
         {
             this.direction = Player.DIRECTION.right;
@@ -96,16 +113,12 @@ class Player implements isPhysicsBody
         if (keyboard.isKeyDown(this.controls.down)) {
 
         }
-
-        //When the player starts to move have the camera follow them
-        if (this.body.GetLinearVelocity().Length() >= 0.01)
-        {
-            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.body.GetPosition()));
-        }
     }
 
     draw(ctx)
     {
+        if ( !this._canDraw )   return;
+
         //Get position of the physics body and convert it to pixel cordinates
         var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
 

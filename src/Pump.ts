@@ -19,9 +19,7 @@ class Pump {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        console.log("Draw says " + this.isPumpOn());
         if (this.isPumpOn()) {
-            console.log("Rotating image.");
             // increasing the angle
             this.angle++;
 
@@ -44,13 +42,11 @@ class Pump {
         else {
             // freeze the image
             ctx.drawImage(this.image, -(this.image.width / 2) + 4500, -(this.image.height / 2) + 2250);
-            //console.log("Drawing still image because the bool is " + this.runPump);
         }
     }
 
     pumpState(state) {
         this.runPump = state;
-        console.log("The pump is now " + this.runPump);
     }
 
     isPumpOn() {

@@ -1,5 +1,7 @@
 ///<reference path="Coin.ts"/>
-///
+///<reference path="Transformer.ts"/>
+///<reference path="Pump.ts" />
+///<reference path="ButtonBashing.ts" />
 class Level
 {
     coins: Coin[];
@@ -9,6 +11,7 @@ class Level
     image: string;
     puzzleManager: PuzzleManager;
     pump: Pump;
+    buttonbashing: ButtonBashing;
 
     constructor(levelData: string)
     {
@@ -39,13 +42,13 @@ class Level
         }
         // creating the transformer
         this.pump = new Pump();
-        this.transformer = new Transformer(
-            2400, 1400, this.pump
-        );
-
+        
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);
-
+        
+        this.transformer = new Transformer(
+            2400, 1400, this.pump, new ButtonBashing(this.alex.controls, this.alex)
+        );
         this.image = level["levelImage"];
     }
 
@@ -58,8 +61,8 @@ class Level
         this.walter.draw(ctx);
 
         this.puzzleManager.draw(ctx);
-        this.transformer.draw(ctx);
         this.pump.draw(ctx);
+        this.transformer.draw(ctx);
     }
 
     update()

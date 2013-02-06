@@ -10,7 +10,8 @@ class Walter extends Player
             left: keyboard.keyCodes.a,
             right: keyboard.keyCodes.d,
             jump: keyboard.keyCodes.w,
-            use: keyboard.keyCodes.s
+            positive: keyboard.keyCodes.e,
+            negative: keyboard.keyCodes.q
         }
 
     }

@@ -38,6 +38,13 @@
     </Content>
     <TypeScriptCompile Include="src\interactiveObject\puzzles\PuzzleManager.ts" />
     <TypeScriptCompile Include="src\interactiveObject\puzzles\BasePuzzle.ts" />
+    <TypeScriptCompile Include="src\ButtonBashing.ts" />
+    <Content Include="src\buttonBashing.js">
+      <DependentUpon>ButtonBashing.ts</DependentUpon>
+    </Content>
+    <Content Include="src\buttonBashing.min.js">
+      <DependentUpon>ButtonBashing.ts</DependentUpon>
+    </Content>
     <Content Include="src\interactiveObject\puzzles\BasePuzzle.js">
       <DependentUpon>BasePuzzle.ts</DependentUpon>
     </Content>
@@ -67,6 +74,24 @@
     <Content Include="src\Level.js">
       <DependentUpon>Level.ts</DependentUpon>
     </Content>
+    <Content Include="src\Level.min.js">
+      <DependentUpon>Level.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Platform.ts" />
+    <Content Include="src\Pump.js">
+      <DependentUpon>Pump.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Pump.min.js">
+      <DependentUpon>Pump.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Pump.ts" />
+    <Content Include="src\Transformer.js">
+      <DependentUpon>Transformer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Transformer.min.js">
+      <DependentUpon>Transformer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Transformer.ts" />
     <Content Include="src\Walter.js">
       <DependentUpon>Walter.ts</DependentUpon>
     </Content>

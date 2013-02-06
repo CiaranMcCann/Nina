@@ -1,4 +1,6 @@
 ///<reference path="animation/Sprite.ts"/>
+///<reference path="Pump.ts"/>
+///<reference path="ButtonBashing.ts"/>
 
 class Transformer {
     // This is the transformer on stage #1 that powers up the pump
@@ -22,7 +24,11 @@ class Transformer {
     // So we can turn the pump on or off
     private pump: Pump;
 
-    constructor(x: number, y: number, actualPump: Pump) {
+    // so we can do the button bashing
+    private buttonbashing: ButtonBashing;
+
+    constructor(x: number, y: number, actualPump: Pump, buttonBasher: ButtonBashing)
+    {
         this.sprite = new Sprite(Sprites.animations.transformerAlex);
         this.setUpPhysics(x, y);
         this.body.SetUserData(this)
@@ -30,28 +36,35 @@ class Transformer {
         this.powerUp = 0;
 
         this.pump = actualPump;
+        console.log(this.pump);
+        this.buttonbashing = buttonBasher;
+        this.buttonbashing.SetOnDone(function () =>
+        {
+            console.log("Percentage should be 100 now");
+            if (!this.pump.isPumpOn()) {
+                this.pump.pumpState(true);
+            }
+        }
+        );
     }
+
 
     update() {
         // if he's near the transformer and spamming the 'Power Up'-button.
         if (this.mashedPotatoes && this.powerUp < 100) { // && keyboard.isKeyDown(this.controls.use)
             this.powerUp += 0.5;
-            console.log(this.powerUp);
         }
 
         // if he's reaching a hundred, he's fully powered up the transformer.
         if (this.powerUp < 100 && !this.mashedPotatoes) {
             if (this.powerUp > 0) {
                 this.powerUp--;
-                console.log(this.powerUp);
             }            
         }
         if (this.powerUp == 100 && !this.pump.isPumpOn()) {
-            console.log("This should be false - " + this.pump.isPumpOn());
-            this.pump.pumpState(true);
-            console.log("so it is changed to " + this.pump.isPumpOn());
-            console.log("something");
-        }
+           // this.pump.pumpState(true);
+        }        
+        this.buttonbashing.update(this.mashedPotatoes);
     }
 
     beginContact(contact) {
@@ -60,7 +73,6 @@ class Transformer {
 
         // checking to see if Alex is near the transformer
         if (a instanceof Alex || b instanceof Alex) {
-            console.log("Contact.");
             this.mashedPotatoes = true;
         }
     }
@@ -71,7 +83,6 @@ class Transformer {
 
         // checking to see if Alex is near the transformer
         if (a instanceof Alex || b instanceof Alex) {
-            console.log("Contact ended.");
             this.mashedPotatoes = false;
         }
     };
@@ -83,6 +94,8 @@ class Transformer {
         ctx.translate(pos.x, pos.y)
         this.sprite.draw(ctx, (-this.sprite.getFrameWidth() / 2), (-this.sprite.getFrameHeight() / 2));
         ctx.restore();
+        
+        this.buttonbashing.draw(ctx);
     }
 
     setUpPhysics(xInPixels, yInPixels) {
