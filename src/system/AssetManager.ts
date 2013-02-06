@@ -31,6 +31,7 @@ module AssetManager
          'data/images/extension.png',
          'data/images/PLACEHOLDERpump.png',
          'data/images/eyes.png',
+         'data/images/objectmap.png',
          'data/images/PLACEHOLDERtransformer.png',
          'data/images/level_design_level_01_00_front.png',
          'data/images/level_design_level_01_00_back.png',

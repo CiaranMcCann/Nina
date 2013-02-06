@@ -21,6 +21,8 @@ class ElectricWire extends BasePuzzle {
         super(null, 0, 0);
         this.ropeJoints = [];
         this.ropeNots = [];
+        this.pole = pole;
+        this.pole2 = pole2;
         
         var fixDef = new b2FixtureDef();
         fixDef.density = 0.5;
@@ -123,6 +125,38 @@ class ElectricWire extends BasePuzzle {
         this.body.SetFixedRotation(true);
 
 
+    }
+
+
+
+    Draw(ctx: CanvasRenderingContext2D) {
+    
+        var context = ctx;
+        context.strokeStyle = "rgb(0, 0, 0)";
+        context.lineWidth = 4;
+        //TODO Optimize this draw
+        for (var i = 0; i < this.ropeNots.length - 2; i += 2) {
+            var p1 = Physics.vectorMetersToPixels(this.ropeNots[i].GetPosition());
+            var p2 = Physics.vectorMetersToPixels(this.ropeNots[i + 2].GetPosition());
+            context.beginPath();
+            context.moveTo(p1.x, p1.y);
+            context.lineTo(p2.x, p2.y);
+            context.closePath();
+            context.stroke();
+        }
+
+
+
+
+        var p1 = Physics.vectorMetersToPixels(this.ropeNots[this.ropeNots.length - 1].GetPosition());
+        var p2 = Physics.vectorMetersToPixels(this.pole2.body.GetPosition());
+        p2.y -= 90;
+        p2.x += 20;
+        context.beginPath() ;
+        context.moveTo(p1.x, p1.y);
+        context.lineTo(p2.x, p2.y);
+        context.closePath();
+        context.stroke();
     }
 
     beginContact(contact)

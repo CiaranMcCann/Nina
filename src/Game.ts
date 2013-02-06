@@ -92,7 +92,7 @@ class Game
     {
         //Clear the previous frame from the screen
         this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
+       
 
         if (!Settings.DEVELOPMENT_MODE)
         {
@@ -133,7 +133,7 @@ class Game
         //Draw all entities here
             
             this.level.draw(this.canvasContext);
-            Physics.world.DrawDebugData();
+            //Physics.world.DrawDebugData();
 
 
         //Restore previous GL context
