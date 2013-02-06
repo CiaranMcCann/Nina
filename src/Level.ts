@@ -56,11 +56,11 @@ class Level
         }
 
         // Load pipes
-        this.puzzleManager.CreatePuzzle(new Pipe(3950, 1870));
+        this.puzzleManager.CreatePuzzle(new Pipe(4050, 1840));
         
 
         // creating the transformer
-        this.transformer = new Transformer(2850, 1800);
+        this.transformer = new Transformer(2980, 1650);
 
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);

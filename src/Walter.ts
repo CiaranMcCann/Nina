@@ -10,7 +10,7 @@ class Walter extends Player
 
     constructor(x,y)
     {
-        super(x,y,Sprites.animations.walterWalking);
+        super(x, y, Sprites.animations.walterWalking, Sprites.animations.walterJumping);
         this.respawnPosition = new b2Vec2(0, 0);
         this.controls = {
             left: keyboard.keyCodes.a,
@@ -24,7 +24,6 @@ class Walter extends Player
     beginContact(contact) {
 
      super.beginContact(contact);
-   
     }
 
 
