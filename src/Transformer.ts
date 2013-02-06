@@ -29,7 +29,7 @@ class Transformer {
         this.mashedPotatoes = false;
         this.powerUp = 0;
 
-        this.pump = new Pump(x+1300,y+300);
+        this.pump = new Pump(x+1070,y+300);
     }
 
     update() {
