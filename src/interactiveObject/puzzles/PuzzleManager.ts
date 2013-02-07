@@ -21,20 +21,13 @@ class PuzzleManager implements IPuzzleManager
     pole: ElectricPole;
     pole2: ElectricPole;
     pipe: Pipe;
-
-
+    
     constructor(  )
     {
 
         this._dynamicObjects = [];
-       // this.CreatePuzzle(this.pole = new ElectricPole(450, 580));
-       // this.CreatePuzzle(this.pole2 = new ElectricPole(150, 580));
-       // this.CreatePuzzle(new Ladder(550, 580));
-        // this.CreatePuzzle(new ElectricWire(this.pole, this.pole2));
-        this.CreatePuzzle(new InteractiveFire(this, 1800, 1850));        
-        //this.CreatePuzzle(this.pipe = new Pipe(null, 3000, 2100,true));
-       //this.CreatePuzzle(this.pipe2 = new Pipe(4360, 2100));
-          
+        this.CreatePuzzle(new InteractiveFire(this, 1800, 1850));
+        //this.CreatePuzzle(new InteractiveFire(this, 4000, 1850));
     }
 
     //creates a new puzzle and adds it to the array of dynamicPuzzles

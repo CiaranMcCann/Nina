@@ -27,7 +27,7 @@ class Game
   
     
 
-    levelDataString = '{"platforms":[{"x":3866,"y":1847,"h":40,"w":1629},{"x":3866,"y":1887,"h":36,"w":30},{"x":3770,"y":1919,"h":30,"w":126},{"x":3770,"y":1947,"h":68,"w":30},{"x":3683,"y":2009,"h":30,"w":117},{"x":3683,"y":2039,"h":60,"w":30},{"x":3595,"y":2097,"h":30,"w":118},{"x":3595,"y":2127,"h":57,"w":30},{"x":3509,"y":2184,"h":30,"w":116},{"x":3509,"y":2213,"h":59,"w":30},{"x":3421,"y":2271,"h":30,"w":118},{"x":3421,"y":2298,"h":45,"w":30},{"x":3059,"y":2343,"h":30,"w":392},{"x":1493,"y":1845,"h":30,"w":1578},{"x":3041,"y":1872,"h":501,"w":30},{"x":1464,"y":553,"h":1322,"w":30},{"x":1,"y":527,"h":30,"w":1493},{"x":5469,"y":0,"h":1887,"w":30},{"x":-10,"y":0,"h":556,"w":30},{"x":20,"y":-1,"h":30,"w":5449}],"alex":{"x":4999,"y":1737},"walter":{"x":4698,"y":1737},"waterCoins":[],"elecCoins":[],"fires":[],"poles":[{"x":3954,"y":1621},{"x":2967,"y":1624}],"pipes":[],"levelImage":"level_design_level_01_00"}';
+    levelDataString = '{"platforms":[{"x":3866,"y":1847,"h":40,"w":1629},{"x":3866,"y":1887,"h":36,"w":30},{"x":3770,"y":1919,"h":30,"w":126},{"x":3770,"y":1947,"h":68,"w":30},{"x":3683,"y":2009,"h":30,"w":117},{"x":3683,"y":2039,"h":60,"w":30},{"x":3595,"y":2097,"h":30,"w":118},{"x":3595,"y":2127,"h":57,"w":30},{"x":3509,"y":2184,"h":30,"w":116},{"x":3509,"y":2213,"h":59,"w":30},{"x":3421,"y":2271,"h":30,"w":118},{"x":3421,"y":2298,"h":45,"w":30},{"x":3059,"y":2343,"h":30,"w":392},{"x":1493,"y":1845,"h":30,"w":1578},{"x":3041,"y":1872,"h":501,"w":30},{"x":1464,"y":553,"h":1322,"w":30},{"x":1,"y":527,"h":30,"w":1493},{"x":5469,"y":0,"h":1887,"w":30},{"x":-10,"y":0,"h":556,"w":30},{"x":20,"y":-1,"h":30,"w":5449}],"alex":{"x":4999,"y":1737},"walter":{"x":4898,"y":1737},"waterCoins":[{"x":3165,"y":2298},{"x":2801,"y":1785}],"elecCoins":[{"x":3302,"y":2299},{"x":3438,"y":1630}],"fires":[],"poles":[{"x":3954,"y":1621},{"x":2967,"y":1624}],"pipes":[],"levelImage":"level_design_level_01_00"}';
 
     constructor()
     {
@@ -50,6 +50,14 @@ class Game
 
     update()
     {
+        /*var midPoint = this.level.alex.body.GetPosition().Copy();
+        midPoint.Subtract(this.level.walter.body.GetPosition());
+        midPoint.Multiply(0.5);
+        midPoint.Add(this.level.walter.body.GetPosition());
+        midPoint.x = Physics.metersToPixels(midPoint.x);
+        midPoint.y = Physics.metersToPixels(midPoint.y);
+        this.camera.panToPosition(midPoint);*/
+
         this.level.update();
         this.camera.update();
 
@@ -93,8 +101,8 @@ class Game
         this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
        
 
-        if (!Settings.DEVELOPMENT_MODE)
-        {
+                
+
 
             // Blit a section of the Level image onto the screen
             this.canvasContext.drawImage(
@@ -108,7 +116,7 @@ class Game
                 this.canvas.width,
                 this.canvas.height
            );
-        }
+        
 
 
         // Saving the GL context here
@@ -120,7 +128,8 @@ class Game
         //Draw all entities here
             
             this.level.draw(this.canvasContext);
-            //Physics.world.DrawDebugData();
+            if (Settings.DEVELOPMENT_MODE)
+                Physics.world.DrawDebugData();
 
 
         //Restore previous GL context

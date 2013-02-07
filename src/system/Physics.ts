@@ -3,7 +3,7 @@
  * This namespace holes the box2d physics world and scale. It provides helper convert methods
  * to increase codebase readablity. It also mangaes the global box2d contactlistner.
  *
- *  author:  Ciarán McCann
+ *  author:  Ciar?n McCann
  *  url: http://www.ciaranmccann.me/
  */
 

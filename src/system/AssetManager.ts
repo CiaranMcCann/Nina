@@ -5,7 +5,7 @@
  * AssetManager.images["myImageName"] no need for the full url or the extenision
  * 
  *  License: Apache 2.0
- *  author:  Ciarán McCann
+ *  author:  Ciar?n McCann
  *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../audio/Sound.ts"/>
@@ -37,7 +37,10 @@ module AssetManager
          'data/images/PLACEHOLDERtransformer.png',
          'data/images/level_design_level_01_00_front.png',
          'data/images/level_design_level_01_00_back.png',
-         'data/images/Propeller.png'
+         'data/images/Propeller.png',
+         'data/images/Ligthning_for_wire_01.png',
+         'data/images/Ligthning_for_wire_03.png',
+         'data/images/Ligthning_for_wire_04.png'
     ];
 
     var priorityAudio = [
