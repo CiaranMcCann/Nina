@@ -1,5 +1,7 @@
 ///<reference path="Coin.ts"/>
 ///<reference path="interactiveObject/puzzles/Pipe.ts"/>
+///<reference path="Transformer.ts"/>
+///<reference path="ButtonBashing.ts"/>
 
 class Level
 {
@@ -58,12 +60,12 @@ class Level
         // Load pipes
         this.puzzleManager.CreatePuzzle(new Pipe(4050, 1840));
         
-
-        // creating the transformer
-        this.transformer = new Transformer(2980, 1650);
-
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);
+
+        this.transformer = new Transformer(
+            2980, 1650, new ButtonBashing(this.alex.controls, this.alex)
+        );
 
         this.image = level["levelImage"];
     }

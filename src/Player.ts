@@ -58,7 +58,7 @@ class Player implements isPhysicsBody
 
         this.setUpPhysics(xInPixels,yInPixels);
         this.energy = 50;
-
+        
         //Place a refer to this object in the physics bodies
         // user data so that when their is a collison we 
         // can easily call the correct objects methods to handle it
