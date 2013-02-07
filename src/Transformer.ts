@@ -52,6 +52,9 @@ class Transformer {
 
     update() {       
         this.buttonBashing.update(this.mashedPotatoes);
+        if (this.mashedPotatoes) {
+            this.electrifiedAlex.update();
+        }
     }
 
     beginContact(contact) {
@@ -61,8 +64,10 @@ class Transformer {
         // checking to see if Alex is near the transformer
         if (a instanceof Alex || b instanceof Alex) {
             this.mashedPotatoes = true;
+            
         }
     }
+    
 
     endContact(contact) {
         var a = contact.GetFixtureA().GetBody().GetUserData();
