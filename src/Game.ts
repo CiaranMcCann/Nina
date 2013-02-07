@@ -130,11 +130,9 @@ class Game
     {
         //Clear the previous frame from the screen
         this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
-       
-
-                
-
-
+        if (this.startmenu != null && !this.gameStarted) {
+            this.startmenu.Draw(this.canvasContext);
+        } else {
             // Blit a section of the Level image onto the screen
             this.canvasContext.drawImage(
                 AssetManager.getImage(this.level.image),
@@ -157,9 +155,7 @@ class Game
         this.canvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
         //Draw all entities here
-        if (this.startmenu != null && !this.gameStarted) {
-            this.startmenu.Draw(this.canvasContext);
-        }
+       
             this.level.draw(this.canvasContext);
             if (Settings.DEVELOPMENT_MODE)
                 Physics.world.DrawDebugData();
@@ -169,6 +165,6 @@ class Game
             this.canvasContext.restore();
             this.energybar.draw(this.canvasContext);
       
-        
+        }
     }
 }
