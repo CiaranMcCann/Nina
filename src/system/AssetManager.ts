@@ -20,7 +20,6 @@ module AssetManager
     // you can then acess the image by AssetManager.getImages("placeHolderImage")
     // no need for the full url or the extenision
     var priorityImages = [
-         'data/images/level.png',
          'data/images/FirstAlexBar.png',
          'data/images/FirstWalterBar.png',
          'data/images/level_design_level_01_00.png',
@@ -29,18 +28,18 @@ module AssetManager
          'data/images/Pipe4.png',
          'data/images/waterParticle.png',
          'data/images/extension.png',
-         'data/images/PLACEHOLDERpump.png',
          'data/images/eyes.png',
          'data/images/objectmap.png',
          'data/images/walterControl.png',
          'data/images/alexControl.png',
-         'data/images/PLACEHOLDERtransformer.png',
          'data/images/level_design_level_01_00_front.png',
          'data/images/level_design_level_01_00_back.png',
          'data/images/Propeller.png',
          'data/images/Ligthning_for_wire_01.png',
          'data/images/Ligthning_for_wire_03.png',
-         'data/images/Ligthning_for_wire_04.png'
+         'data/images/Ligthning_for_wire_04.png',
+         'data/images/EmptyBar.png'
+
     ];
 
     var priorityAudio = [

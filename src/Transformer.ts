@@ -39,7 +39,7 @@ class Transformer {
         this.mashedPotatoes = false;
         this.powerUp = 0;
 
-        this.pump = new Pump(x + 1070, y + 300);
+        this.pump = new Pump(x + 1100, y + 300);
           this.buttonBashing = buttonBashing;
         this.buttonBashing.SetOnDone(function () =>
         {

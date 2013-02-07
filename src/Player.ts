@@ -45,23 +45,32 @@ class Player implements isPhysicsBody
     // User to dectect weather the player is standing on somthing
     footSensor: any;
 
+
+    drawable: bool;
+
+    idelTimer: Timer;
+
+    animationWalking: SpriteDefinition;
+    idelAnimation: SpriteDefinition;
     hasMovedLeft:bool;
     hasMovedRight:bool;
     hasMovedUp:bool;
 
 
     public controlImage;
-
-    constructor(xInPixels: number, yInPixels: number, animation: SpriteDefinition, jumpAnimation: SpriteDefinition)
+    constructor(xInPixels: number, yInPixels: number, animation: SpriteDefinition, jumpAnimation: SpriteDefinition, idelAnimation : SpriteDefinition)
     {
         this.speed = 3;
         this.canJump = 0;
         this.direction = Player.DIRECTION.right;
+        this.animationWalking = animation;
         this.sprite = new Sprite(animation);
         this.jumpSprite = new Sprite(jumpAnimation);
+        this.idelAnimation = idelAnimation;
+        this.idelTimer = new Timer(1);
 
         this.setUpPhysics(xInPixels,yInPixels);
-        this.energy = 50;
+        this.energy = 20;
         
         //Place a refer to this object in the physics bodies
         // user data so that when their is a collison we 
@@ -91,6 +100,7 @@ class Player implements isPhysicsBody
 
     update()
     {
+
         //When the player starts to move have the camera follow them
         if (this.body.GetLinearVelocity().Length() >= 0.01) {
             GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.body.GetPosition()));
@@ -106,16 +116,20 @@ class Player implements isPhysicsBody
              this.body.SetAwake(false);
         }
         
+    
 
         if (keyboard.isKeyDown(this.controls.right))
         {
             this.hasMovedRight = true;
             this.direction = Player.DIRECTION.right;
+                         this.sprite.setSpriteDef(this.animationWalking);
+             this.idelTimer.reset();
             this.sprite.update();
+
+
 
              // Small impulse to make the camera follow him: HACK :P
             this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
-
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x + Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
 
         }
@@ -127,7 +141,7 @@ class Player implements isPhysicsBody
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
                // AssetManager.getSound("jump").play();
-                forces.Multiply(7.5);
+                forces.Multiply(30);
 
 
                 this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
@@ -160,6 +174,8 @@ class Player implements isPhysicsBody
         if (keyboard.isKeyDown(this.controls.left))
         {
             this.direction = Player.DIRECTION.left;
+             this.sprite.setSpriteDef(this.animationWalking);
+             this.idelTimer.reset();
             this.sprite.update();
             this.hasMovedLeft = true;
              // Small impluse to make the camera follow him: HACK :P
@@ -170,6 +186,18 @@ class Player implements isPhysicsBody
 
         if (keyboard.isKeyDown(this.controls.down)) {
 
+        }
+
+            this.idelTimer.update();
+        if (this.idelTimer.hasTimePeriodPassed(false))
+        {
+            if(this.idelAnimation != null)
+            this.sprite.setSpriteDef(this.idelAnimation);
+        }
+
+        if (this.sprite.spriteDef == this.idelAnimation)
+        {
+            this.sprite.update();
         }
     }
 
@@ -215,33 +243,45 @@ class Player implements isPhysicsBody
     beginContact(contact)
     {
 
-            
+        var userDataA = contact.GetFixtureA().GetBody().GetUserData();
+        var userDataB = contact.GetFixtureB().GetBody().GetUserData();
+
+        console.log(userDataA);
+        console.log(userDataB);
+
         if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
         {
-            this.canJump++;
+            if (userDataA instanceof Platform || userDataB instanceof Platform
+                || userDataA instanceof ElectricWire || userDataB instanceof ElectricWire)
+                this.canJump++;
         }
     }
 
     endContact(contact)
     {
+        var userDataA = contact.GetFixtureA().GetBody().GetUserData();
+        var userDataB = contact.GetFixtureB().GetBody().GetUserData();
+
         if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
         {
-            this.canJump--;
+            if (userDataA instanceof Platform || userDataB instanceof Platform
+                || userDataA instanceof ElectricWire || userDataB instanceof ElectricWire)
+                this.canJump--;
         }
     }
 
     setUpPhysics(xInPixels, yInPixels)
     {
         var fixDef = new b2FixtureDef;
-        fixDef.density = 1.0;
+        fixDef.density = 5.0;
         fixDef.friction = 1.0;
         fixDef.restitution = 0.1;
 
         fixDef.shape = new b2PolygonShape();
 
         fixDef.shape.SetAsBox(
-            Physics.pixelToMeters(this.sprite.getFrameWidth() / 2.5),
-            Physics.pixelToMeters(this.sprite.getFrameHeight() / 2)
+            Physics.pixelToMeters(64 / 2.5),
+            Physics.pixelToMeters(100 / 2)
         );
 
         var bodyDef = new b2BodyDef;
@@ -257,8 +297,8 @@ class Player implements isPhysicsBody
         fixDef.shape = new b2PolygonShape();
 
         fixDef.shape.SetAsBox(
-            Physics.pixelToMeters(this.sprite.getFrameWidth() / 3),
-            Physics.pixelToMeters(this.sprite.getFrameHeight() / 19)
+            Physics.pixelToMeters(64 / 3),
+            Physics.pixelToMeters(100 / 19)
         );
 
 
@@ -267,7 +307,7 @@ class Player implements isPhysicsBody
 
         //Position the footsensor at the bottom
         for (var v in this.footSensor.m_shape.m_vertices)
-            this.footSensor.m_shape.m_vertices[v].y += Physics.pixelToMeters(this.sprite.getFrameHeight() / 2);
+            this.footSensor.m_shape.m_vertices[v].y += Physics.pixelToMeters(100 / 2);
 
     }
 

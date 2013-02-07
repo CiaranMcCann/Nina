@@ -25,7 +25,7 @@ class ElectricWire extends BasePuzzle {
         this.pole2 = pole2;
         
         var fixDef = new b2FixtureDef();
-        fixDef.density = 0.5;
+        fixDef.density = 15.0;
         fixDef.friction = 1.0;
         fixDef.restitution = 0.0;
         
@@ -137,21 +137,25 @@ class ElectricWire extends BasePuzzle {
         context.strokeStyle = "rgb(0, 0, 0)";
         context.lineWidth = 4;
         //TODO Optimize this draw
-        for (var i = 0; i < this.ropeNots.length - 2; i += 2) {
+        var count = 0;
+        for (var i = 0; i < this.ropeNots.length - 1; i += 1) {
             var p1 = Physics.vectorMetersToPixels(this.ropeNots[i].GetPosition());
-            var p2 = Physics.vectorMetersToPixels(this.ropeNots[i + 2].GetPosition());
+            var p2 = Physics.vectorMetersToPixels(this.ropeNots[i + 1].GetPosition());
             context.beginPath();
             context.moveTo(p1.x, p1.y);
             context.lineTo(p2.x, p2.y);
             context.closePath();
             context.stroke();
             if (GameInstance.level.transformer.mashedPotatoes) {
-                context.save();
-                context.translate(p1.x, p1.y)
-                context.scale(0.3, 0.3);
-                var image = AssetManager.getImage('Ligthning_for_wire_03');
-                context.drawImage(image, 0, -image.height / 2);
-                context.restore();
+                if (count % 2) {
+                    context.save();
+                    context.translate(p1.x, p1.y)
+                    context.scale(0.3, 0.3);
+                    var image = AssetManager.getImage('Ligthning_for_wire_03');
+                    context.drawImage(image, 0, -image.height / 2);
+                    context.restore();
+                }
+                count++;
             }
         }
 
@@ -192,14 +196,14 @@ class ElectricWire extends BasePuzzle {
         {
             //TODO put in electiry sound
 
-            a.body.ApplyImpulse(new b2Vec2(50, -50), a.body.GetWorldCenter());
+            a.body.ApplyImpulse(new b2Vec2(150, -150), a.body.GetWorldCenter());
         }
 
         if (b instanceof Walter)
         {
             //TODO put in electiry sound
 
-            b.body.ApplyImpulse(new b2Vec2(50, -50), b.body.GetWorldCenter());
+            b.body.ApplyImpulse(new b2Vec2(150, -150), b.body.GetWorldCenter());
         }
 
     }
