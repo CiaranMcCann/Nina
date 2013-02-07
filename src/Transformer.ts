@@ -49,6 +49,7 @@ class Transformer {
                 this.pump.pumpState(true);
                 GameInstance.camera.panToPosition(new b2Vec2(this.pump.x, this.pump.y));
                 GameInstance.level.alex.setCanDraw(true);
+                GameInstance.level.alex.setCanWalk(true);
             }
         }
        );
@@ -100,6 +101,7 @@ class Transformer {
         if (this.mashedPotatoes && this.buttonBashing.getPercentage() < 100)
         {
             GameInstance.level.alex.setCanDraw(false);
+            //GameInstance.level.alex.setCanWalk(false);
             this.electrifiedAlex.draw(ctx, -this.electrifiedAlex.getFrameWidth(), -this.electrifiedAlex.getFrameHeight() / 2);
         }
         ctx.restore();

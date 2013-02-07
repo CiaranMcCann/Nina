@@ -4,7 +4,7 @@
 class Pump {
 
     // is the pump running
-    private runPump: bool;
+    private runPump: bool = false;
 
     // rotation
     private angle: number;

@@ -80,7 +80,8 @@ class Cloud extends BasePuzzle {
         this._isAlexJoined = true;
     }
 
-    DrawSprite(ctx) {
+    DrawSprite(ctx)
+    {
         this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
     }
 
@@ -104,7 +105,7 @@ class Cloud extends BasePuzzle {
         {
             if (this._currentTime - this._timeRainStarted >= 3000) {
                 //here, we are going to place Walter in the cloud, and then he will move down
-                this._walter.getBody().SetPosition(new b2Vec2(this.body.GetPosition().x - Physics.pixelToMeters(100), this.body.GetPosition().y + Physics.pixelToMeters(220)));
+                this._walter.getBody().SetPosition(new b2Vec2(this.body.GetPosition().x - Physics.pixelToMeters(200), this.body.GetPosition().y));
                 this._isWalterSpawned = true;
                 this._walter.setCanDraw(true);
             }
@@ -126,7 +127,7 @@ class Cloud extends BasePuzzle {
         {
             if (this._currentTime - this._timeRainStarted >= 2000) {
                 //here, we are going to place alex in the cloud, and then he will move down
-                this._alex.getBody().SetPosition(new b2Vec2(this.body.GetPosition().x - Physics.pixelToMeters(100), this.body.GetPosition().y + Physics.pixelToMeters(220)));
+                this._alex.getBody().SetPosition(new b2Vec2(this.body.GetPosition().x - Physics.pixelToMeters(200), this.body.GetPosition().y));
                 this._isAlexSpawned = true;
                 this._alex.setCanDraw(true);
             }

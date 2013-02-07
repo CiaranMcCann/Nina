@@ -18,6 +18,8 @@ class ButtonBashing {
     private _isButtonTwoDown: bool;
 
     private _percentage: number = 0;
+    private _buttons: Sprite;
+
     constructor(controls:any, wearer: Player)
     {
         this.controls = controls;
@@ -28,6 +30,7 @@ class ButtonBashing {
         this._hertzDelta = 0;
         this._currentTime = new Date().getTime();
         this._currentTime2 = new Date().getTime();
+        this._buttons = new Sprite(Sprites.animations.buttonsAlex);
     }
 
     getPercentage(): number
@@ -72,6 +75,15 @@ class ButtonBashing {
         ctx.fillStyle = "rgba(0, 0, 0, 255)";
         ctx.fillRect(posX + (this._hertzValue / 2), posY - difY, 0.003, tubeHeight);
         //ideal: Math.abs(hertzvalue) <= 12.5
+
+        //Get position of the physics body and convert it to pixel cordinates
+        
+        ctx.save();
+        //ctx.translate(posX, posY);
+
+        this._buttons.draw(ctx, posX - difX, posY - ( difY + 100 ));
+
+        ctx.restore()
     }
 
 
@@ -132,7 +144,8 @@ class ButtonBashing {
         if (this._percentage >= 100)
         {
             this._onDone(); this._isAlive = false;
-            console.log("----------------------------------------LOL");
+            console.log("----------------------------------------LOL");            
         }
+        this._buttons.update();
     }
 }

@@ -133,12 +133,15 @@ class Pipe extends BasePuzzle
             if (GameInstance.level.transformer.pump.isPumpOn())
             {
                 this.walter.respawn();
-                this.canRespawn = false;               
+                this.walter.setPipe(this);
+                this.canRespawn = false;
+                this.waterArray.push(this._eyes);
             }
         }
 
         var i: number = this.waterArray.indexOf(this._eyes);
-        if (i > -1) {
+        if (i > -1)
+        {
             GameInstance.camera.panToPosition(new b2Vec2(3300, 2300));
         }
     }
@@ -151,20 +154,19 @@ class Pipe extends BasePuzzle
         }
     }
 
-    beginContact(contact) {
-
+    beginContact(contact)
+    {
         if (contact.GetFixtureA().GetBody().GetUserData() instanceof Walter)
         {
             this.canRespawn = true;
             this.walter = contact.GetFixtureA().GetBody().GetUserData();
-            this.walter.setPipe(this);
-            this.walter.respawnPosition = this.spawnLocation;
-            this.waterArray.push(this._eyes);            
+            this.walter.respawnPosition = this.spawnLocation;            
         }
         
     }
 
-    endContact(contact) {
+    endContact(contact)
+    {
         if (contact.GetFixtureA().GetBody().GetUserData() instanceof Walter)
         {
             this.canRespawn = false;

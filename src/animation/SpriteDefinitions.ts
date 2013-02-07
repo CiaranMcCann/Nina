@@ -160,7 +160,15 @@ module Sprites
             frameCount: 4,
             msPerFrame: 250,
 
-        }
+         },
+
+         buttonsAlex:
+         {
+             imageName: "button_op_animation",
+             frameY: 0,
+             frameCount: 2,
+             msPerFrame: 250,
+         }
      
     }
 }

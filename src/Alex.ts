@@ -10,8 +10,8 @@ class Alex extends Player
             left: keyboard.keyCodes.Leftarrow,
             right: keyboard.keyCodes.Rightarrow,
             jump: keyboard.keyCodes.Uparrow,
-            positive: keyboard.keyCodes.numpad9,
-            negative: keyboard.keyCodes.numpad6
+            positive: keyboard.keyCodes.p,
+            negative: keyboard.keyCodes.o
         }
 
         this.controlImage = AssetManager.getImage("alexControl");
