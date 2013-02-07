@@ -68,7 +68,7 @@ class Player implements isPhysicsBody
         this.sprite = new Sprite(animation);
         this.jumpSprite = new Sprite(jumpAnimation);
         this.idelAnimation = idelAnimation;
-        this.idelTimer = new Timer(500);
+        this.idelTimer = new Timer(1);
 
         this.setUpPhysics(xInPixels,yInPixels);
         this.energy = 50;
