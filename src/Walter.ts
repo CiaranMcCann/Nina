@@ -19,6 +19,8 @@ class Walter extends Player
             positive: keyboard.keyCodes.e,
             negative: keyboard.keyCodes.q
         }
+
+        this.controlImage = AssetManager.getImage("walterControl");
     }
    
 
