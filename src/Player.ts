@@ -62,7 +62,7 @@ class Player implements isPhysicsBody
     public controlImage;
     constructor(xInPixels: number, yInPixels: number, animation: SpriteDefinition, jumpAnimation: SpriteDefinition, idelAnimation : SpriteDefinition)
     {
-        this.speed = 3;
+        this.speed = 1;
         this.canJump = 0;
         this.direction = Player.DIRECTION.right;
         this.animationWalking = animation;
@@ -132,7 +132,7 @@ class Player implements isPhysicsBody
 
 
              // Small impulse to make the camera follow him: HACK :P
-            this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
+            this.body.ApplyImpulse(new b2Vec2(this.direction*5, 0), this.body.GetPosition());
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x + Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
 
         }
@@ -143,7 +143,7 @@ class Player implements isPhysicsBody
             if (this.canJump >= 1) {
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
-               // AssetManager.getSound("jump").play();
+                AssetManager.getSound("jump").play(0.2);
                 forces.Multiply(this.jumpForce);
 
 
@@ -182,7 +182,7 @@ class Player implements isPhysicsBody
             this.sprite.update();
             this.hasMovedLeft = true;
              // Small impluse to make the camera follow him: HACK :P
-            this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
+            this.body.ApplyImpulse(new b2Vec2(this.direction*7, 0), this.body.GetPosition());
 
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x - Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
         }
