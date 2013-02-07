@@ -13,7 +13,7 @@ class StartMenu {
 
 
     constructor() {
-        this.position = new b2Vec2(250, 10);
+        this.position = new b2Vec2((window.innerWidth / 2) - 400, (window.innerHeight / 2) - 400);
        
         this.backgroundImage = AssetManager.getImage("Menu");
         this.alexWalterimage = AssetManager.getImage("walteralex");
