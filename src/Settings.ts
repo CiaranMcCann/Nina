@@ -1,7 +1,7 @@
 /**
  *  Global settings for the whole game
  *
- *  author:  Ciarán McCann
+ *  author:  Ciar?n McCann
  *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="system/Utilies.ts" />

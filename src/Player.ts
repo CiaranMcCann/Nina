@@ -61,7 +61,7 @@ class Player implements isPhysicsBody
         this.jumpSprite = new Sprite(jumpAnimation);
 
         this.setUpPhysics(xInPixels,yInPixels);
-        this.energy = 50;
+        this.energy = 20;
         
         //Place a refer to this object in the physics bodies
         // user data so that when their is a collison we 
@@ -127,7 +127,7 @@ class Player implements isPhysicsBody
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
                // AssetManager.getSound("jump").play();
-                forces.Multiply(7.5);
+                forces.Multiply(30);
 
 
                 this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
@@ -215,33 +215,45 @@ class Player implements isPhysicsBody
     beginContact(contact)
     {
 
-            
+        var userDataA = contact.GetFixtureA().GetBody().GetUserData();
+        var userDataB = contact.GetFixtureB().GetBody().GetUserData();
+
+        console.log(userDataA);
+        console.log(userDataB);
+
         if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
         {
-            this.canJump++;
+            if (userDataA instanceof Platform || userDataB instanceof Platform
+                || userDataA instanceof ElectricWire || userDataB instanceof ElectricWire)
+                this.canJump++;
         }
     }
 
     endContact(contact)
     {
+        var userDataA = contact.GetFixtureA().GetBody().GetUserData();
+        var userDataB = contact.GetFixtureB().GetBody().GetUserData();
+
         if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
         {
-            this.canJump--;
+            if (userDataA instanceof Platform || userDataB instanceof Platform
+                || userDataA instanceof ElectricWire || userDataB instanceof ElectricWire)
+                this.canJump--;
         }
     }
 
     setUpPhysics(xInPixels, yInPixels)
     {
         var fixDef = new b2FixtureDef;
-        fixDef.density = 1.0;
+        fixDef.density = 5.0;
         fixDef.friction = 1.0;
         fixDef.restitution = 0.1;
 
         fixDef.shape = new b2PolygonShape();
 
         fixDef.shape.SetAsBox(
-            Physics.pixelToMeters(this.sprite.getFrameWidth() / 2.5),
-            Physics.pixelToMeters(this.sprite.getFrameHeight() / 2)
+            Physics.pixelToMeters(64 / 2.5),
+            Physics.pixelToMeters(100 / 2)
         );
 
         var bodyDef = new b2BodyDef;
@@ -257,8 +269,8 @@ class Player implements isPhysicsBody
         fixDef.shape = new b2PolygonShape();
 
         fixDef.shape.SetAsBox(
-            Physics.pixelToMeters(this.sprite.getFrameWidth() / 3),
-            Physics.pixelToMeters(this.sprite.getFrameHeight() / 19)
+            Physics.pixelToMeters(64 / 3),
+            Physics.pixelToMeters(100 / 19)
         );
 
 
@@ -267,7 +279,7 @@ class Player implements isPhysicsBody
 
         //Position the footsensor at the bottom
         for (var v in this.footSensor.m_shape.m_vertices)
-            this.footSensor.m_shape.m_vertices[v].y += Physics.pixelToMeters(this.sprite.getFrameHeight() / 2);
+            this.footSensor.m_shape.m_vertices[v].y += Physics.pixelToMeters(100 / 2);
 
     }
 
