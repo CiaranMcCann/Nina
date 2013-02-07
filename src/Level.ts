@@ -43,16 +43,18 @@ class Level
 
         //Load electricity poles
         this.poles = [];
-        for (i in level['poles']) {
+        var count = 0;
+        for (i = level['poles'].length - 1; i >= 0; i--) {
             // Magic numbers!!!!!! Poles could be resizable in the editor
             var x = level['poles'][i].x + 5;
             var y = level['poles'][i].y + 100;
             this.poles.push(new ElectricPole(x, y));
-            this.puzzleManager.CreatePuzzle(this.poles[i]);
+            this.puzzleManager.CreatePuzzle(this.poles[count]);
             this.puzzleManager.CreatePuzzle(new Ladder(x, y));
-            if (i != 0) {
-                this.puzzleManager.CreatePuzzle(new ElectricWire(this.poles[i - 1], this.poles[i]));
+            if (!(i % 2)) {
+                this.puzzleManager.CreatePuzzle(new ElectricWire(this.poles[count - 1], this.poles[count]));
             }
+            ++count;
         }
 
         // Load pipes
