@@ -52,6 +52,9 @@ class Player implements isPhysicsBody
     hasMovedUp:bool;
 
 
+    public controlImage;
+
+    constructor(xInPixels: number, yInPixels: number, animation: SpriteDefinition, jumpAnimation: SpriteDefinition)
     {
         this.drawable = true;
         this.speed = 3;
