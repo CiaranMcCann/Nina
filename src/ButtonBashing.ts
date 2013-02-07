@@ -30,6 +30,11 @@ class ButtonBashing {
         this._currentTime2 = new Date().getTime();
     }
 
+    getPercentage(): number
+    {
+        return this._percentage;
+    }
+
     SetOnDone(f: Function)
     {
         this._onDone = f;
