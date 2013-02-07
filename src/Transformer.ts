@@ -22,7 +22,7 @@ class Transformer {
     private body;
 
     // is alex and the transformer in contact with each other?
-    private mashedPotatoes: bool;
+    public mashedPotatoes: bool;
 
     // So we can turn the pump on or off
     public pump: Pump;
@@ -39,7 +39,7 @@ class Transformer {
         this.mashedPotatoes = false;
         this.powerUp = 0;
 
-        this.pump = new Pump(x + 1070, y + 300);
+        this.pump = new Pump(x + 1100, y + 300);
           this.buttonBashing = buttonBashing;
         this.buttonBashing.SetOnDone(function () =>
         {

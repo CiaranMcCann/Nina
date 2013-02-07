@@ -32,7 +32,7 @@ class Pump {
         ctx.scale(0.5, 0.5);
         if (this.isPumpOn()) {
             // increasing the angle
-            this.angle++;
+            this.angle+=10;
             // rotate around that point, converting our angle from degrees to radians
             ctx.rotate(Utilies.toRadians(this.angle));
         }
