@@ -6,7 +6,7 @@ class Walter extends Player
 {
     public respawnPosition;
     public timer;
-
+    private _pipe: Pipe;
 
     constructor(x,y)
     {
@@ -23,6 +23,11 @@ class Walter extends Player
         this.controlImage = AssetManager.getImage("walterControl");
     }
    
+    setPipe(value: Pipe)
+    {
+        this.setCanDraw(false);
+        this._pipe = value;
+    }
 
     beginContact(contact) {
 
@@ -37,14 +42,17 @@ class Walter extends Player
 
     update() {
         super.update();
-        if (this.Mayrespawn) {
+        if (this.Mayrespawn)
+        {            
             var _time = new Date().getTime();
-            if (_time - this.timer > 2500) {
+            if (_time - this.timer > 2250)
+            {
+                this.setCanDraw(true);
                 this.body.SetPosition(this.respawnPosition);
                 this.body.ApplyImpulse(new b2Vec2(0, -100), this.body.GetPosition());
                 this.Mayrespawn = false;
-            }
-           
+                this._pipe.onWalterReachedEnd();
+            }           
         }
     }
 

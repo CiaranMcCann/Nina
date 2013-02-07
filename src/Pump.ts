@@ -19,7 +19,6 @@ class Pump {
 
         this.x = x;
         this.y = y;
-        this.runPump = false;
         this.angle = 0;
         this.image = AssetManager.getImage("Propeller");
     }

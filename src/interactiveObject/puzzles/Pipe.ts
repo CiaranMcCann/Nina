@@ -22,6 +22,7 @@ class Pipe extends BasePuzzle
     waterArray: waterParticle[];
     private canRespawn: bool;
     private walter: Walter;
+    private _eyes: waterParticle;
 
     constructor(xInPixels: number, yInPixels: number)
     {
@@ -43,13 +44,14 @@ class Pipe extends BasePuzzle
         this.waterArray = [];
 
         this.canRespawn = false;
+
+        this._eyes = new waterParticle(this.x, this.y + 50, this.pipeLenght, this.pipeWidth, "eyes");
     }
 
-    EmitParticle() {
-
-       this.water = new waterParticle(this.x, this.y+50,this.pipeLenght,this.pipeWidth);
-       this.waterArray.push(this.water);
-        
+    EmitParticle()
+    {
+        this.water = new waterParticle(this.x, this.y + 50, this.pipeLenght, this.pipeWidth, "waterParticle");
+        this.waterArray.push(this.water);        
     }
 
 
@@ -114,45 +116,57 @@ class Pipe extends BasePuzzle
 
         for (var i: number = 0; i < this.waterArray.length; i++) {
             
-                this.waterArray[i].Draw(ctx);
-            
-           
-            if (this.waterArray[i].destroyed) {
+             this.waterArray[i].Draw(ctx);
+                       
+             if (this.waterArray[i].destroyed)
+             {
                 this.waterArray.splice(i, 1);
-            }
-        }
-
-       
-
-       
+             }
+        }      
 
         if(this.walter == null)return;
 
 
-        if (this.canRespawn) {
-            if (GameInstance.level.transformer.pump.isPumpOn()) {
+        if (this.canRespawn)
+        {
+            
+            if (GameInstance.level.transformer.pump.isPumpOn())
+            {
                 this.walter.respawn();
-                this.canRespawn = false;
-               
+                this.canRespawn = false;               
             }
         }
 
+        var i: number = this.waterArray.indexOf(this._eyes);
+        if (i > -1) {
+            GameInstance.camera.panToPosition(new b2Vec2(3300, 2300));
+        }
     }
 
+    onWalterReachedEnd()
+    {
+        var i: number = this.waterArray.indexOf(this._eyes);
+        if (i > -1) {
+            this.waterArray.splice(i, 1);
+        }
+    }
 
     beginContact(contact) {
 
-        if (contact.GetFixtureA().GetBody().GetUserData() instanceof Walter) {
+        if (contact.GetFixtureA().GetBody().GetUserData() instanceof Walter)
+        {
             this.canRespawn = true;
             this.walter = contact.GetFixtureA().GetBody().GetUserData();
+            this.walter.setPipe(this);
             this.walter.respawnPosition = this.spawnLocation;
-
+            this.waterArray.push(this._eyes);            
         }
         
     }
 
     endContact(contact) {
-        if (contact.GetFixtureA().GetBody().GetUserData() instanceof Walter) {
+        if (contact.GetFixtureA().GetBody().GetUserData() instanceof Walter)
+        {
             this.canRespawn = false;
         }
     }
@@ -193,18 +207,24 @@ class waterParticle {
     private destination;
     private destination2;
     private destination3;
+    private _isWalter: bool;
 
-
-    constructor(xInPixels: number, yInPixels: number,pipeLenght:number,pipeWidth:number) {
-        this.image = AssetManager.getImage("waterParticle");
+    constructor(xInPixels: number, yInPixels: number, pipeLenght: number, pipeWidth: number, image: string)
+    {
+        this._isWalter = (image == "eyes");
+        this.image = AssetManager.getImage(image);
         this.position = new b2Vec2(xInPixels, yInPixels);
         this.destroyed = false;
         this.pipeLenght = pipeLenght;
         this.pipeWidth = pipeWidth;
-        this.destination = this.position.y + (114 * (pipeLenght+1))-(10*pipeLenght);
+        this.destination = this.position.y + (114 * (pipeLenght + 1)) - (10 * pipeLenght);
         this.destination2 = this.position.x - 1200; 
         this.destination3 = this.position.y + 50;
-        
+       
+        if (this._isWalter) {
+            this.destination -= 40;
+            Logger.log("added walter as eyes");
+        }
     }
 
     Draw(ctx: CanvasRenderingContext2D) {
@@ -220,9 +240,8 @@ class waterParticle {
         if (this.travelIndex == 2) {
             this.position.y -= 10;
             if (this.position.y < this.destination3) this.destroyed = true;
-        }
-
-
+        } 
+       
         ctx.save();
         ctx.translate(this.position.x, this.position.y);
         ctx.drawImage(this.image, -(this.image.width / 2), (this.image.height / 2) - 45);
