@@ -9,6 +9,7 @@ class StartMenu {
     private alexWalterimage;
     public selectedcount: number;
     public position;
+    private mayPlay: bool;
 
 
     constructor() {
@@ -21,13 +22,31 @@ class StartMenu {
         this.aboutButton = new Button(new b2Vec2(150 + this.position.x, 350 + this.position.y),"about");
         
         this.selectedcount = 0;
-       
+
+        AssetManager.getSound("theme").play();
+
+        this.mayPlay = false
+        this.ChooseSelected(0);
     }
 
 
     ChooseSelected(index: number) {
+        this.mayPlay = true;
+        this.selectedcount += index;
+        if (this.selectedcount < 0) {
+            this.mayPlay = false;
+            this.selectedcount = 0;
+         }
 
-        switch (index) {
+        if (this.selectedcount > 2) {
+            this.selectedcount = 2;
+            this.mayPlay = false;
+        }
+
+        if (this.mayPlay) {
+            AssetManager.getSound("browse").play();
+        }
+        switch (this.selectedcount) {
 
             case 0:
                 this.startButton.selected = true;
@@ -50,11 +69,7 @@ class StartMenu {
 
     Draw(ctx:CanvasRenderingContext2D) {
 
-        if (this.selectedcount < 0) this.selectedcount = 0;
-        if (this.selectedcount > 2) this.selectedcount = 2;
-        this.ChooseSelected(this.selectedcount);
-
-
+       
         ctx.drawImage(this.backgroundImage, this.position.x, this.position.y);
         
         this.startButton.Draw(ctx);

@@ -39,7 +39,9 @@ module AssetManager
     ];
 
     var priorityAudio = [
-        
+         'data/sounds/theme.wav',
+         'data/sounds/browse.wav',
+         'data/sounds/select.wav'
     ]
 
     export var images = [];

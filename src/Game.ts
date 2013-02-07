@@ -61,15 +61,15 @@ class Game
             this.camera.update();
         }
 
-        if (keyboard.isKeyDown(keyboard.keyCodes.numpad7,true) && !this.gameStarted) //up
+        if (keyboard.isKeyDown(keyboard.keyCodes.Uparrow,true) && !this.gameStarted) //up
         {
-            this.startmenu.selectedcount -= 1;
+            if(!this.gameStarted) this.startmenu.ChooseSelected(-1);
       
         }
 
-        if (keyboard.isKeyDown(keyboard.keyCodes.numpad1,true) && !this.gameStarted) //up
+        if (keyboard.isKeyDown(keyboard.keyCodes.Downarrow,true) && !this.gameStarted) //up
         {
-            this.startmenu.selectedcount += 1;
+            if(!this.gameStarted)this.startmenu.ChooseSelected(1);
 
         }
 
@@ -79,6 +79,10 @@ class Game
                 this.startmenu = null;
                 GameInstance.camera.setX(3500);
                 GameInstance.camera.setY(1800);
+                AssetManager.getSound("select").play();
+                if (AssetManager.getSound("theme").isPlaying) {
+                    AssetManager.getSound("theme").pause();
+                }
 
             }
         }
