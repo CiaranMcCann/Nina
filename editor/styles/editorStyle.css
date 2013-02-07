@@ -111,3 +111,17 @@ a:hover
 	width: 150px;
 	height: 10px;
 }
+
+.pole {
+	position: absolute;
+	background-color: red;
+	width: 10px;
+	height: 200px;
+}
+
+.pipe {
+	position: absolute;
+	background-color: green;
+	width: 148px;
+	height: 38px;
+}

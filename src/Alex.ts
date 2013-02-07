@@ -4,14 +4,17 @@ class Alex extends Player
 {
     constructor(x,y)
     {
-        super(x,y,Sprites.animations.alexWalking);
+        super(x, y, Sprites.animations.alexWalking, Sprites.animations.alexJumping,Sprites.animations.alexIdel);
 
         this.controls = {
             left: keyboard.keyCodes.Leftarrow,
             right: keyboard.keyCodes.Rightarrow,
             jump: keyboard.keyCodes.Uparrow,
-            use: keyboard.keyCodes.Downarrow
+            positive: keyboard.keyCodes.numpad9,
+            negative: keyboard.keyCodes.numpad6
         }
+
+        this.controlImage = AssetManager.getImage("alexControl");
 
     }
 

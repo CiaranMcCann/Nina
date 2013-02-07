@@ -10,18 +10,25 @@ class Walter extends Player
 
     constructor(x,y)
     {
-        super(x,y,Sprites.animations.walterWalking);
+        super(x, y, Sprites.animations.walterWalking, Sprites.animations.walterJumping,Sprites.animations.walterIdel);
         this.respawnPosition = new b2Vec2(0, 0);
         this.controls = {
             left: keyboard.keyCodes.a,
             right: keyboard.keyCodes.d,
             jump: keyboard.keyCodes.w,
-            use: keyboard.keyCodes.s
+            positive: keyboard.keyCodes.e,
+            negative: keyboard.keyCodes.q
         }
+
+        this.controlImage = AssetManager.getImage("walterControl");
     }
    
-    animateEyes() {
+
+    beginContact(contact) {
+
+     super.beginContact(contact);
     }
+
 
     public respawn() {
         this.timer = new Date().getTime();
@@ -32,8 +39,9 @@ class Walter extends Player
         super.update();
         if (this.Mayrespawn) {
             var _time = new Date().getTime();
-            if (_time - this.timer > 3000) {
+            if (_time - this.timer > 2500) {
                 this.body.SetPosition(this.respawnPosition);
+                this.body.ApplyImpulse(new b2Vec2(0, -100), this.body.GetPosition());
                 this.Mayrespawn = false;
             }
            

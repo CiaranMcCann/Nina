@@ -6,6 +6,10 @@ class ElectricPole extends BasePuzzle {
     body;
     objectWidth: number = 0;
     objectHeight: number = 0;
+    image;
+    position;
+    x: number;
+    y: number;
 
     constructor(xInPixels: number, yInPixels: number)
     {
@@ -14,7 +18,23 @@ class ElectricPole extends BasePuzzle {
         this.objectHeight = 200;
         this.setUpPhysics(xInPixels, yInPixels);
         this.body.SetUserData(this);
+        this.image = AssetManager.getImage("objectmap");
+        this.position = new b2Vec2(xInPixels, yInPixels);
+        this.x = xInPixels;
+        this.y = yInPixels;
+    }
 
+
+    Draw(ctx: CanvasRenderingContext2D) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.drawImage(this.image, 150, 0, 220, 210, -(this.objectWidth/2)-12, -(this.objectHeight/2), 120, 200);
+        ctx.restore();
+    }
+
+
+     beginContact(contact) {
+   
     }
 
     setUpPhysics(xInPixels, yInPixels) {
@@ -38,6 +58,8 @@ class ElectricPole extends BasePuzzle {
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
         this.body.SetSleepingAllowed(false);
         this.body.SetFixedRotation(true);
+        this.body.SetUserData(this);
+
     }
 
 

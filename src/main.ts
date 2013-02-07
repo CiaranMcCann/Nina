@@ -23,7 +23,7 @@ $(document).ready(function () =>
 
         function gameloop()
         {
-           if(Settings.DEVELOPMENT_MODE)
+           //if(Settings.DEVELOPMENT_MODE)
             Graphics.stats.update();
 
             GameInstance.step();

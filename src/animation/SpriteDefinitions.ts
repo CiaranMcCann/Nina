@@ -26,7 +26,6 @@ module Sprites
     export var animations = {
 
         walterWalking: {
-
             imageName: "wwalk",
             frameY: 0,
             frameCount: 8,
@@ -35,7 +34,6 @@ module Sprites
         },
 
        alexWalking: {
-
             imageName: "elecs_wc_small_small",
             frameY: 0,
             frameCount: 8,
@@ -43,13 +41,22 @@ module Sprites
 
         },
 
-        walterJumping: {
-            imageName: "walter_jc_sprite",
+       walterJumping: {
+
+           imageName: "Walter_full_jump",
             frameY: 0,
-            frameCount: 6,
+            frameCount: 10,
             msPerFrame: 50,
 
         },
+
+       alexJumping: {
+           imageName: "Alex_full_jump",
+            frameY: 0,
+            frameCount: 10,
+            msPerFrame: 50,
+
+       },
 
         waterCoin: {
 
@@ -67,7 +74,93 @@ module Sprites
             frameCount: 7,
             msPerFrame: 100,
 
-        }
-    }
+        },
 
+        fireAnim:
+        {
+            imageName: "fire",
+            frameY: 0,
+            frameCount: 4,
+            msPerFrame: 120
+        },
+
+        cloudAnimCreation:
+        {
+            imageName: "cloud_sprite",
+            frameY: 0,
+            frameCount: 9,
+            msPerFrame: 150
+        },
+
+        cloudAnimWithoutAlex:
+        {
+            imageName: "cloud",
+            frameY: 0,
+            frameCount: 1,
+            msPerFrame: 0
+        },
+
+        cloudAnimWithAlex:
+        {
+            imageName: "thunder",
+            frameY: 0,
+            frameCount: 5,
+            msPerFrame: 200
+        },
+
+        /*cloudAnimRemove:
+        {
+            imageName: "cloud_sprite(2)",
+            frameY: 0,
+            frameCount: 9,
+            msPerFrame:150
+        },*/
+
+        droplet:
+        {
+            imageName: "droplet",
+            frameY: 0,
+            frameCount: 1,
+            msPerFrame: 0
+        },
+
+        transformerAlex: {
+            imageName: "generator",
+            frameY: 0,
+            frameCount: 4,
+            msPerFrame: 50,
+        },
+
+        transformerAlex: {
+            imageName: "generator",
+            frameY: 0,
+            frameCount: 4,
+            msPerFrame: 50,
+    },
+        alexElectrified: {
+            imageName: "Alex_electrified_sprite",
+            frameY: 0,
+            frameCount: 9,
+            msPerFrame: 10,
+
+        },
+
+        
+        walterIdel: {
+            imageName: "walter_idle_sprite",
+            frameY: 0,
+            frameCount: 4,
+            msPerFrame: 250,
+
+        },
+
+         alexIdel: {
+            imageName: "alex_idle_sprite",
+            frameY: 0,
+            frameCount: 4,
+            msPerFrame: 250,
+
+        }
+     
+    }
 }

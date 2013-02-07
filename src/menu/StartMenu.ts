@@ -69,12 +69,14 @@ class StartMenu {
 
     Draw(ctx:CanvasRenderingContext2D) {
 
-       
+        ctx.fillStyle = "White";
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.drawImage(this.backgroundImage, this.position.x, this.position.y);
         
         this.startButton.Draw(ctx);
         this.optionButton.Draw(ctx);
         this.aboutButton.Draw(ctx);
+        
         ctx.drawImage(this.alexWalterimage, 60+this.position.x, 30+this.position.y);
     }
 

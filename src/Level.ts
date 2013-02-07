@@ -1,5 +1,8 @@
 ///<reference path="Coin.ts"/>
-///
+///<reference path="interactiveObject/puzzles/Pipe.ts"/>
+///<reference path="Transformer.ts"/>
+///<reference path="ButtonBashing.ts"/>
+
 class Level
 {
     coins: Coin[];
@@ -8,6 +11,7 @@ class Level
     transformer: Transformer;
     image: string;
     puzzleManager: PuzzleManager;
+    poles: ElectricPole[];
 
     constructor(levelData: string)
     {
@@ -36,14 +40,32 @@ class Level
             var tmpFire = new InteractiveFire(this.puzzleManager, level['fires'][i].x, level['fires'][i].y);
             this.puzzleManager.CreatePuzzle(tmpFire);
         }
-        // creating the transformer
-        this.transformer = new Transformer(
-            2400, 1400
-        );
 
+        //Load electricity poles
+        this.poles = [];
+        var count = 0;
+        for (i = level['poles'].length - 1; i >= 0; i--) {
+            // Magic numbers!!!!!! Poles could be resizable in the editor
+            var x = level['poles'][i].x + 5;
+            var y = level['poles'][i].y + 100;
+            this.poles.push(new ElectricPole(x, y));
+            this.puzzleManager.CreatePuzzle(this.poles[count]);
+            this.puzzleManager.CreatePuzzle(new Ladder(x, y));
+            if (!(i % 2)) {
+                this.puzzleManager.CreatePuzzle(new ElectricWire(this.poles[count - 1], this.poles[count]));
+            }
+            ++count;
+        }
+
+        // Load pipes
+        this.puzzleManager.CreatePuzzle(new Pipe(4050, 1840));
+        
         this.walter = new Walter(level['walter'].x, level['walter'].y);
         this.alex = new Alex(level['alex'].x, level['alex'].y);
 
+        this.transformer = new Transformer(
+            2950, 1650, new ButtonBashing(this.alex.controls, this.alex)
+        );
         this.image = level["levelImage"];
     }
 

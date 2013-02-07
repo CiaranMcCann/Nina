@@ -73,7 +73,7 @@ class EnergyBar
         ctx.fillRect(AlexTubeX, AlexTubeY, prsntEnergyAlex, tubeHeight);
 
         //Alex bar image
-        ctx.drawImage(AssetManager.getImage("FirstAlexBar"), AlexTubeX - (ctx.canvas.width * 0.036), AlexTubeY - (ctx.canvas.height * 0.05), tubeWidth*1.3, tubeHeight * 2.8);
+        ctx.drawImage(AssetManager.getImage("FirstAlexBar"), AlexTubeX - (ctx.canvas.width * 0.036), AlexTubeY - (ctx.canvas.height * 0.05), tubeWidth*1.3, tubeHeight * 2.87);
 
     }
 

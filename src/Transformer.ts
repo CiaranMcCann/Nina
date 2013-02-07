@@ -1,4 +1,6 @@
 ///<reference path="animation/Sprite.ts"/>
+///<reference path="Pump.ts"/>
+///<reference path="ButtonBashing.ts"/>
 
 class Transformer {
     // This is the transformer on stage #1 that powers up the pump
@@ -6,6 +8,9 @@ class Transformer {
 
     // animated image (CURRENTLY NOT USED)
     private sprite: Sprite;
+
+    //animated image of alex zzzzzzz
+    electrifiedAlex: Sprite;
 
     // displays the % of the powering of the transformer
     private powerUp: number;
@@ -17,38 +22,48 @@ class Transformer {
     private body;
 
     // is alex and the transformer in contact with each other?
-    private mashedPotatoes: bool;
+    public mashedPotatoes: bool;
 
     // So we can turn the pump on or off
-    private pump: Pump;
+    public pump: Pump;
 
-    constructor(x : number, y : number) {
+    private _cloud: Cloud;
+
+    private buttonBashing: ButtonBashing;
+
+    constructor(x: number, y: number, buttonBashing: ButtonBashing) {
+        this.electrifiedAlex = new Sprite(Sprites.animations.alexElectrified);
+        this.sprite = new Sprite(Sprites.animations.transformerAlex);
         this.setUpPhysics(x, y);
         this.body.SetUserData(this)
         this.mashedPotatoes = false;
         this.powerUp = 0;
 
-        this.pump = new Pump();
+        this.pump = new Pump(x + 1100, y + 300);
+          this.buttonBashing = buttonBashing;
+        this.buttonBashing.SetOnDone(function () =>
+        {
+            
+            if (!this.pump.isPumpOn())
+            {
+                this.pump.pumpState(true);
+                GameInstance.camera.panToPosition(new b2Vec2(this.pump.x, this.pump.y));
+                GameInstance.level.alex.setCanDraw(true);
+            }
+        }
+       );
     }
 
-    update() {
-        // if he's near the transformer and spamming the 'Power Up'-button.
-        if (this.mashedPotatoes && this.powerUp < 100) { // && keyboard.isKeyDown(this.controls.use)
-            this.powerUp += 0.5;
-            console.log(this.powerUp);
+    update() {       
+        this.buttonBashing.update(this.mashedPotatoes);
+        if (this.mashedPotatoes) {
+            this.electrifiedAlex.update();
         }
+    }
 
-        // if he's reaching a hundred, he's fully powered up the transformer.
-        if (this.powerUp < 100 && !this.mashedPotatoes) {
-            if (this.powerUp > 0) {
-                this.powerUp--;
-                console.log(this.powerUp);
-            }            
-        }
-        if (this.powerUp == 100) {
-            this.pump.pumpState(true);
-            console.log("This just happened");
-        }
+    SetCloud(value: Cloud)
+    {
+        this._cloud = value;
     }
 
     beginContact(contact) {
@@ -57,21 +72,40 @@ class Transformer {
 
         // checking to see if Alex is near the transformer
         if (a instanceof Alex || b instanceof Alex) {
-            console.log("Contact.");
             this.mashedPotatoes = true;
+            
         }
     }
+    
 
-    endContact(contact) {
-        console.log("Contact ended.");
-        this.mashedPotatoes = false;
+    endContact(contact)
+    {
+        var a = contact.GetFixtureA().GetBody().GetUserData();
+        var b = contact.GetFixtureB().GetBody().GetUserData();
+
+        // checking to see if Alex is near the transformer
+        if (a instanceof Alex || b instanceof Alex)
+        {
+            this.mashedPotatoes = false;
+            GameInstance.level.alex.setCanDraw(true);
+        }
     };
 
     draw(ctx: CanvasRenderingContext2D) {
-        //Get position of the physics body and convert it to pixel cordinates
+        this.sprite.update();
         var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
-        var image = AssetManager.getImage("PLACEHOLDERtransformer");
-        ctx.drawImage(image, pos.x - (image.width / 2), pos.y - (image.height / 2));
+        ctx.save();
+        ctx.translate(pos.x, pos.y)
+        this.sprite.draw(ctx, (-this.sprite.getFrameWidth() / 2), (-this.sprite.getFrameHeight() / 2));
+        if (this.mashedPotatoes && this.buttonBashing.getPercentage() < 100)
+        {
+            GameInstance.level.alex.setCanDraw(false);
+            this.electrifiedAlex.draw(ctx, -this.electrifiedAlex.getFrameWidth(), -this.electrifiedAlex.getFrameHeight() / 2);
+        }
+        ctx.restore();
+
+        this.pump.draw(ctx);
+        this.buttonBashing.draw(ctx);
     }
 
     setUpPhysics(xInPixels, yInPixels) {
@@ -82,13 +116,13 @@ class Transformer {
         fixDef.shape = new b2PolygonShape();
 
         fixDef.shape.SetAsBox(
-            Physics.pixelToMeters(96 / 2.5),
-            Physics.pixelToMeters(96 / 2)
+            Physics.pixelToMeters(this.sprite.getFrameWidth() / 2),
+            Physics.pixelToMeters(this.sprite.getFrameHeight() / 2)
         );
 
         var bodyDef = new b2BodyDef;
-        bodyDef.type = b2Body.b2_dynamicBody;
-        bodyDef.position.x = Physics.pixelToMeters(xInPixels);
+        bodyDef.type = b2Body.b2_staticBody;
+        bodyDef.position.x = Physics.pixelToMeters( xInPixels );
         bodyDef.position.y = Physics.pixelToMeters(yInPixels);
 
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
