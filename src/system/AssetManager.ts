@@ -27,11 +27,17 @@ module AssetManager
          'data/images/Pipe3.png',
          'data/images/Pipe4.png',
          'data/images/waterParticle.png',
+         'data/images/menu/Menu.png',
+         'data/images/menu/button.png',
+         'data/images/menu/highlightedbutton.png',
+         'data/images/menu/walteralex.png',
          'data/images/extension.png',
          'data/images/eyes.png',
          'data/images/objectmap.png',
          'data/images/walterControl.png',
          'data/images/alexControl.png',
+         'data/images/fridge.png',
+         'data/images/wall.png',
          'data/images/level_design_level_01_00_front.png',
          'data/images/level_design_level_01_00_back.png',
          'data/images/Propeller.png',
@@ -43,8 +49,11 @@ module AssetManager
     ];
 
     var priorityAudio = [
-        //'data/sounds/jump.wav',
-        //'data/sounds/marioCoin.wav'
+         'data/sounds/theme.wav',
+         'data/sounds/browse.wav',
+         'data/sounds/select.wav',
+         'data/sounds/marioCoin.wav',
+         'data/sounds/jump.wav'
     ]
 
     export var images = [];

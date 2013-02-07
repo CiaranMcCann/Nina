@@ -16,8 +16,6 @@
 ///<reference path="Pump.ts"/>
 ///<reference path="Level.ts"/>
 ///<reference path="Platform.ts"/>
-///<reference path="Transformer.ts" />
-///<reference path="menu/StartMenu.ts"/>
 
 class Game
 {
@@ -26,8 +24,6 @@ class Game
     camera: Camera;
     energybar: EnergyBar;
     level: Level;
-    startmenu: StartMenu;
-    gameStarted: bool;
   
     
 
@@ -49,75 +45,47 @@ class Game
         this.level = new Level(this.levelDataString);
       
         this.camera = new Camera(AssetManager.getImage(this.level.image).width, AssetManager.getImage(this.level.image).height, this.canvas.width, this.canvas.height);
-        this.energybar = new EnergyBar(this.level.alex, this.level.walter);
-        this.startmenu = new StartMenu();
-        this.gameStarted = false;
+        this.energybar = new EnergyBar(this.level.alex,this.level.walter);
     }
 
     update()
     {
-        if (this.gameStarted) {
+        /*var midPoint = this.level.alex.body.GetPosition().Copy();
+        midPoint.Subtract(this.level.walter.body.GetPosition());
+        midPoint.Multiply(0.5);
+        midPoint.Add(this.level.walter.body.GetPosition());
+        midPoint.x = Physics.metersToPixels(midPoint.x);
+        midPoint.y = Physics.metersToPixels(midPoint.y);
+        this.camera.panToPosition(midPoint);*/
 
-            this.level.update();
-        } else {
-
-            if (keyboard.isKeyDown(keyboard.keyCodes.Uparrow, true) && !this.gameStarted) //up
-            {
-                if (!this.gameStarted) this.startmenu.ChooseSelected(-1);
-
-            }
-
-            if (keyboard.isKeyDown(keyboard.keyCodes.Downarrow, true) && !this.gameStarted) //up
-            {
-                if (!this.gameStarted) this.startmenu.ChooseSelected(1);
-
-            }
-
-        }
-
+        this.level.update();
         this.camera.update();
-
-        if (keyboard.isKeyDown(keyboard.keyCodes.Enter,true) && !this.gameStarted) {
-            if (this.startmenu.selectedcount == 0) {
-                this.gameStarted = true;
-                this.startmenu = null;
-                
-                GameInstance.camera.panToPosition( new b2Vec2(4900,1600));
-                AssetManager.getSound("select").play();
-                if (AssetManager.getSound("theme").isPlaying) {
-                    AssetManager.getSound("theme").pause();
-                }
-
-            }
-        }
 
         // Debug move camera
         if (keyboard.isKeyDown(keyboard.keyCodes.y)) //up
         {
             GameInstance.camera.cancelPan();
-            GameInstance.camera.incrementY(-15);
-            
+            GameInstance.camera.incrementY(-15)
         }
 
         if (keyboard.isKeyDown(keyboard.keyCodes.h)) //down
         {
             GameInstance.camera.cancelPan();
-            GameInstance.camera.incrementY(15);
-           
+            GameInstance.camera.incrementY(15)
         }
 
 
         if (keyboard.isKeyDown(keyboard.keyCodes.g)) //left
         {
             GameInstance.camera.cancelPan();
-            GameInstance.camera.incrementX(-15);
+            GameInstance.camera.incrementX(-15)
         }
 
 
         if (keyboard.isKeyDown(keyboard.keyCodes.j)) //right
         {
             GameInstance.camera.cancelPan();
-            GameInstance.camera.incrementX(15);
+            GameInstance.camera.incrementX(15)
         }
     }
 
@@ -131,9 +99,11 @@ class Game
     {
         //Clear the previous frame from the screen
         this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        if (this.startmenu != null && !this.gameStarted) {
-            this.startmenu.Draw(this.canvasContext);
-        } else {
+       
+
+                
+
+
             // Blit a section of the Level image onto the screen
             this.canvasContext.drawImage(
                 AssetManager.getImage(this.level.image),
@@ -156,9 +126,8 @@ class Game
         this.canvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
         //Draw all entities here
-       
-
-        if(this.gameStarted)this.level.draw(this.canvasContext);
+            
+            this.level.draw(this.canvasContext);
             if (Settings.DEVELOPMENT_MODE)
                 Physics.world.DrawDebugData();
 
@@ -167,6 +136,6 @@ class Game
             this.canvasContext.restore();
             this.energybar.draw(this.canvasContext);
       
-        }
+        
     }
 }

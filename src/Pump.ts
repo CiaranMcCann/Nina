@@ -10,10 +10,10 @@ class Pump {
     private angle: number;
 
     // image
-    private image;
+    public image;
 
-    x: number;
-    y: number;
+   public x: number;
+   public  y: number;
 
     constructor(x,y) {
 
@@ -45,11 +45,11 @@ class Pump {
         ctx.restore();
     }
 
-    pumpState(state) {
+   public pumpState(state) {
         this.runPump = state;
     }
 
-    isPumpOn() {
+    public isPumpOn() {
         return this.runPump;
     }
 }

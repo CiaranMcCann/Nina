@@ -4,7 +4,7 @@ class ButtonBashing {
 
     // keyboard controls
     controls: any;
-    private _hasCollision: bool = true;
+    private _hasCollision: bool;
     private _isAlive: bool = true;
 
     // the hertz value, between 0 and 100 (50 is the best)

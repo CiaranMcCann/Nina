@@ -30,8 +30,23 @@ class Walter extends Player
     }
 
     beginContact(contact) {
-
      super.beginContact(contact);
+    }
+
+
+    public transformReturn() {
+
+        //this.sprite = new Sprite(Sprites.animations.walterWalking);
+        this.mayJump = true;
+        this.iceBlock = false;
+        
+    }
+
+    public transform() {
+
+        //this.sprite = new Sprite(Sprites.animations.walterIceAnimation);
+        this.mayJump = false;
+        this.iceBlock = true;
     }
 
 
@@ -41,9 +56,12 @@ class Walter extends Player
     }
 
     update() {
+        if (this.iceBlock) {
+
+        }
         super.update();
-        if (this.Mayrespawn)
-        {            
+        this.sprite.update();
+        if (this.Mayrespawn) {
             var _time = new Date().getTime();
             if (_time - this.timer > 2250)
             {

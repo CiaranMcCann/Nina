@@ -2,6 +2,10 @@
 ///<reference path="interactiveObject/puzzles/Pipe.ts"/>
 ///<reference path="Transformer.ts"/>
 ///<reference path="ButtonBashing.ts"/>
+///<reference path="FridgeTransformer.ts"/>
+///<reference path="Sauna.ts"/>
+///<reference path="Wall.ts"/>
+
 
 class Level
 {
@@ -12,6 +16,11 @@ class Level
     image: string;
     puzzleManager: PuzzleManager;
     poles: ElectricPole[];
+    fridgeTransformer: FridgeTransformer;
+    sauna: Sauna;
+    wall: Wall;
+    
+    
 
     constructor(levelData: string)
     {
@@ -67,6 +76,12 @@ class Level
             2950, 1650, new ButtonBashing(this.alex.controls, this.alex)
         );
         this.image = level["levelImage"];
+       
+        this.fridgeTransformer = new FridgeTransformer(1400, 450, new ButtonBashing(this.alex.controls, this.alex)
+        );
+        this.sauna = new Sauna(300, 450);
+        this.wall = new Wall(450, 450);
+
     }
 
     draw(ctx)
@@ -76,9 +91,11 @@ class Level
 
         this.alex.draw(ctx);
         this.walter.draw(ctx);
-
+        this.sauna.draw(ctx);
+        this.fridgeTransformer.draw(ctx);
         this.puzzleManager.draw(ctx);
         this.transformer.draw(ctx);
+        this.wall.draw(ctx);
     }
 
     update()
@@ -93,7 +110,7 @@ class Level
         }
 
         this.puzzleManager.update();
-
+        this.fridgeTransformer.update();
         this.walter.update();
         this.alex.update();
         this.transformer.update();

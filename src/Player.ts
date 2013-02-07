@@ -13,7 +13,7 @@ class Player implements isPhysicsBody
     private _canDraw: bool = true;
 
     // Animated image
-    sprite: Sprite;
+    public sprite: Sprite;
 
     // Animated image Jump
     jumpSprite: Sprite;
@@ -47,29 +47,35 @@ class Player implements isPhysicsBody
 
 
     drawable: bool;
+    public mayJump: bool;
 
     idelTimer: Timer;
 
     animationWalking: SpriteDefinition;
     idelAnimation: SpriteDefinition;
+    iceAnimation: Sprite;
     hasMovedLeft:bool;
     hasMovedRight:bool;
-    hasMovedUp:bool;
+    hasMovedUp: bool;
+    iceBlock: bool;
+
+    jumpForce : number;
 
 
     public controlImage;
     constructor(xInPixels: number, yInPixels: number, animation: SpriteDefinition, jumpAnimation: SpriteDefinition, idelAnimation : SpriteDefinition)
     {
-        this.speed = 3;
+        this.speed = 1;
         this.canJump = 0;
         this.direction = Player.DIRECTION.right;
         this.animationWalking = animation;
         this.sprite = new Sprite(animation);
         this.jumpSprite = new Sprite(jumpAnimation);
+        this.iceAnimation = new Sprite(Sprites.animations.walterIceAnimation);
         this.idelAnimation = idelAnimation;
         this.idelTimer = new Timer(1);
 
-        this.setUpPhysics(xInPixels,yInPixels);
+        this.setUpPhysics(xInPixels, yInPixels);
         this.energy = 20;
         
         //Place a refer to this object in the physics bodies
@@ -77,7 +83,9 @@ class Player implements isPhysicsBody
         // can easily call the correct objects methods to handle it
 
         this.hasMovedLeft = this.hasMovedRight = this.hasMovedUp = false;
-        this.body.SetUserData(this)
+        this.body.SetUserData(this);
+        this.mayJump = true;
+        this.jumpForce = 30;
     }
 
     setCanWalk(value: bool) { this._canWalk = value; }
@@ -123,13 +131,17 @@ class Player implements isPhysicsBody
             this.hasMovedRight = true;
             this.direction = Player.DIRECTION.right;
                          this.sprite.setSpriteDef(this.animationWalking);
-             this.idelTimer.reset();
-            this.sprite.update();
+            this.idelTimer.reset();
+            if (this.iceBlock) {
+                this.iceAnimation.update();
+            } else {
+                this.sprite.update();
+            }
 
 
 
              // Small impulse to make the camera follow him: HACK :P
-            this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
+            this.body.ApplyImpulse(new b2Vec2(this.direction*5, 0), this.body.GetPosition());
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x + Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
 
         }
@@ -137,11 +149,11 @@ class Player implements isPhysicsBody
         if (keyboard.isKeyDown(this.controls.jump))
         {
             this.hasMovedUp = true;
-            if (this.canJump >= 1) {
+            if (this.canJump >= 1 && this.mayJump) {
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
-               // AssetManager.getSound("jump").play();
-                forces.Multiply(30);
+                AssetManager.getSound("jump").play(0.2);
+                forces.Multiply(this.jumpForce);
 
 
                 this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
@@ -174,12 +186,17 @@ class Player implements isPhysicsBody
         if (keyboard.isKeyDown(this.controls.left))
         {
             this.direction = Player.DIRECTION.left;
-             this.sprite.setSpriteDef(this.animationWalking);
-             this.idelTimer.reset();
-            this.sprite.update();
+         
+            this.sprite.setSpriteDef(this.animationWalking);
+            this.idelTimer.reset();
+            if (this.iceBlock) {
+                this.iceAnimation.update();
+            } else {
+                this.sprite.update();
+            }
             this.hasMovedLeft = true;
              // Small impluse to make the camera follow him: HACK :P
-            this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
+            this.body.ApplyImpulse(new b2Vec2(this.direction*7, 0), this.body.GetPosition());
 
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x - Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
         }
@@ -231,11 +248,13 @@ class Player implements isPhysicsBody
                 // Used to flip the sprites       
                 ctx.scale(-1, 1);
             }
-       if (this.canJump < 1 && !this.canClimb) {
+       if (this.canJump < 1 && !this.canClimb&& !this.iceBlock) {
             this.jumpSprite.draw(ctx, -this.jumpSprite.getFrameWidth() / 2, -this.jumpSprite.getFrameHeight() / 2);
-        } else {
-            this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
-        }
+       } else if (this.iceBlock) {
+           this.iceAnimation.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
+       } else {
+           this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2); 
+       }
 
         ctx.restore();        
     }
@@ -245,9 +264,6 @@ class Player implements isPhysicsBody
 
         var userDataA = contact.GetFixtureA().GetBody().GetUserData();
         var userDataB = contact.GetFixtureB().GetBody().GetUserData();
-
-        console.log(userDataA);
-        console.log(userDataB);
 
         if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
         {

@@ -7,13 +7,13 @@ class Transformer {
     // only applicable by Alex
 
     // animated image (CURRENTLY NOT USED)
-    private sprite: Sprite;
+    public sprite: Sprite;
 
     //animated image of alex zzzzzzz
-    electrifiedAlex: Sprite;
+    public electrifiedAlex: Sprite;
 
     // displays the % of the powering of the transformer
-    private powerUp: number;
+    public powerUp: number;
 
     // keyboard controls
     controls: any;

@@ -25,6 +25,30 @@ module Sprites
     // These are defined frames for said animations
     export var animations = {
 
+        walterIceAnimation: {
+            imageName: "waltericeanimation",
+            frameY: 0,
+            frameCount: 5,
+            msPerFrame: 50,
+
+          },
+
+
+        saunaAnimation: {
+            imageName: "saunaanimation",
+            frameY: 0,
+            frameCount: 8,
+            msPerFrame: 50,
+
+         },
+
+        fridgeAnimatoin: {
+            imageName: "fridgeanimation",
+            frameY: 0,
+            frameCount: 8,
+            msPerFrame: 50,
+         },
+
         walterWalking: {
             imageName: "wwalk",
             frameY: 0,

@@ -5,7 +5,7 @@ class Alex extends Player
     constructor(x,y)
     {
         super(x, y, Sprites.animations.alexWalking, Sprites.animations.alexJumping,Sprites.animations.alexIdel);
-
+        this.jumpForce = 30;
         this.controls = {
             left: keyboard.keyCodes.Leftarrow,
             right: keyboard.keyCodes.Rightarrow,
