@@ -66,7 +66,6 @@ class Level
         this.transformer = new Transformer(
             2980, 1650, new ButtonBashing(this.alex.controls, this.alex)
         );
-
         this.image = level["levelImage"];
     }
 
