@@ -16,7 +16,6 @@
 ///<reference path="Pump.ts"/>
 ///<reference path="Level.ts"/>
 ///<reference path="Platform.ts"/>
-///<reference path="Transformer.ts" />
 
 class Game
 {

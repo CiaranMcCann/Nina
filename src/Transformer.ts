@@ -1,4 +1,6 @@
 ///<reference path="animation/Sprite.ts"/>
+///<reference path="Pump.ts"/>
+///<reference path="ButtonBashing.ts"/>
 
 class Transformer {
     // This is the transformer on stage #1 that powers up the pump
@@ -25,7 +27,9 @@ class Transformer {
     // So we can turn the pump on or off
     public pump: Pump;
 
-    constructor(x: number, y: number) {
+    private buttonBashing: ButtonBashing;
+
+    constructor(x: number, y: number, buttonBashing: ButtonBashing) {
         this.electrifiedAlex = new Sprite(Sprites.animations.alexElectrified);
         this.sprite = new Sprite(Sprites.animations.transformerAlex);
         this.setUpPhysics(x, y);
@@ -33,30 +37,23 @@ class Transformer {
         this.mashedPotatoes = false;
         this.powerUp = 0;
 
-        this.pump = new Pump(x+1070,y+300);
+        this.pump = new Pump(x + 1070, y + 300);
+          this.buttonBashing = buttonBashing;
+        this.buttonBashing.SetOnDone(function () =>
+        {
+            
+            if (!this.pump.isPumpOn()) {
+                this.pump.pumpState(true);
+                GameInstance.camera.panToPosition(new b2Vec2(this.pump.x, this.pump.y));
+            }
+        }
+       );
     }
 
-    update() {
-        // if he's near the transformer and spamming the 'Power Up'-button.
-        if (this.mashedPotatoes && this.powerUp < 100) { // && keyboard.isKeyDown(this.controls.use)
+    update() {       
+        this.buttonBashing.update(this.mashedPotatoes);
+        if (this.mashedPotatoes) {
             this.electrifiedAlex.update();
-            this.powerUp += 0.5;
-            console.log(this.powerUp);
-        }
-
-        // if he's reaching a hundred, he's fully powered up the transformer.
-        if (this.powerUp < 100 && !this.mashedPotatoes) {
-            if (this.powerUp > 0) {
-                this.powerUp--;
-                console.log(this.powerUp);
-            }            
-        }
-        if (this.powerUp == 100 && !this.pump.isPumpOn()) {
-            console.log("This should be false - " + this.pump.isPumpOn());
-            this.pump.pumpState(true);
-            GameInstance.camera.panToPosition(new b2Vec2(this.pump.x,this.pump.y));
-            console.log("so it is changed to " + this.pump.isPumpOn());
-            console.log("something");
         }
     }
 
@@ -66,10 +63,11 @@ class Transformer {
 
         // checking to see if Alex is near the transformer
         if (a instanceof Alex || b instanceof Alex) {
-            console.log("Contact.");
             this.mashedPotatoes = true;
+            
         }
     }
+    
 
     endContact(contact) {
         var a = contact.GetFixtureA().GetBody().GetUserData();
@@ -77,7 +75,6 @@ class Transformer {
 
         // checking to see if Alex is near the transformer
         if (a instanceof Alex || b instanceof Alex) {
-            console.log("Contact ended.");
             this.mashedPotatoes = false;
         }
     };
@@ -97,6 +94,7 @@ class Transformer {
         ctx.restore();
 
         this.pump.draw(ctx);
+        this.buttonBashing.draw(ctx);
     }
 
     setUpPhysics(xInPixels, yInPixels) {
