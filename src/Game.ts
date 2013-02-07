@@ -96,19 +96,6 @@ class Game
         if (!Settings.DEVELOPMENT_MODE)
         {
 
-            this.canvasContext.drawImage(
-                AssetManager.getImage("level_design_level_01_00_back"),
-                this.camera.getX(),
-                this.camera.getY(),
-                this.canvas.width,
-                this.canvas.height,
-                0,
-                0,
-                this.canvas.width,
-                this.canvas.height
-           );
-
-
             // Blit a section of the Level image onto the screen
             this.canvasContext.drawImage(
                 AssetManager.getImage(this.level.image),

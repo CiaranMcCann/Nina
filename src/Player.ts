@@ -47,14 +47,22 @@ class Player implements isPhysicsBody
 
     drawable: bool;
 
-    constructor(xInPixels: number, yInPixels: number, animation: SpriteDefinition, jumpAnimation: SpriteDefinition)
+    idelTimer: Timer;
+
+    animationWalking: SpriteDefinition;
+    idelAnimation: SpriteDefinition;
+
+    constructor(xInPixels: number, yInPixels: number, animation: SpriteDefinition, jumpAnimation: SpriteDefinition, idelAnimation : SpriteDefinition)
     {
         this.drawable = true;
         this.speed = 3;
         this.canJump = 0;
         this.direction = Player.DIRECTION.right;
+        this.animationWalking = animation;
         this.sprite = new Sprite(animation);
         this.jumpSprite = new Sprite(jumpAnimation);
+        this.idelAnimation = idelAnimation;
+        this.idelTimer = new Timer(500);
 
         this.setUpPhysics(xInPixels,yInPixels);
         this.energy = 50;
@@ -85,6 +93,7 @@ class Player implements isPhysicsBody
 
     update()
     {
+
         //When the player starts to move have the camera follow them
         if (this.body.GetLinearVelocity().Length() >= 0.01) {
             GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.body.GetPosition()));
@@ -100,15 +109,19 @@ class Player implements isPhysicsBody
              this.body.SetAwake(false);
         }
         
+    
 
         if (keyboard.isKeyDown(this.controls.right))
         {
             this.direction = Player.DIRECTION.right;
+                         this.sprite.setSpriteDef(this.animationWalking);
+             this.idelTimer.reset();
             this.sprite.update();
+
+
 
              // Small impulse to make the camera follow him: HACK :P
             this.body.ApplyImpulse(new b2Vec2(this.direction*0.5, 0), this.body.GetPosition());
-
             this.body.SetPosition(new b2Vec2(this.body.GetPosition().x + Physics.pixelToMeters(this.speed), this.body.GetPosition().y));
 
         }
@@ -152,6 +165,8 @@ class Player implements isPhysicsBody
         if (keyboard.isKeyDown(this.controls.left))
         {
             this.direction = Player.DIRECTION.left;
+             this.sprite.setSpriteDef(this.animationWalking);
+             this.idelTimer.reset();
             this.sprite.update();
            
              // Small impluse to make the camera follow him: HACK :P
@@ -162,6 +177,18 @@ class Player implements isPhysicsBody
 
         if (keyboard.isKeyDown(this.controls.down)) {
 
+        }
+
+            this.idelTimer.update();
+        if (this.idelTimer.hasTimePeriodPassed(false))
+        {
+            if(this.idelAnimation != null)
+            this.sprite.setSpriteDef(this.idelAnimation);
+        }
+
+        if (this.sprite.spriteDef == this.idelAnimation)
+        {
+            this.sprite.update();
         }
     }
 

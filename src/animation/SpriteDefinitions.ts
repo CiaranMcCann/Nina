@@ -143,6 +143,15 @@ module Sprites
             frameCount: 9,
             msPerFrame: 10,
 
+        },
+
+        
+        walterIdel: {
+            imageName: "walter_idle_sprite",
+            frameY: 0,
+            frameCount: 4,
+            msPerFrame: 450,
+
         }
      
     }
