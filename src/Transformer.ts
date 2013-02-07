@@ -56,6 +56,9 @@ class Transformer {
 
     update() {       
         this.buttonBashing.update(this.mashedPotatoes);
+        if (this.mashedPotatoes) {
+            this.electrifiedAlex.update();
+        }
     }
 
     SetCloud(value: Cloud)
@@ -70,8 +73,10 @@ class Transformer {
         // checking to see if Alex is near the transformer
         if (a instanceof Alex || b instanceof Alex) {
             this.mashedPotatoes = true;
+            
         }
     }
+    
 
     endContact(contact)
     {

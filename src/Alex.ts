@@ -14,6 +14,8 @@ class Alex extends Player
             negative: keyboard.keyCodes.numpad6
         }
 
+        this.controlImage = AssetManager.getImage("alexControl");
+
     }
 
 }
