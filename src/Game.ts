@@ -50,6 +50,14 @@ class Game
 
     update()
     {
+        /*var midPoint = this.level.alex.body.GetPosition().Copy();
+        midPoint.Subtract(this.level.walter.body.GetPosition());
+        midPoint.Multiply(0.5);
+        midPoint.Add(this.level.walter.body.GetPosition());
+        midPoint.x = Physics.metersToPixels(midPoint.x);
+        midPoint.y = Physics.metersToPixels(midPoint.y);
+        this.camera.panToPosition(midPoint);*/
+
         this.level.update();
         this.camera.update();
 

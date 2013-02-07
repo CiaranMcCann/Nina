@@ -145,6 +145,28 @@ class ElectricWire extends BasePuzzle {
             context.lineTo(p2.x, p2.y);
             context.closePath();
             context.stroke();
+            if (GameInstance.level.transformer.mashedPotatoes) {
+                context.save();
+                context.translate(p1.x, p1.y)
+                context.scale(0.3, 0.3);
+                var image = AssetManager.getImage('Ligthning_for_wire_03');
+                context.drawImage(image, 0, -image.height / 2);
+                context.restore();
+            }
+        }
+
+        context.fillStyle = "black";
+        var x = 3962;
+        context.fillRect(x, 1821, 4, 120);
+        context.fillRect(x, 1940, 45, 4);
+        if (GameInstance.level.transformer.mashedPotatoes) {
+            context.save();
+            context.translate(x, 1940)
+            context.scale(0.3, 0.3);
+            var image = AssetManager.getImage('Ligthning_for_wire_03');
+            context.drawImage(image, 0, -image.height / 2);
+            context.drawImage(AssetManager.getImage('Ligthning_for_wire_01'), -50, -400);
+            context.restore();
         }
 
 

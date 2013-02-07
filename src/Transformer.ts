@@ -22,7 +22,7 @@ class Transformer {
     private body;
 
     // is alex and the transformer in contact with each other?
-    private mashedPotatoes: bool;
+    public mashedPotatoes: bool;
 
     // So we can turn the pump on or off
     public pump: Pump;
