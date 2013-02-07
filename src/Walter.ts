@@ -25,8 +25,20 @@ class Walter extends Player
    
 
     beginContact(contact) {
-
      super.beginContact(contact);
+    }
+
+
+    public transformReturn() {
+
+        this.sprite = new Sprite(Sprites.animations.walterWalking);
+        this.mayJump = true;
+    }
+
+    public transform() {
+
+        this.sprite = new Sprite(Sprites.animations.walterIceAnimation);
+        this.mayJump = false;
     }
 
 
@@ -37,6 +49,7 @@ class Walter extends Player
 
     update() {
         super.update();
+
         if (this.Mayrespawn) {
             var _time = new Date().getTime();
             if (_time - this.timer > 2500) {

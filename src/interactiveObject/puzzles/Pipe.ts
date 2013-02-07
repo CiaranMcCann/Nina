@@ -122,10 +122,6 @@ class Pipe extends BasePuzzle
             }
         }
 
-       
-
-       
-
         if(this.walter == null)return;
 
 

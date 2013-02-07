@@ -13,7 +13,7 @@ class Player implements isPhysicsBody
     private _canDraw: bool = true;
 
     // Animated image
-    sprite: Sprite;
+    public sprite: Sprite;
 
     // Animated image Jump
     jumpSprite: Sprite;
@@ -46,6 +46,7 @@ class Player implements isPhysicsBody
     footSensor: any;
 
     drawable: bool;
+    public mayJump: bool;
 
     hasMovedLeft:bool;
     hasMovedRight:bool;
@@ -71,7 +72,8 @@ class Player implements isPhysicsBody
         // can easily call the correct objects methods to handle it
 
         this.hasMovedLeft = this.hasMovedRight = this.hasMovedUp = false;
-        this.body.SetUserData(this)
+        this.body.SetUserData(this);
+        this.mayJump = true;
     }
 
     setCanWalk(value: bool) { this._canWalk = value; }
@@ -126,7 +128,7 @@ class Player implements isPhysicsBody
         if (keyboard.isKeyDown(this.controls.jump))
         {
             this.hasMovedUp = true;
-            if (this.canJump >= 1) {
+            if (this.canJump >= 1 && this.mayJump) {
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
                // AssetManager.getSound("jump").play();

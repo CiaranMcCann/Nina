@@ -7,13 +7,13 @@ class Transformer {
     // only applicable by Alex
 
     // animated image (CURRENTLY NOT USED)
-    private sprite: Sprite;
+    public sprite: Sprite;
 
     //animated image of alex zzzzzzz
     electrifiedAlex: Sprite;
 
     // displays the % of the powering of the transformer
-    private powerUp: number;
+    public powerUp: number;
 
     // keyboard controls
     controls: any;
@@ -22,7 +22,7 @@ class Transformer {
     private body;
 
     // is alex and the transformer in contact with each other?
-    private mashedPotatoes: bool;
+    public mashedPotatoes: bool;
 
     // So we can turn the pump on or off
     public pump: Pump;

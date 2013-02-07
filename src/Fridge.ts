@@ -5,25 +5,37 @@ class Fridge extends Pump {
     public body;
     private objectWidth: number = 0;
     private objectHeight: number = 0;
+    sprite: Sprite;
 
     constructor(x, y) {
         super(x, y);
-        this.objectWidth = 100;
-        this.objectHeight = 200;
-        this.setUpPhysics(x, y);
+        this.objectWidth = 120;
+        this.objectHeight = 100;
+        this.setUpPhysics(x, this.y);
         this.body.SetUserData(this);
         this.image = AssetManager.getImage("fridge");
+        this.sprite = new Sprite(Sprites.animations.fridgeAnimatoin);
+      
     }
+
+    update() {
+
+      
+    }
+
 
     draw(ctx: CanvasRenderingContext2D) {
 
+        this.sprite.update();
         if (this.isPumpOn()) {
 
          
             ctx.save();
             ctx.translate(this.x, this.y);
-            ctx.drawImage(this.image, -(this.image.width / 2), -(this.image.height / 2));
+            this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
+            //ctx.drawImage(this.image, -(this.image.width / 2), -(this.image.height / 2));
             ctx.restore();
+
         }
         else {
             // freeze the image

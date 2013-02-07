@@ -34,6 +34,8 @@ module AssetManager
          'data/images/objectmap.png',
          'data/images/walterControl.png',
          'data/images/alexControl.png',
+         'data/images/fridge.png',
+         'data/images/wall.png',
          'data/images/PLACEHOLDERtransformer.png',
          'data/images/level_design_level_01_00_front.png',
          'data/images/level_design_level_01_00_back.png',
