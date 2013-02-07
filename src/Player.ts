@@ -56,6 +56,8 @@ class Player implements isPhysicsBody
     hasMovedRight:bool;
     hasMovedUp:bool;
 
+    jumpForce : number;
+
 
     public controlImage;
     constructor(xInPixels: number, yInPixels: number, animation: SpriteDefinition, jumpAnimation: SpriteDefinition, idelAnimation : SpriteDefinition)
@@ -78,6 +80,7 @@ class Player implements isPhysicsBody
 
         this.hasMovedLeft = this.hasMovedRight = this.hasMovedUp = false;
         this.body.SetUserData(this)
+        this.jumpForce = 30;
     }
 
     setCanWalk(value: bool) { this._canWalk = value; }
@@ -141,7 +144,7 @@ class Player implements isPhysicsBody
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
                // AssetManager.getSound("jump").play();
-                forces.Multiply(30);
+                forces.Multiply(this.jumpForce);
 
 
                 this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
@@ -245,9 +248,6 @@ class Player implements isPhysicsBody
 
         var userDataA = contact.GetFixtureA().GetBody().GetUserData();
         var userDataB = contact.GetFixtureB().GetBody().GetUserData();
-
-        console.log(userDataA);
-        console.log(userDataB);
 
         if (this.footSensor == contact.GetFixtureA() || this.footSensor == contact.GetFixtureB())
         {
