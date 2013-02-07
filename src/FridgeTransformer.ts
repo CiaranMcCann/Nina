@@ -17,6 +17,14 @@ class FridgeTransformer extends Transformer {
     }
 
 
+    update() {
+     
+        if (this.mashedPotatoes) {
+            this.electrifiedAlex.update();
+        }
+    }
+
+
     beginContact(contact) {
         var a = contact.GetFixtureA().GetBody().GetUserData();
         var b = contact.GetFixtureB().GetBody().GetUserData();
@@ -38,6 +46,7 @@ class FridgeTransformer extends Transformer {
         if (a instanceof Alex || b instanceof Alex) {
             this.pump.pumpState(false);
             this.mashedPotatoes = false;
+             GameInstance.level.alex.setCanDraw(true);
         }
     };
 

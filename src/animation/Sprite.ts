@@ -13,7 +13,7 @@
 class Sprite
 {
 
-    private spriteDef: SpriteDefinition;
+     spriteDef: SpriteDefinition;
     private currentFrameY: number;
 
     private finished: bool;

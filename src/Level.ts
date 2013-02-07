@@ -73,9 +73,8 @@ class Level
         this.alex = new Alex(level['alex'].x, level['alex'].y);
 
         this.transformer = new Transformer(
-            2980, 1650, new ButtonBashing(this.alex.controls, this.alex)
+            2950, 1650, new ButtonBashing(this.alex.controls, this.alex)
         );
-
         this.image = level["levelImage"];
        
         this.fridgeTransformer = new FridgeTransformer(1400, 450, new ButtonBashing(this.alex.controls, this.alex)
@@ -111,7 +110,7 @@ class Level
         }
 
         this.puzzleManager.update();
-        
+        this.fridgeTransformer.update();
         this.walter.update();
         this.alex.update();
         this.transformer.update();

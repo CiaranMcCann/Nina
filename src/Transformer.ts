@@ -10,7 +10,7 @@ class Transformer {
     public sprite: Sprite;
 
     //animated image of alex zzzzzzz
-    electrifiedAlex: Sprite;
+    public electrifiedAlex: Sprite;
 
     // displays the % of the powering of the transformer
     public powerUp: number;
@@ -27,6 +27,8 @@ class Transformer {
     // So we can turn the pump on or off
     public pump: Pump;
 
+    private _cloud: Cloud;
+
     private buttonBashing: ButtonBashing;
 
     constructor(x: number, y: number, buttonBashing: ButtonBashing) {
@@ -37,14 +39,16 @@ class Transformer {
         this.mashedPotatoes = false;
         this.powerUp = 0;
 
-        this.pump = new Pump(x + 1070, y + 300);
+        this.pump = new Pump(x + 1100, y + 300);
           this.buttonBashing = buttonBashing;
         this.buttonBashing.SetOnDone(function () =>
         {
             
-            if (!this.pump.isPumpOn()) {
+            if (!this.pump.isPumpOn())
+            {
                 this.pump.pumpState(true);
                 GameInstance.camera.panToPosition(new b2Vec2(this.pump.x, this.pump.y));
+                GameInstance.level.alex.setCanDraw(true);
             }
         }
        );
@@ -55,6 +59,11 @@ class Transformer {
         if (this.mashedPotatoes) {
             this.electrifiedAlex.update();
         }
+    }
+
+    SetCloud(value: Cloud)
+    {
+        this._cloud = value;
     }
 
     beginContact(contact) {
@@ -69,13 +78,16 @@ class Transformer {
     }
     
 
-    endContact(contact) {
+    endContact(contact)
+    {
         var a = contact.GetFixtureA().GetBody().GetUserData();
         var b = contact.GetFixtureB().GetBody().GetUserData();
 
         // checking to see if Alex is near the transformer
-        if (a instanceof Alex || b instanceof Alex) {
+        if (a instanceof Alex || b instanceof Alex)
+        {
             this.mashedPotatoes = false;
+            GameInstance.level.alex.setCanDraw(true);
         }
     };
 
@@ -85,11 +97,10 @@ class Transformer {
         ctx.save();
         ctx.translate(pos.x, pos.y)
         this.sprite.draw(ctx, (-this.sprite.getFrameWidth() / 2), (-this.sprite.getFrameHeight() / 2));
-        if (this.mashedPotatoes) {
-            GameInstance.level.alex.drawable = false;
+        if (this.mashedPotatoes && this.buttonBashing.getPercentage() < 100)
+        {
+            GameInstance.level.alex.setCanDraw(false);
             this.electrifiedAlex.draw(ctx, -this.electrifiedAlex.getFrameWidth(), -this.electrifiedAlex.getFrameHeight() / 2);
-        } else {
-            GameInstance.level.alex.drawable = true;
         }
         ctx.restore();
 

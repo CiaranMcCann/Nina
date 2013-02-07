@@ -10,7 +10,7 @@ class Walter extends Player
 
     constructor(x,y)
     {
-        super(x, y, Sprites.animations.walterWalking, Sprites.animations.walterJumping);
+        super(x, y, Sprites.animations.walterWalking, Sprites.animations.walterJumping,Sprites.animations.walterIdel);
         this.respawnPosition = new b2Vec2(0, 0);
         this.controls = {
             left: keyboard.keyCodes.a,
@@ -31,14 +31,17 @@ class Walter extends Player
 
     public transformReturn() {
 
-        this.sprite = new Sprite(Sprites.animations.walterWalking);
+        //this.sprite = new Sprite(Sprites.animations.walterWalking);
         this.mayJump = true;
+        this.iceBlock = false;
+        
     }
 
     public transform() {
 
-        this.sprite = new Sprite(Sprites.animations.walterIceAnimation);
+        //this.sprite = new Sprite(Sprites.animations.walterIceAnimation);
         this.mayJump = false;
+        this.iceBlock = true;
     }
 
 
@@ -48,8 +51,11 @@ class Walter extends Player
     }
 
     update() {
-        super.update();
+        if (this.iceBlock) {
 
+        }
+        super.update();
+        this.sprite.update();
         if (this.Mayrespawn) {
             var _time = new Date().getTime();
             if (_time - this.timer > 2500) {
