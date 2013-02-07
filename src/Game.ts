@@ -59,8 +59,10 @@ class Game
         if (this.gameStarted) {
     
             this.level.update();
-            this.camera.update();
+        
         }
+
+        this.camera.update();
 
         if (keyboard.isKeyDown(keyboard.keyCodes.Uparrow,true) && !this.gameStarted) //up
         {
@@ -78,8 +80,8 @@ class Game
             if (this.startmenu.selectedcount == 0) {
                 this.gameStarted = true;
                 this.startmenu = null;
-                GameInstance.camera.setX(4000);
-                GameInstance.camera.setY(1500);
+                
+                GameInstance.camera.panToPosition( new b2Vec2(4900,1600));
                 AssetManager.getSound("select").play();
                 if (AssetManager.getSound("theme").isPlaying) {
                     AssetManager.getSound("theme").pause();
