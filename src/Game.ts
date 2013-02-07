@@ -57,24 +57,25 @@ class Game
     update()
     {
         if (this.gameStarted) {
-    
+
             this.level.update();
-        
+        } else {
+
+            if (keyboard.isKeyDown(keyboard.keyCodes.Uparrow, true) && !this.gameStarted) //up
+            {
+                if (!this.gameStarted) this.startmenu.ChooseSelected(-1);
+
+            }
+
+            if (keyboard.isKeyDown(keyboard.keyCodes.Downarrow, true) && !this.gameStarted) //up
+            {
+                if (!this.gameStarted) this.startmenu.ChooseSelected(1);
+
+            }
+
         }
 
         this.camera.update();
-
-        if (keyboard.isKeyDown(keyboard.keyCodes.Uparrow,true) && !this.gameStarted) //up
-        {
-            if(!this.gameStarted) this.startmenu.ChooseSelected(-1);
-      
-        }
-
-        if (keyboard.isKeyDown(keyboard.keyCodes.Downarrow,true) && !this.gameStarted) //up
-        {
-            if(!this.gameStarted)this.startmenu.ChooseSelected(1);
-
-        }
 
         if (keyboard.isKeyDown(keyboard.keyCodes.Enter,true) && !this.gameStarted) {
             if (this.startmenu.selectedcount == 0) {
