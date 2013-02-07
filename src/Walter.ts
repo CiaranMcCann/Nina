@@ -10,13 +10,14 @@ class Walter extends Player
 
     constructor(x,y)
     {
-        super(x,y,Sprites.animations.walterWalking);
+        super(x, y, Sprites.animations.walterWalking, Sprites.animations.walterJumping);
         this.respawnPosition = new b2Vec2(0, 0);
         this.controls = {
             left: keyboard.keyCodes.a,
             right: keyboard.keyCodes.d,
             jump: keyboard.keyCodes.w,
-            use: keyboard.keyCodes.s
+            positive: keyboard.keyCodes.e,
+            negative: keyboard.keyCodes.q
         }
 
         this.controlImage = AssetManager.getImage("walterControl");
@@ -26,7 +27,6 @@ class Walter extends Player
     beginContact(contact) {
 
      super.beginContact(contact);
-   
     }
 
 

@@ -57,12 +57,7 @@ module Utilies
 
         return new b2Vec2(x, y).LengthSquared();
     }
-
-    export function VectorPixels( x: number, y: number )
-    {
-        return new b2Vec2(Physics.pixelToMeters(x), Physics.pixelToMeters(y));
-    }
-
+        
     export function findByValue(needle, haystack, haystackProperity, )
     {
 
@@ -286,16 +281,16 @@ module keyboard
     'x': 88,
     'y': 89,
     'z': 90,
-    '0numpad': 96,
-    '1numpad': 97,
-    '2numpad': 98,
-    '3numpad': 99,
-    '4numpad': 100,
-    '5numpad': 101,
-    '6numpad': 102,
-    '7numpad': 103,
-    '8numpad': 104,
-    '9numpad': 105,
+    'numpad0': 96,
+    'numpad1': 97,
+    'numpad2': 98,
+    'numpad3': 99,
+    'numpad4': 100,
+    'numpad5': 101,
+    'numpad6': 102,
+    'numpad7': 103,
+    'numpad8': 104,
+    'numpad9': 105,
     'Multiply': 106,
     'Plus': 107,
     'Minut': 109,

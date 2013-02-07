@@ -32,6 +32,11 @@ class ElectricPole extends BasePuzzle {
         ctx.restore();
     }
 
+
+     beginContact(contact) {
+   
+    }
+
     setUpPhysics(xInPixels, yInPixels) {
         var fixDef = new b2FixtureDef;
         fixDef.density = 1.0;
@@ -53,6 +58,8 @@ class ElectricPole extends BasePuzzle {
         this.body = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
         this.body.SetSleepingAllowed(false);
         this.body.SetFixedRotation(true);
+        this.body.SetUserData(this);
+
     }
 
 

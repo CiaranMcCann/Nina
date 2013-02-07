@@ -9,8 +9,14 @@ class Player implements isPhysicsBody
         right: 1
     }
 
+    private _canWalk: bool = true;
+    private _canDraw: bool = true;
+
     // Animated image
     sprite: Sprite;
+
+    // Animated image Jump
+    jumpSprite: Sprite;
 
     //Physics body
     public body;
@@ -22,7 +28,7 @@ class Player implements isPhysicsBody
     private energy;
 
     // Direction character  is facing
-    private direction: number;
+    public direction: number;
 
     //Amount player moves at
     private speed: number;
@@ -39,22 +45,24 @@ class Player implements isPhysicsBody
     // User to dectect weather the player is standing on somthing
     footSensor: any;
 
-    public controlImage;
+    drawable: bool;
 
     hasMovedLeft:bool;
     hasMovedRight:bool;
     hasMovedUp:bool;
 
 
-    constructor(xInPixels: number, yInPixels: number, animation : SpriteDefinition)
     {
+        this.drawable = true;
         this.speed = 3;
         this.canJump = 0;
         this.direction = Player.DIRECTION.right;
         this.sprite = new Sprite(animation);
+        this.jumpSprite = new Sprite(jumpAnimation);
+
         this.setUpPhysics(xInPixels,yInPixels);
         this.energy = 50;
-
+        
         //Place a refer to this object in the physics bodies
         // user data so that when their is a collison we 
         // can easily call the correct objects methods to handle it
@@ -63,6 +71,13 @@ class Player implements isPhysicsBody
         this.body.SetUserData(this)
     }
 
+    setCanWalk(value: bool) { this._canWalk = value; }
+    getCanWalk() { return this._canWalk; }
+
+    setCanDraw(value: bool) { this._canDraw = value; }
+    getCanDraw() { return this._canDraw; }
+
+    getBody() { return this.body; }
     getEnergy() { return this.energy };
     setEnergy(e) { 
         this.energy = e;
@@ -76,6 +91,13 @@ class Player implements isPhysicsBody
 
     update()
     {
+        //When the player starts to move have the camera follow them
+        if (this.body.GetLinearVelocity().Length() >= 0.01) {
+            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.body.GetPosition()));
+        }
+
+        if ( !this._canWalk ) return;
+
 
         if(this.Mayrespawn)return;
 
@@ -104,8 +126,9 @@ class Player implements isPhysicsBody
             if (this.canJump >= 1) {
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
-                forces.Multiply(5.5);
                // AssetManager.getSound("jump").play();
+                forces.Multiply(7.5);
+
 
                 this.body.ApplyImpulse(forces, this.body.GetWorldCenter());
             }
@@ -123,6 +146,15 @@ class Player implements isPhysicsBody
             }
         }
 
+        // Check it player is in the air and he is not climbing, if this is correct then update the jump animation
+        if (this.canJump < 1 && !this.canClimb) {
+            if (this.jumpSprite.getCurrentFrame()== 9) {
+                this.jumpSprite.setCurrentFrame(4);
+            }
+            this.jumpSprite.update();
+        } else if (this.canJump >= 1 && !this.canClimb) {
+            this.jumpSprite.setCurrentFrame(1);
+        }
         
 
         if (keyboard.isKeyDown(this.controls.left))
@@ -139,21 +171,22 @@ class Player implements isPhysicsBody
         if (keyboard.isKeyDown(this.controls.down)) {
 
         }
-
-        //When the player starts to move have the camera follow them
-        if (this.body.GetLinearVelocity().Length() >= 0.01)
-        {
-            GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.body.GetPosition()));
-        }
     }
 
+    MakeCameraFollow()
+    {
+        this.body.ApplyImpulse(new b2Vec2(this.direction * 0.5, 0), this.body.GetPosition());
+    }
+
+
     draw(ctx) {
-        //Get position of the physics body and convert it to pixel cordinates
-        var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
+        if (this.drawable) {
+            //Get position of the physics body and convert it to pixel cordinates
+            var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
 
         // ctx.translate(pos.x, pos.y-10);
-        ctx.save();
-        ctx.translate(pos.x, pos.y);
+            ctx.save();
+            ctx.translate(pos.x, pos.y);
 
 
 
@@ -163,15 +196,19 @@ class Player implements isPhysicsBody
             }
          }
        
-        if (this.direction == Player.DIRECTION.left) {
-            // Used to flip the sprites       
-            ctx.scale(-1, 1);
-        }
+            if (this.direction == Player.DIRECTION.left) {
+                // Used to flip the sprites       
+                ctx.scale(-1, 1);
+            }
 
-        if (!this.Mayrespawn){
-            this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
-         }
-        ctx.restore()
+            if (this.canJump < 1 && !this.canClimb) {
+                this.jumpSprite.draw(ctx, -this.jumpSprite.getFrameWidth() / 2, -this.jumpSprite.getFrameHeight() / 2);
+            } else {
+                this.sprite.draw(ctx, -this.sprite.getFrameWidth() / 2, -this.sprite.getFrameHeight() / 2);
+            }
+
+            ctx.restore();
+        }
     }
 
     beginContact(contact)

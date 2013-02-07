@@ -33,6 +33,18 @@
     <Content Include="external\Stats.js" />
     <Content Include="index.htm" />
     <TypeScriptCompile Include="src\interactiveObject\puzzles\Pipe.ts" />
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\Cloud.ts" />
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\Cloud.js">
+      <DependentUpon>Cloud.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\InteractiveFire.ts" />
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\InteractiveFire.js">
+      <DependentUpon>InteractiveFire.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\interactiveObject\puzzles\CloudPuzzle\RainDrop.ts" />
+    <Content Include="src\interactiveObject\puzzles\CloudPuzzle\RainDrop.js">
+      <DependentUpon>RainDrop.ts</DependentUpon>
+    </Content>
     <Content Include="src\interactiveObject\puzzles\Pipe.js">
       <DependentUpon>Pipe.ts</DependentUpon>
     </Content>
@@ -48,6 +60,13 @@
     </Content>
     <TypeScriptCompile Include="src\interactiveObject\puzzles\PuzzleManager.ts" />
     <TypeScriptCompile Include="src\interactiveObject\puzzles\BasePuzzle.ts" />
+    <TypeScriptCompile Include="src\ButtonBashing.ts" />
+    <Content Include="src\buttonBashing.js">
+      <DependentUpon>ButtonBashing.ts</DependentUpon>
+    </Content>
+    <Content Include="src\buttonBashing.min.js">
+      <DependentUpon>ButtonBashing.ts</DependentUpon>
+    </Content>
     <Content Include="src\interactiveObject\puzzles\BasePuzzle.js">
       <DependentUpon>BasePuzzle.ts</DependentUpon>
     </Content>
@@ -72,14 +91,6 @@
       <DependentUpon>Ladder.ts</DependentUpon>
     </Content>
     <Content Include="src\interactiveObject\puzzles\Ladder.ts" />
-    <TypeScriptCompile Include="src\interactiveObject\puzzles\InteractiveFire.ts" />
-    <TypeScriptCompile Include="src\interactiveObject\puzzles\Cloud.ts" />
-    <Content Include="src\interactiveObject\puzzles\Cloud.js">
-      <DependentUpon>Cloud.ts</DependentUpon>
-    </Content>
-    <Content Include="src\interactiveObject\puzzles\InteractiveFire.js">
-      <DependentUpon>InteractiveFire.ts</DependentUpon>
-    </Content>
     <Content Include="src\interactiveObject\puzzles\PuzzleManager.js">
       <DependentUpon>PuzzleManager.ts</DependentUpon>
     </Content>
@@ -104,6 +115,24 @@
     <Content Include="src\Level.js">
       <DependentUpon>Level.ts</DependentUpon>
     </Content>
+    <Content Include="src\Level.min.js">
+      <DependentUpon>Level.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Platform.ts" />
+    <Content Include="src\Pump.js">
+      <DependentUpon>Pump.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Pump.min.js">
+      <DependentUpon>Pump.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Pump.ts" />
+    <Content Include="src\Transformer.js">
+      <DependentUpon>Transformer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Transformer.min.js">
+      <DependentUpon>Transformer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Transformer.ts" />
     <Content Include="src\Walter.js">
       <DependentUpon>Walter.ts</DependentUpon>
     </Content>
