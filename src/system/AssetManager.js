@@ -4,7 +4,7 @@ var AssetManager;
         'data/images/FirstAlexBar.png', 
         'data/images/FirstWalterBar.png', 
         'data/images/level_design_level_01_00.png', 
-        'data/images/Pipe1.png', 
+        'data/images/pipe1.png', 
         'data/images/pipe3.png', 
         'data/images/pipe4.png', 
         'data/images/waterParticle.png', 
@@ -56,7 +56,6 @@ var AssetManager;
             if(images[name] == null) {
                 images[name] = new Image();
                 images[name].onload = function () {
-                    Logger.log(" Image " + this.src + " loaded sucessfully ");
                     if(++loadedImages >= numImages) {
                         AssetManager.images = images;
                         callback();
