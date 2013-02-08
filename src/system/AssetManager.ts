@@ -89,7 +89,7 @@ module AssetManager
                 images[name] = new Image();
                 images[name].onload = function ()
                 {
-                    Logger.log(" Image " + this.src + " loaded sucessfully ");
+                    //Logger.log(" Image " + this.src + " loaded sucessfully ");
                     if (++loadedImages >= numImages)
                     {
                         AssetManager.images = images;
