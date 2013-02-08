@@ -152,7 +152,6 @@ class Player implements isPhysicsBody
             if (this.canJump >= 1 && this.mayJump) {
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(0, -2);
-                AssetManager.getSound("jump").play(0.2);
                 forces.Multiply(this.jumpForce);
 
 

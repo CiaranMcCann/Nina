@@ -23,8 +23,6 @@ class StartMenu {
         
         this.selectedcount = 0;
 
-        AssetManager.getSound("theme").play(0.2);
-
         this.mayPlay = false
         this.ChooseSelected(0);
     }
@@ -44,7 +42,6 @@ class StartMenu {
         }
 
         if (this.mayPlay) {
-            AssetManager.getSound("browse").play();
         }
         switch (this.selectedcount) {
 

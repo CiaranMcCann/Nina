@@ -83,10 +83,6 @@ class Game
                 this.startmenu = null;
                 
                 GameInstance.camera.panToPosition( new b2Vec2(4900,1600));
-                AssetManager.getSound("select").play();
-                if (AssetManager.getSound("theme").isPlaying) {
-                    AssetManager.getSound("theme").pause();
-                }
 
             }
         }

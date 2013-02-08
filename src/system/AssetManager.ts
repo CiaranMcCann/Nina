@@ -49,13 +49,13 @@ module AssetManager
     ];
 
     var priorityAudio = [
-         'data/sounds/theme.wav',
-         'data/sounds/browse.wav',
-         'data/sounds/select.wav',
-         'data/sounds/marioCoin.wav',
-         'data/sounds/jump.wav'
+         
     ]
-
+    //'data/sounds/theme.wav',
+    //'data/sounds/browse.wav',
+    //'data/sounds/select.wav',
+    //'data/sounds/marioCoin.wav',
+    //'data/sounds/jump.wav'
     export var images = [];
     export var sounds = [];
 
