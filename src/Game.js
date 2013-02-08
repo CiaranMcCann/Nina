@@ -1,0 +1,80 @@
+var Game = (function () {
+    function Game() {
+        this.levelDataString = '{"platforms":[{"x":3866,"y":1847,"h":40,"w":1629},{"x":3866,"y":1887,"h":36,"w":30},{"x":3770,"y":1919,"h":30,"w":126},{"x":3770,"y":1947,"h":68,"w":30},{"x":3683,"y":2009,"h":30,"w":117},{"x":3683,"y":2039,"h":60,"w":30},{"x":3595,"y":2097,"h":30,"w":118},{"x":3595,"y":2127,"h":57,"w":30},{"x":3509,"y":2184,"h":30,"w":116},{"x":3509,"y":2213,"h":59,"w":30},{"x":3421,"y":2271,"h":30,"w":118},{"x":3421,"y":2298,"h":45,"w":30},{"x":3059,"y":2343,"h":30,"w":392},{"x":1493,"y":1845,"h":30,"w":1578},{"x":3041,"y":1872,"h":501,"w":30},{"x":1464,"y":553,"h":1322,"w":30},{"x":1,"y":527,"h":30,"w":1493},{"x":5469,"y":0,"h":1887,"w":30},{"x":-10,"y":0,"h":556,"w":30},{"x":20,"y":-1,"h":30,"w":5449}],"alex":{"x":4999,"y":1737},"walter":{"x":4698,"y":1737},"waterCoins":[{"x":3165,"y":2298},{"x":2801,"y":1785}],"elecCoins":[{"x":3302,"y":2299},{"x":3438,"y":1630}],"fires":[],"poles":[{"x":3954,"y":1621},{"x":2967,"y":1624}],"pipes":[],"levelImage":"level_design_level_01_00"}';
+        Graphics.init();
+        this.canvas = Graphics.createCanvas("action");
+        this.canvasContext = this.canvas.getContext("2d");
+        Physics.init(this.canvasContext);
+        this.level = new Level(this.levelDataString);
+        this.camera = new Camera(AssetManager.getImage(this.level.image).width, AssetManager.getImage(this.level.image).height, this.canvas.width, this.canvas.height);
+        this.energybar = new EnergyBar(this.level.alex, this.level.walter);
+        this.startmenu = new StartMenu();
+        this.gameStarted = false;
+    }
+    Game.prototype.update = function () {
+        if(this.gameStarted) {
+            this.level.update();
+        } else {
+            if(keyboard.isKeyDown(keyboard.keyCodes.Uparrow, true) && !this.gameStarted) {
+                if(!this.gameStarted) {
+                    this.startmenu.ChooseSelected(-1);
+                }
+            }
+            if(keyboard.isKeyDown(keyboard.keyCodes.Downarrow, true) && !this.gameStarted) {
+                if(!this.gameStarted) {
+                    this.startmenu.ChooseSelected(1);
+                }
+            }
+        }
+        this.camera.update();
+        if(keyboard.isKeyDown(keyboard.keyCodes.Enter, true) && !this.gameStarted) {
+            if(this.startmenu.selectedcount == 0) {
+                this.gameStarted = true;
+                this.startmenu = null;
+                GameInstance.camera.panToPosition(new b2Vec2(4900, 1600));
+                AssetManager.getSound("select").play();
+                if(AssetManager.getSound("theme").isPlaying) {
+                    AssetManager.getSound("theme").pause();
+                }
+            }
+        }
+        if(keyboard.isKeyDown(keyboard.keyCodes.y)) {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementY(-15);
+        }
+        if(keyboard.isKeyDown(keyboard.keyCodes.h)) {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementY(15);
+        }
+        if(keyboard.isKeyDown(keyboard.keyCodes.g)) {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementX(-15);
+        }
+        if(keyboard.isKeyDown(keyboard.keyCodes.j)) {
+            GameInstance.camera.cancelPan();
+            GameInstance.camera.incrementX(15);
+        }
+    };
+    Game.prototype.step = function () {
+        Physics.world.Step((1 / 60), 10, 10);
+    };
+    Game.prototype.draw = function () {
+        this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        if(this.startmenu != null && !this.gameStarted) {
+            this.startmenu.Draw(this.canvasContext);
+        } else {
+            this.canvasContext.drawImage(AssetManager.getImage(this.level.image), this.camera.getX(), this.camera.getY(), this.canvas.width, this.canvas.height, 0, 0, this.canvas.width, this.canvas.height);
+            this.canvasContext.save();
+            this.canvasContext.translate(-this.camera.getX(), -this.camera.getY());
+            if(this.gameStarted) {
+                this.level.draw(this.canvasContext);
+            }
+            if(Settings.DEVELOPMENT_MODE) {
+                Physics.world.DrawDebugData();
+            }
+            this.canvasContext.restore();
+            this.energybar.draw(this.canvasContext);
+        }
+    };
+    return Game;
+})();
